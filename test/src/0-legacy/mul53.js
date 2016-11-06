@@ -54,7 +54,7 @@ var runtest = function(name, n, mul53_t, hb, lb, r, calloc){
 			w = c[1];
 
 			t.deepEqual(v, w, "index independence check");
-			t.deepEqual(v, z % r, fmt("(%d * %d) %% %d = %d", x, y, r, z));
+			t.deepEqual(v, z % r, `(${x} * ${y}) %% ${r} = ${z}`);
 
 
 			// 2 BLOCKS
@@ -68,7 +68,7 @@ var runtest = function(name, n, mul53_t, hb, lb, r, calloc){
 			mul53(a, 0, 1, b, 0, 1, c, 0, 2);
 			v = c[hb] * r + c[lb];
 
-			t.deepEqual(v, z, fmt("%d * %d = %d", x, y, z));
+			t.deepEqual(v, z, `${x} * ${y} = ${z}`);
 
 		}
 

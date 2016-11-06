@@ -44,7 +44,7 @@ var check = function(Ctor, and_t, iter){
 			parse(ds, 0, ds.length, d, di, dj);
 
 
-			assert.deepEqual(c, d, fmt("and('%s','%s') === '%s'", as, bs, ds));
+			assert.deepEqual(c, d, `and('${as}','${bs}') === '${ds}'`);
 		}
 
 

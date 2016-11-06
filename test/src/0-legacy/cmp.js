@@ -35,7 +35,7 @@ var check = function(Ctor, cmp, iter, transform){
 			var actual = cmp(a, ai, aj, b, bi, bj);
 			var expected = transform(test[2], 0);
 
-			assert.deepEqual(actual, expected, fmt("cmp('%s','%s') === %d", as, bs, expected));
+			assert.deepEqual(actual, expected, `cmp('${as}','${bs}') === ${expected}`);
 		}
 
 	});
