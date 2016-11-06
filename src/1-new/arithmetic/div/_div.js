@@ -1,5 +1,5 @@
-
-
+import { _sub } from '../sub' ;
+import { _lt } from '../../compare' ;
 
 /**
  * Computes quotient and remainder of two big endian arrays.

@@ -1,5 +1,5 @@
 import test from 'ava' ;
-
+import string from 'aureooms-js-string' ;
 import * as integer from '../../../src' ;
 
 var check = function(Ctor, cmp, biter, div, sub, fiter){
@@ -24,9 +24,7 @@ var check = function(Ctor, cmp, biter, div, sub, fiter){
 	// };
 
 	var zfill_t = function(n){
-		return algo.zfill_t(n, function(c, n){
-			return algo.lfill_t(c, n, algo.strmul);
-		});
+		return string.__lfill__(0,n,string.mul);
 	};
 
 	var parse = integer.parse_t(r, f, biter);
@@ -72,8 +70,8 @@ var check = function(Ctor, cmp, biter, div, sub, fiter){
 			var a10 = parseInt(as, f);
 			var b10 = parseInt(bs, f);
 
-			assert.deepEqual(qactual, qexpected, fmt("%d / %d === %d", a10, b10, qexpected));
-			assert.deepEqual(ractual, rexpected, fmt("%d % %d === %d", a10, b10, rexpected));
+			assert.deepEqual(qactual, qexpected, `${a10} / ${b10} === ${qexpected}`);
+			assert.deepEqual(ractual, rexpected, `${a10} % ${b10} === ${rexpected}`);
 		}
 
 
