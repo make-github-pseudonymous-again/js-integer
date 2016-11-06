@@ -1,0 +1,71 @@
+{
+  "name": "aureooms-js-integer",
+  "description": "integer code bricks for JavaScript",
+  "version": "0.3.2",
+  "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
+  "ava": {
+    "require": [
+      "babel-polyfill",
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ],
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/aureooms/js-integer/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "aureooms-js-algo": "^3.0.5",
+    "aureooms-js-array": "^3.1.0",
+    "aureooms-js-operator": "^1.0.2",
+    "aureooms-js-random": "^1.0.2",
+    "aureooms-js-string": "^0.2.0",
+    "ava": "^0.16.0",
+    "babel-cli": "^6.18.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "codeclimate-test-reporter": "^0.4.0",
+    "coveralls": "^2.11.14",
+    "esdoc": "^0.4.8",
+    "nyc": "^8.4.0"
+  },
+  "homepage": "https://aureooms.github.io/js-integer",
+  "keywords": [
+    "algorithm",
+    "arithmetic",
+    "bignum",
+    "bricks",
+    "code",
+    "complexity",
+    "integer",
+    "javascript",
+    "js",
+    "kernel",
+    "library",
+    "logic",
+    "mpa",
+    "multi-precision",
+    "template"
+  ],
+  "license": "AGPL-3.0",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aureooms/js-integer.git"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "cover": "nyc --reporter=lcov npm test",
+    "prepublish": "npm run build",
+    "test": "ava ./test/src"
+  }
+}
