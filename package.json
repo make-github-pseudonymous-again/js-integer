@@ -1,7 +1,7 @@
 {
   "name": "aureooms-js-integer",
   "description": "integer code bricks for JavaScript",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
   "ava": {
     "require": [
