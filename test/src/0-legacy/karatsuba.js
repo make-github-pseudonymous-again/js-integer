@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import array from 'aureooms-js-array' ;
+import array from '@aureooms/js-array' ;
 
 import * as integer from '../../../src' ;
 

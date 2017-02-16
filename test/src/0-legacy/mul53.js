@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { randint } from "aureooms-js-random" ;
+import { randint } from "@aureooms/js-random" ;
 import * as integer from '../../../src' ;
 
 var runtest = function(name, n, mul53_t, hb, lb, r, calloc){

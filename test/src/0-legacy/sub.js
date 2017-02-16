@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { randint } from 'aureooms-js-random' ;
+import { randint } from '@aureooms/js-random' ;
 import * as integer from '../../../src' ;
 
 var check = function(ctor, r, e){

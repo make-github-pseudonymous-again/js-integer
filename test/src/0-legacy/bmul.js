@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import array from 'aureooms-js-array' ;
+import array from '@aureooms/js-array' ;
 import * as integer from '../../../src' ;
 
 test('integer.bmul 16 big endian', function(assert){

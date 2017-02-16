@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import string from 'aureooms-js-string' ;
+import string from '@aureooms/js-string' ;
 import * as integer from '../../../src' ;
 
 var check = function(Ctor, cmp, biter, div, sub, fiter){
@@ -95,7 +95,7 @@ var TEST = [
 
 ];
 
-var algo = require('aureooms-js-algo');
+var algo = require('@aureooms/js-algo');
 
 var TRAITS = [
 	Uint8Array,

@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import algo from 'aureooms-js-algo' ;
+import algo from '@aureooms/js-algo' ;
 import * as integer from '../../../../src' ;
 
 var check = function(Ctor, and_t, iter){
