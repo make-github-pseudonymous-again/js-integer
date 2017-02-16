@@ -1,5 +1,5 @@
 {
-  "name": "aureooms-js-integer",
+  "name": "@aureooms/js-integer",
   "description": "integer code bricks for JavaScript",
   "version": "1.0.0",
   "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
@@ -24,11 +24,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "aureooms-js-algo": "^3.0.5",
-    "aureooms-js-array": "^3.1.0",
-    "aureooms-js-operator": "^1.0.2",
-    "aureooms-js-random": "^1.0.2",
-    "aureooms-js-string": "^0.2.0",
+    "@aureooms/js-algo": "^3.0.5",
+    "@aureooms/js-array": "^3.1.0",
+    "@aureooms/js-operator": "^1.0.2",
+    "@aureooms/js-random": "^1.0.2",
+    "@aureooms/js-string": "^0.2.0",
     "ava": "^0.17.0",
     "babel-cli": "^6.18.0",
     "babel-polyfill": "^6.16.0",
