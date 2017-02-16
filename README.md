@@ -8,7 +8,7 @@ integer.parse( 16 , 100 , 'ff' ) ; // [ 2 , 55 ]
 integer.stringify( 100 , 16 , [ 2 , 55 ] ) ; // 'ff'
 ```
 
-[![NPM license](https://img.shields.io/npm/l/@aureooms/js-integer.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)
+[![License](https://img.shields.io/github/license/aureooms/js-integer.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-integer.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-integer)
 [![Build Status](https://img.shields.io/travis/aureooms/js-integer.svg?style=flat)](https://travis-ci.org/aureooms/js-integer)
 [![Coverage Status](https://img.shields.io/coveralls/aureooms/js-integer.svg?style=flat)](https://coveralls.io/r/aureooms/js-integer)
