@@ -22,7 +22,9 @@
   "bugs": {
     "url": "https://github.com/aureooms/js-integer/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@aureooms/js-integer-big-endian": "^3.0.0"
+  },
   "devDependencies": {
     "@aureooms/js-algorithms": "^3.0.7",
     "@aureooms/js-array": "^4.0.0",
