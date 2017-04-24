@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/Integer.js | aureooms/js-integer API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+<script data-ice="userScript" src="user/script/0-header.js"></script>
+<link data-ice="userStyle" rel="stylesheet" href="user/css/0-style.css">
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/aureooms/js-integer.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Integer.js~Integer.html">Integer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/IntegerRing.js~IntegerRing.html">IntegerRing</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_DISPLAY_BASE">DEFAULT_DISPLAY_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_REPRESENTATION_BASE">DEFAULT_REPRESENTATION_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ZZ">ZZ</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Integer.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+import { DEFAULT_DISPLAY_BASE } from &apos;./&apos; ;
+
+import {
+	stringify , convert ,
+	_alloc , _copy , _zeros ,
+	_lt , _jz ,
+	_add , _sub , _mul , _div,
+} from &apos;@aureooms/js-integer-big-endian&apos; ;
+
+export class Integer {
+
+	constructor ( base , is_negative , limbs ) {
+		this.base = base ;
+		this.is_negative = is_negative ;
+		this.limbs = limbs ;
+	}
+
+	toString ( base = DEFAULT_DISPLAY_BASE ) {
+
+		if ( _jz( this.limbs , 0 , this.limbs.length ) ) return &apos;0&apos; ;
+
+		const digits = stringify( this.base , base , this.limbs , 0 , this.limbs.length ) ;
+
+		return this.is_negative ? &apos;-&apos; + digits : digits ;
+
+	}
+
+	add ( other ) {
+
+		if ( this.is_negative !== other.is_negative ) {
+
+			if ( other.is_negative ) return this.sub( other.opposite() ) ;
+
+			else return other.sub( this.opposite() ) ;
+
+		}
+
+		else {
+
+			const result_is_negative = this.is_negative ;
+			const r = this.base ;
+
+			const a = this.limbs ;
+
+			let b ;
+
+			if ( other.base === r ) b = other.limbs ;
+			else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+
+			const c = _zeros( Math.max( a.length , b.length ) + 1 ) ;
+
+			_add( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+
+			return new Integer( r , result_is_negative , c ) ;
+
+		}
+
+	}
+
+	sub ( other ) {
+
+		if ( this.is_negative !== other.is_negative ) {
+
+			if ( other.is_negative ) return this.add( other.opposite() ) ;
+
+			else return this.opposite().add( other ).opposite() ;
+
+		}
+
+		else {
+
+			const r = this.base ;
+			const a = this.limbs ;
+
+			let b ;
+
+			if ( other.base === r ) b = other.limbs ;
+			else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+
+			const c = _zeros( Math.max( a.length , b.length ) ) ;
+
+			if ( _lt( a , 0 , a.length , b , 0 , b.length ) ) {
+
+				_sub( r , b , 0 , b.length , a , 0 , a.length , c , 0 , c.length ) ;
+
+				return new Integer( r , ~this.is_negative , c ) ;
+			}
+
+			else {
+
+				_sub( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+
+				return new Integer( r , this.is_negative , c ) ;
+
+			}
+
+		}
+
+	}
+
+	mul ( other ) {
+
+		const result_is_negative = this.is_negative ^ other.is_negative ;
+		const r = this.base ;
+
+		const a = this.limbs ;
+
+		let b ;
+
+		if ( other.base === r ) b = other.limbs ;
+		else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+
+		const c = _zeros( a.length + b.length ) ;
+
+		_mul( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+
+		return new Integer( r , result_is_negative , c ) ;
+
+	}
+
+	pow ( other ) {
+		throw &apos;Integer#pow not implemented yet, waiting for @aureooms/js-integer-big-endian.&apos; ;
+	}
+
+	div ( other ) {
+		return this.divmod( other )[0] ;
+	}
+
+	mod ( other ) {
+		return this.divmod( other )[1] ;
+	}
+
+	divmod ( other ) {
+
+		const quotient_is_negative = this.is_negative ^ other.is_negative ;
+		const r = this.base ;
+
+		// Dividend (&amp; Remainder)
+		const D = _alloc( this.limbs.length ) ;
+		_copy( this.limbs , 0 , this.limbs.length , D , 0 ) ;
+
+		// Divisor
+		let d ;
+		if ( other.base === r ) d = other.limbs ;
+		else d = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+
+		// Quotient
+		const q = _zeros( D.length ) ;
+
+		_div( r , D , 0 , D.length , d , 0 , d.length , q , 0 , q.length ) ;
+
+		return [
+			new Integer( r , quotient_is_negative , q ) , // quotient
+			new Integer( r , 0 , D )                      // remainder
+		] ;
+
+	}
+
+	opposite ( ) {
+		return new Integer( this.base , ~this.is_negative , this.limbs ) ;
+	}
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

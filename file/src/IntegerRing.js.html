@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/index.js | aureooms/js-integer API Document</title>
+  <title data-ice="title">src/IntegerRing.js | aureooms/js-integer API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -43,12 +43,75 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export * from &apos;./DEFAULT_DISPLAY_BASE&apos; ;
-export * from &apos;./DEFAULT_REPRESENTATION_BASE&apos; ;
-export * from &apos;./Integer&apos; ;
-export * from &apos;./IntegerRing&apos; ;
-export * from &apos;./ZZ&apos; ;
+<div class="content" data-ice="content"><h1 data-ice="title">src/IntegerRing.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Integer } from &apos;./&apos; ;
+import { parse } from &apos;@aureooms/js-integer-big-endian&apos; ;
+
+export class IntegerRing {
+
+	constructor ( name , base ) {
+		this.name = name ;
+		this.base = base ;
+	}
+
+	from ( object , base = undefined , is_negative = 0 ) {
+
+		switch ( typeof object ) {
+			case &apos;number&apos; :
+				if ( base !== undefined ) throw &apos;IntegerRing#from: using the base parameter does not make sense when parsing a JavaScript number.&apos; ;
+				return this.from_string( &apos;&apos; + object , 10 , is_negative ) ;
+			case &apos;string&apos; :
+				if ( base === undefined ) base = 10 ;
+				return this.from_string( object , base , is_negative ) ;
+			default:
+				throw `IntegerRing#from cannot handle ${typeof object}` ;
+		}
+
+	}
+
+	from_string ( string , base = 10 , is_negative = 0  ) {
+
+		if ( string.length === 0 ) throw &apos;IntegerRing#from_string cannot parse empty string.&apos; ;
+
+		if ( string[0] === &apos;-&apos; ) return this.from_string( string.slice(1) , base , ~is_negative ) ;
+
+		if ( string[0] === &apos;+&apos; ) return this.from_string( string.slice(1) , base , is_negative ) ;
+
+		const limbs = parse( base , this.base , string ) ;
+
+		return new Integer( this.base , is_negative , limbs ) ;
+
+	}
+
+	toString ( ) {
+		return this.name ;
+	}
+
+	static add ( first , second ) {
+		return first.add(second) ;
+	}
+
+	static sub ( first , second ) {
+		return first.sub(second) ;
+	}
+
+	static mul ( first , second ) {
+		return first.mul(second) ;
+	}
+
+	static pow ( first , second ) {
+		return first.pow(second) ;
+	}
+
+	static div ( first , second ) {
+		return first.div(second) ;
+	}
+
+	static mod ( first , second ) {
+		return first.mod(second) ;
+	}
+
+}
 </code></pre>
 
 </div>

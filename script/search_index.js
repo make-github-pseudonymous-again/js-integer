@@ -1,1334 +1,542 @@
 window.esdocSearchIndex = [
   [
-    "aureooms-js-integer/src/1-new/compare/_cmp.js~_cmp",
-    "function/index.html#static-function-_CMP",
-    "<span>_CMP</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_CMP.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/others/pow/ebs.js~__ebs__",
-    "function/index.html#static-function-__ebs__",
-    "<span>__ebs__</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/others/pow/ebs.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/others/pow/pow.js~__pow__",
-    "function/index.html#static-function-__pow__",
-    "<span>__pow__</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/others/pow/pow.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_alloc.js~_alloc",
-    "function/index.html#static-function-_alloc",
-    "<span>_alloc</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_alloc.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_build.js~_build",
-    "function/index.html#static-function-_build",
-    "<span>_build</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_build.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_chr.js~_chr",
-    "function/index.html#static-function-_chr",
-    "<span>_chr</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_chr.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_cmp.js~_cmp",
-    "function/index.html#static-function-_cmp",
-    "<span>_cmp</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_cmp.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert.js~_convert",
-    "function/index.html#static-function-_convert",
-    "<span>_convert</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert_slow.js~_convert_slow",
-    "function/index.html#static-function-_convert_slow",
-    "<span>_convert_slow</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert_slow.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert_to_larger.js~_convert_to_larger",
-    "function/index.html#static-function-_convert_to_larger",
-    "<span>_convert_to_larger</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert_to_larger.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert_to_larger_fast.js~_convert_to_larger_fast",
-    "function/index.html#static-function-_convert_to_larger_fast",
-    "<span>_convert_to_larger_fast</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert_to_larger_fast.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert_to_smaller.js~_convert_to_smaller",
-    "function/index.html#static-function-_convert_to_smaller",
-    "<span>_convert_to_smaller</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert_to_smaller.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_convert_to_smaller_fast.js~_convert_to_smaller_fast",
-    "function/index.html#static-function-_convert_to_smaller_fast",
-    "<span>_convert_to_smaller_fast</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_convert_to_smaller_fast.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_copy.js~_copy",
-    "function/index.html#static-function-_copy",
-    "<span>_copy</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_copy.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/arithmetic/div/_div.js~_div",
-    "function/index.html#static-function-_div",
-    "<span>_div</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/arithmetic/div/_div.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_eq.js~_eq",
-    "variable/index.html#static-variable-_eq",
-    "<span>_eq</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_eq.js</span>",
+    "@aureooms/js-integer/src/default_display_base.js~default_display_base",
+    "variable/index.html#static-variable-DEFAULT_DISPLAY_BASE",
+    "<span>DEFAULT_DISPLAY_BASE</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/DEFAULT_DISPLAY_BASE.js</span>",
     "variable"
   ],
   [
-    "aureooms-js-integer/src/1-new/convert/_fill.js~_fill",
-    "function/index.html#static-function-_fill",
-    "<span>_fill</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_fill.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_ge.js~_ge",
-    "variable/index.html#static-variable-_ge",
-    "<span>_ge</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_ge.js</span>",
+    "@aureooms/js-integer/src/default_representation_base.js~default_representation_base",
+    "variable/index.html#static-variable-DEFAULT_REPRESENTATION_BASE",
+    "<span>DEFAULT_REPRESENTATION_BASE</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/DEFAULT_REPRESENTATION_BASE.js</span>",
     "variable"
   ],
   [
-    "aureooms-js-integer/src/1-new/compare/_gt.js~_gt",
-    "variable/index.html#static-variable-_gt",
-    "<span>_gt</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_gt.js</span>",
+    "@aureooms/js-integer/src/integer.js~integer",
+    "class/src/Integer.js~Integer.html",
+    "<span>Integer</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/Integer.js</span>",
+    "class"
+  ],
+  [
+    "@aureooms/js-integer/src/integerring.js~integerring",
+    "class/src/IntegerRing.js~IntegerRing.html",
+    "<span>IntegerRing</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/IntegerRing.js</span>",
+    "class"
+  ],
+  [
+    "@aureooms/js-integer/src/zz.js~zz",
+    "variable/index.html#static-variable-ZZ",
+    "<span>ZZ</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/ZZ.js</span>",
     "variable"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_int.js~_int",
-    "function/index.html#static-function-_int",
-    "<span>_int</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_int.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_jz.js~_jz",
-    "function/index.html#static-function-_jz",
-    "<span>_jz</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_jz.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_le.js~_le",
-    "variable/index.html#static-variable-_le",
-    "<span>_le</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_le.js</span>",
-    "variable"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_log.js~_log",
-    "function/index.html#static-function-_log",
-    "<span>_log</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_log.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_lt.js~_lt",
-    "variable/index.html#static-variable-_lt",
-    "<span>_lt</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_lt.js</span>",
-    "variable"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/compare/_ne.js~_ne",
-    "variable/index.html#static-variable-_ne",
-    "<span>_ne</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/compare/_ne.js</span>",
-    "variable"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_reset.js~_reset",
-    "function/index.html#static-function-_reset",
-    "<span>_reset</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_reset.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/arithmetic/sub/_sub.js~_sub",
-    "function/index.html#static-function-_sub",
-    "<span>_sub</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/arithmetic/sub/_sub.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_to_string.js~_to_string",
-    "function/index.html#static-function-_to_string",
-    "<span>_to_string</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_to_string.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_trim_positive.js~_trim_positive",
-    "function/index.html#static-function-_trim_positive",
-    "<span>_trim_positive</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_trim_positive.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/_zeros.js~_zeros",
-    "function/index.html#static-function-_zeros",
-    "<span>_zeros</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/_zeros.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/binary/and/and.js~and",
-    "function/index.html#static-function-and",
-    "<span>and</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/binary/and/and.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/add/add.js~badd_t",
-    "function/index.html#static-function-badd_t",
-    "<span>badd_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/add/add.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/binary/and/and.js~band_t",
-    "function/index.html#static-function-band_t",
-    "<span>band_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/binary/and/and.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/cmp.js~bcmp_t",
-    "function/index.html#static-function-bcmp_t",
-    "<span>bcmp_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/cmp.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/div/div.js~bdiv_t",
-    "function/index.html#static-function-bdiv_t",
-    "<span>bdiv_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/div/div.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/mul/karatsuba.js~bkaratsuba_t",
-    "function/index.html#static-function-bkaratsuba_t",
-    "<span>bkaratsuba_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/mul/karatsuba.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/mul/mul53.js~bmul53_t",
-    "function/index.html#static-function-bmul53_t",
-    "<span>bmul53_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/mul/mul53.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/mul/mul.js~bmul_t",
-    "function/index.html#static-function-bmul_t",
-    "<span>bmul_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/mul/mul.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/sub/sub.js~bsub_t",
-    "function/index.html#static-function-bsub_t",
-    "<span>bsub_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/sub/sub.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/convert.js~convert",
-    "function/index.html#static-function-convert",
-    "<span>convert</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/convert.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/convert_keep_zeros.js~convert_keep_zeros",
-    "function/index.html#static-function-convert_keep_zeros",
-    "<span>convert_keep_zeros</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/convert_keep_zeros.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/eq.js~eq_t",
-    "function/index.html#static-function-eq_t",
-    "<span>eq_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/eq.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/ge.js~ge_t",
-    "function/index.html#static-function-ge_t",
-    "<span>ge_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/ge.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/gt.js~gt_t",
-    "function/index.html#static-function-gt_t",
-    "<span>gt_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/gt.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/add/add.js~ladd_t",
-    "function/index.html#static-function-ladd_t",
-    "<span>ladd_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/add/add.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/binary/and/and.js~land_t",
-    "function/index.html#static-function-land_t",
-    "<span>land_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/binary/and/and.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/cmp.js~lcmp_t",
-    "function/index.html#static-function-lcmp_t",
-    "<span>lcmp_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/cmp.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/le.js~le_t",
-    "function/index.html#static-function-le_t",
-    "<span>le_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/le.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/mul/mul53.js~lmul53_t",
-    "function/index.html#static-function-lmul53_t",
-    "<span>lmul53_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/mul/mul53.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/arithmetic/sub/sub.js~lsub_t",
-    "function/index.html#static-function-lsub_t",
-    "<span>lsub_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/arithmetic/sub/sub.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/lt.js~lt_t",
-    "function/index.html#static-function-lt_t",
-    "<span>lt_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/lt.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/compare/ne.js~ne_t",
-    "function/index.html#static-function-ne_t",
-    "<span>ne_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/compare/ne.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/parse.js~parse",
-    "function/index.html#static-function-parse",
-    "<span>parse</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/parse.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/parse_keep_zeros.js~parse_keep_zeros",
-    "function/index.html#static-function-parse_keep_zeros",
-    "<span>parse_keep_zeros</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/parse_keep_zeros.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/parse/parse.js~parse_t",
-    "function/index.html#static-function-parse_t",
-    "<span>parse_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/parse/parse.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/stringify.js~stringify",
-    "function/index.html#static-function-stringify",
-    "<span>stringify</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/stringify.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/stringify_keep_zeros.js~stringify_keep_zeros",
-    "function/index.html#static-function-stringify_keep_zeros",
-    "<span>stringify_keep_zeros</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/stringify_keep_zeros.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/stringify/stringify.js~stringify_t",
-    "function/index.html#static-function-stringify_t",
-    "<span>stringify_t</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/stringify/stringify.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/1-new/convert/trim_natural.js~trim_natural",
-    "function/index.html#static-function-trim_natural",
-    "<span>trim_natural</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/1-new/convert/trim_natural.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/others/wrap/wrapbin.js~wrapbin",
-    "function/index.html#static-function-wrapbin",
-    "<span>wrapbin</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/others/wrap/wrapbin.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/others/wrap/wrapcmp.js~wrapcmp",
-    "function/index.html#static-function-wrapcmp",
-    "<span>wrapcmp</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/others/wrap/wrapcmp.js</span>",
-    "function"
-  ],
-  [
-    "aureooms-js-integer/src/0-legacy/others/wrap/wrapmov.js~wrapmov",
-    "function/index.html#static-function-wrapmov",
-    "<span>wrapmov</span> <span class=\"search-result-import-path\">aureooms-js-integer/src/0-legacy/others/wrap/wrapmov.js</span>",
-    "function"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~arraybuffer",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
     "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~boolean",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
     "BuiltinExternal/ECMAScriptExternal.js~Boolean",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~dataview",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
     "BuiltinExternal/ECMAScriptExternal.js~DataView",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~date",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
     "BuiltinExternal/ECMAScriptExternal.js~Date",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~error",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
     "BuiltinExternal/ECMAScriptExternal.js~Error",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~evalerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
     "BuiltinExternal/ECMAScriptExternal.js~EvalError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~float32array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
     "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~float64array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
     "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~function",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
     "BuiltinExternal/ECMAScriptExternal.js~Function",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~generator",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
     "BuiltinExternal/ECMAScriptExternal.js~Generator",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~generatorfunction",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
     "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~infinity",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
     "BuiltinExternal/ECMAScriptExternal.js~Infinity",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~int16array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
     "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~int32array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
     "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~int8array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
     "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~internalerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
     "BuiltinExternal/ECMAScriptExternal.js~InternalError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~json",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
     "BuiltinExternal/ECMAScriptExternal.js~JSON",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~map",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
     "BuiltinExternal/ECMAScriptExternal.js~Map",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~nan",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
     "BuiltinExternal/ECMAScriptExternal.js~NaN",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~number",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
     "BuiltinExternal/ECMAScriptExternal.js~Number",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~object",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
     "BuiltinExternal/ECMAScriptExternal.js~Object",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~promise",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
     "BuiltinExternal/ECMAScriptExternal.js~Promise",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~proxy",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
     "BuiltinExternal/ECMAScriptExternal.js~Proxy",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~rangeerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
     "BuiltinExternal/ECMAScriptExternal.js~RangeError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~referenceerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
     "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~reflect",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
     "BuiltinExternal/ECMAScriptExternal.js~Reflect",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~regexp",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
     "BuiltinExternal/ECMAScriptExternal.js~RegExp",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~set",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
     "BuiltinExternal/ECMAScriptExternal.js~Set",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~string",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
     "BuiltinExternal/ECMAScriptExternal.js~String",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~symbol",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
     "BuiltinExternal/ECMAScriptExternal.js~Symbol",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~syntaxerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
     "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~typeerror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
     "BuiltinExternal/ECMAScriptExternal.js~TypeError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~urierror",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
     "BuiltinExternal/ECMAScriptExternal.js~URIError",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~uint16array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
     "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~uint32array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
     "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~uint8array",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
     "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~uint8clampedarray",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
     "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~weakmap",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
     "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~weakset",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
     "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~boolean",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
     "BuiltinExternal/ECMAScriptExternal.js~boolean",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~function",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
     "BuiltinExternal/ECMAScriptExternal.js~function",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~null",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
     "BuiltinExternal/ECMAScriptExternal.js~null",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~number",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
     "BuiltinExternal/ECMAScriptExternal.js~number",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~object",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
     "BuiltinExternal/ECMAScriptExternal.js~object",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~string",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
     "BuiltinExternal/ECMAScriptExternal.js~string",
     "external"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~undefined",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
     "BuiltinExternal/ECMAScriptExternal.js~undefined",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~audiocontext",
-    "external/index.html",
+    "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
     "BuiltinExternal/WebAPIExternal.js~AudioContext",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~canvasrenderingcontext2d",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
     "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~documentfragment",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
     "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~element",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Element",
     "BuiltinExternal/WebAPIExternal.js~Element",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~event",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Event",
     "BuiltinExternal/WebAPIExternal.js~Event",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~node",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Node",
     "BuiltinExternal/WebAPIExternal.js~Node",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~nodelist",
-    "external/index.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
     "BuiltinExternal/WebAPIExternal.js~NodeList",
     "external"
   ],
   [
     "builtinexternal/webapiexternal.js~xmlhttprequest",
-    "external/index.html",
+    "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
     "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "external"
   ],
   [
-    "src/0-legacy/abs/abs.js",
-    "file/src/0-legacy/abs/abs.js.html",
-    "src/0-legacy/abs/abs.js",
+    "src/default_display_base.js",
+    "file/src/DEFAULT_DISPLAY_BASE.js.html",
+    "src/DEFAULT_DISPLAY_BASE.js",
     "file"
   ],
   [
-    "src/0-legacy/abs/index.js",
-    "file/src/0-legacy/abs/index.js.html",
-    "src/0-legacy/abs/index.js",
+    "src/default_representation_base.js",
+    "file/src/DEFAULT_REPRESENTATION_BASE.js.html",
+    "src/DEFAULT_REPRESENTATION_BASE.js",
     "file"
   ],
   [
-    "src/0-legacy/arithmetic/add/add.js",
-    "file/src/0-legacy/arithmetic/add/add.js.html",
-    "src/0-legacy/arithmetic/add/add.js",
+    "src/integer.js",
+    "file/src/Integer.js.html",
+    "src/Integer.js",
     "file"
   ],
   [
-    "src/0-legacy/arithmetic/add/index.js",
-    "file/src/0-legacy/arithmetic/add/index.js.html",
-    "src/0-legacy/arithmetic/add/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/div/dcdiv.js",
-    "file/src/0-legacy/arithmetic/div/dcdiv.js.html",
-    "src/0-legacy/arithmetic/div/dcdiv.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/div/div.js",
-    "file/src/0-legacy/arithmetic/div/div.js.html",
-    "src/0-legacy/arithmetic/div/div.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/div/fourierdiv.js",
-    "file/src/0-legacy/arithmetic/div/fourierdiv.js.html",
-    "src/0-legacy/arithmetic/div/fourierdiv.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/div/index.js",
-    "file/src/0-legacy/arithmetic/div/index.js.html",
-    "src/0-legacy/arithmetic/div/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/div/knuthd.js",
-    "file/src/0-legacy/arithmetic/div/knuthd.js.html",
-    "src/0-legacy/arithmetic/div/knuthd.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/index.js",
-    "file/src/0-legacy/arithmetic/index.js.html",
-    "src/0-legacy/arithmetic/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/mul/index.js",
-    "file/src/0-legacy/arithmetic/mul/index.js.html",
-    "src/0-legacy/arithmetic/mul/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/mul/karatsuba.js",
-    "file/src/0-legacy/arithmetic/mul/karatsuba.js.html",
-    "src/0-legacy/arithmetic/mul/karatsuba.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/mul/mul.js",
-    "file/src/0-legacy/arithmetic/mul/mul.js.html",
-    "src/0-legacy/arithmetic/mul/mul.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/mul/mul53.js",
-    "file/src/0-legacy/arithmetic/mul/mul53.js.html",
-    "src/0-legacy/arithmetic/mul/mul53.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/mul/toomcook.js",
-    "file/src/0-legacy/arithmetic/mul/toomcook.js.html",
-    "src/0-legacy/arithmetic/mul/toomcook.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/sub/index.js",
-    "file/src/0-legacy/arithmetic/sub/index.js.html",
-    "src/0-legacy/arithmetic/sub/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/arithmetic/sub/sub.js",
-    "file/src/0-legacy/arithmetic/sub/sub.js.html",
-    "src/0-legacy/arithmetic/sub/sub.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/and/and.js",
-    "file/src/0-legacy/binary/and/and.js.html",
-    "src/0-legacy/binary/and/and.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/and/index.js",
-    "file/src/0-legacy/binary/and/index.js.html",
-    "src/0-legacy/binary/and/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/index.js",
-    "file/src/0-legacy/binary/index.js.html",
-    "src/0-legacy/binary/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/not/index.js",
-    "file/src/0-legacy/binary/not/index.js.html",
-    "src/0-legacy/binary/not/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/not/not.js",
-    "file/src/0-legacy/binary/not/not.js.html",
-    "src/0-legacy/binary/not/not.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/or/index.js",
-    "file/src/0-legacy/binary/or/index.js.html",
-    "src/0-legacy/binary/or/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/or/or.js",
-    "file/src/0-legacy/binary/or/or.js.html",
-    "src/0-legacy/binary/or/or.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/xor/index.js",
-    "file/src/0-legacy/binary/xor/index.js.html",
-    "src/0-legacy/binary/xor/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/binary/xor/xor.js",
-    "file/src/0-legacy/binary/xor/xor.js.html",
-    "src/0-legacy/binary/xor/xor.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/cmp.js",
-    "file/src/0-legacy/compare/cmp.js.html",
-    "src/0-legacy/compare/cmp.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/eq.js",
-    "file/src/0-legacy/compare/eq.js.html",
-    "src/0-legacy/compare/eq.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/ge.js",
-    "file/src/0-legacy/compare/ge.js.html",
-    "src/0-legacy/compare/ge.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/gt.js",
-    "file/src/0-legacy/compare/gt.js.html",
-    "src/0-legacy/compare/gt.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/index.js",
-    "file/src/0-legacy/compare/index.js.html",
-    "src/0-legacy/compare/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/le.js",
-    "file/src/0-legacy/compare/le.js.html",
-    "src/0-legacy/compare/le.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/lt.js",
-    "file/src/0-legacy/compare/lt.js.html",
-    "src/0-legacy/compare/lt.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/compare/ne.js",
-    "file/src/0-legacy/compare/ne.js.html",
-    "src/0-legacy/compare/ne.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/index.js",
-    "file/src/0-legacy/index.js.html",
-    "src/0-legacy/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/gcd/gcd.js",
-    "file/src/0-legacy/others/gcd/gcd.js.html",
-    "src/0-legacy/others/gcd/gcd.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/gcd/index.js",
-    "file/src/0-legacy/others/gcd/index.js.html",
-    "src/0-legacy/others/gcd/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/index.js",
-    "file/src/0-legacy/others/index.js.html",
-    "src/0-legacy/others/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/lcm/index.js",
-    "file/src/0-legacy/others/lcm/index.js.html",
-    "src/0-legacy/others/lcm/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/lcm/lcm.js",
-    "file/src/0-legacy/others/lcm/lcm.js.html",
-    "src/0-legacy/others/lcm/lcm.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/log/index.js",
-    "file/src/0-legacy/others/log/index.js.html",
-    "src/0-legacy/others/log/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/log/log.js",
-    "file/src/0-legacy/others/log/log.js.html",
-    "src/0-legacy/others/log/log.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/mod/index.js",
-    "file/src/0-legacy/others/mod/index.js.html",
-    "src/0-legacy/others/mod/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/mod/mod.js",
-    "file/src/0-legacy/others/mod/mod.js.html",
-    "src/0-legacy/others/mod/mod.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/mod/montgomery.js",
-    "file/src/0-legacy/others/mod/montgomery.js.html",
-    "src/0-legacy/others/mod/montgomery.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/mpow/index.js",
-    "file/src/0-legacy/others/mpow/index.js.html",
-    "src/0-legacy/others/mpow/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/mpow/mpow.js",
-    "file/src/0-legacy/others/mpow/mpow.js.html",
-    "src/0-legacy/others/mpow/mpow.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/neg/index.js",
-    "file/src/0-legacy/others/neg/index.js.html",
-    "src/0-legacy/others/neg/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/neg/neg.js",
-    "file/src/0-legacy/others/neg/neg.js.html",
-    "src/0-legacy/others/neg/neg.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/pow/ebs.js",
-    "file/src/0-legacy/others/pow/ebs.js.html",
-    "src/0-legacy/others/pow/ebs.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/pow/index.js",
-    "file/src/0-legacy/others/pow/index.js.html",
-    "src/0-legacy/others/pow/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/pow/pow.js",
-    "file/src/0-legacy/others/pow/pow.js.html",
-    "src/0-legacy/others/pow/pow.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/sha/index.js",
-    "file/src/0-legacy/others/sha/index.js.html",
-    "src/0-legacy/others/sha/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/sha/sha.js",
-    "file/src/0-legacy/others/sha/sha.js.html",
-    "src/0-legacy/others/sha/sha.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/shl/index.js",
-    "file/src/0-legacy/others/shl/index.js.html",
-    "src/0-legacy/others/shl/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/shl/shl.js",
-    "file/src/0-legacy/others/shl/shl.js.html",
-    "src/0-legacy/others/shl/shl.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/wrap/index.js",
-    "file/src/0-legacy/others/wrap/index.js.html",
-    "src/0-legacy/others/wrap/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/wrap/wrapbin.js",
-    "file/src/0-legacy/others/wrap/wrapbin.js.html",
-    "src/0-legacy/others/wrap/wrapbin.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/wrap/wrapcmp.js",
-    "file/src/0-legacy/others/wrap/wrapcmp.js.html",
-    "src/0-legacy/others/wrap/wrapcmp.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/others/wrap/wrapmov.js",
-    "file/src/0-legacy/others/wrap/wrapmov.js.html",
-    "src/0-legacy/others/wrap/wrapmov.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/parse/index.js",
-    "file/src/0-legacy/parse/index.js.html",
-    "src/0-legacy/parse/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/parse/parse.js",
-    "file/src/0-legacy/parse/parse.js.html",
-    "src/0-legacy/parse/parse.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/stringify/index.js",
-    "file/src/0-legacy/stringify/index.js.html",
-    "src/0-legacy/stringify/index.js",
-    "file"
-  ],
-  [
-    "src/0-legacy/stringify/stringify.js",
-    "file/src/0-legacy/stringify/stringify.js.html",
-    "src/0-legacy/stringify/stringify.js",
-    "file"
-  ],
-  [
-    "src/1-new/arithmetic/div/_div.js",
-    "file/src/1-new/arithmetic/div/_div.js.html",
-    "src/1-new/arithmetic/div/_div.js",
-    "file"
-  ],
-  [
-    "src/1-new/arithmetic/div/index.js",
-    "file/src/1-new/arithmetic/div/index.js.html",
-    "src/1-new/arithmetic/div/index.js",
-    "file"
+    "src/integer.js~integer#add",
+    "class/src/Integer.js~Integer.html#instance-method-add",
+    "src/Integer.js~Integer#add",
+    "method"
   ],
   [
-    "src/1-new/arithmetic/index.js",
-    "file/src/1-new/arithmetic/index.js.html",
-    "src/1-new/arithmetic/index.js",
-    "file"
-  ],
-  [
-    "src/1-new/arithmetic/sub/_sub.js",
-    "file/src/1-new/arithmetic/sub/_sub.js.html",
-    "src/1-new/arithmetic/sub/_sub.js",
-    "file"
-  ],
-  [
-    "src/1-new/arithmetic/sub/index.js",
-    "file/src/1-new/arithmetic/sub/index.js.html",
-    "src/1-new/arithmetic/sub/index.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_cmp.js",
-    "file/src/1-new/compare/_CMP.js.html",
-    "src/1-new/compare/_CMP.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_cmp.js",
-    "file/src/1-new/compare/_cmp.js.html",
-    "src/1-new/compare/_cmp.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_eq.js",
-    "file/src/1-new/compare/_eq.js.html",
-    "src/1-new/compare/_eq.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_ge.js",
-    "file/src/1-new/compare/_ge.js.html",
-    "src/1-new/compare/_ge.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_gt.js",
-    "file/src/1-new/compare/_gt.js.html",
-    "src/1-new/compare/_gt.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_jz.js",
-    "file/src/1-new/compare/_jz.js.html",
-    "src/1-new/compare/_jz.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_le.js",
-    "file/src/1-new/compare/_le.js.html",
-    "src/1-new/compare/_le.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/_lt.js",
-    "file/src/1-new/compare/_lt.js.html",
-    "src/1-new/compare/_lt.js",
-    "file"
+    "src/integer.js~integer#base",
+    "class/src/Integer.js~Integer.html#instance-member-base",
+    "src/Integer.js~Integer#base",
+    "member"
   ],
   [
-    "src/1-new/compare/_ne.js",
-    "file/src/1-new/compare/_ne.js.html",
-    "src/1-new/compare/_ne.js",
-    "file"
-  ],
-  [
-    "src/1-new/compare/index.js",
-    "file/src/1-new/compare/index.js.html",
-    "src/1-new/compare/index.js",
-    "file"
-  ],
-  [
-    "src/1-new/convert/_alloc.js",
-    "file/src/1-new/convert/_alloc.js.html",
-    "src/1-new/convert/_alloc.js",
-    "file"
-  ],
-  [
-    "src/1-new/convert/_build.js",
-    "file/src/1-new/convert/_build.js.html",
-    "src/1-new/convert/_build.js",
-    "file"
+    "src/integer.js~integer#constructor",
+    "class/src/Integer.js~Integer.html#instance-constructor-constructor",
+    "src/Integer.js~Integer#constructor",
+    "method"
   ],
   [
-    "src/1-new/convert/_chr.js",
-    "file/src/1-new/convert/_chr.js.html",
-    "src/1-new/convert/_chr.js",
-    "file"
+    "src/integer.js~integer#div",
+    "class/src/Integer.js~Integer.html#instance-method-div",
+    "src/Integer.js~Integer#div",
+    "method"
   ],
   [
-    "src/1-new/convert/_convert.js",
-    "file/src/1-new/convert/_convert.js.html",
-    "src/1-new/convert/_convert.js",
-    "file"
+    "src/integer.js~integer#divmod",
+    "class/src/Integer.js~Integer.html#instance-method-divmod",
+    "src/Integer.js~Integer#divmod",
+    "method"
   ],
   [
-    "src/1-new/convert/_convert_slow.js",
-    "file/src/1-new/convert/_convert_slow.js.html",
-    "src/1-new/convert/_convert_slow.js",
-    "file"
+    "src/integer.js~integer#is_negative",
+    "class/src/Integer.js~Integer.html#instance-member-is_negative",
+    "src/Integer.js~Integer#is_negative",
+    "member"
   ],
   [
-    "src/1-new/convert/_convert_to_larger.js",
-    "file/src/1-new/convert/_convert_to_larger.js.html",
-    "src/1-new/convert/_convert_to_larger.js",
-    "file"
+    "src/integer.js~integer#limbs",
+    "class/src/Integer.js~Integer.html#instance-member-limbs",
+    "src/Integer.js~Integer#limbs",
+    "member"
   ],
   [
-    "src/1-new/convert/_convert_to_larger_fast.js",
-    "file/src/1-new/convert/_convert_to_larger_fast.js.html",
-    "src/1-new/convert/_convert_to_larger_fast.js",
-    "file"
+    "src/integer.js~integer#mod",
+    "class/src/Integer.js~Integer.html#instance-method-mod",
+    "src/Integer.js~Integer#mod",
+    "method"
   ],
   [
-    "src/1-new/convert/_convert_to_smaller.js",
-    "file/src/1-new/convert/_convert_to_smaller.js.html",
-    "src/1-new/convert/_convert_to_smaller.js",
-    "file"
+    "src/integer.js~integer#mul",
+    "class/src/Integer.js~Integer.html#instance-method-mul",
+    "src/Integer.js~Integer#mul",
+    "method"
   ],
   [
-    "src/1-new/convert/_convert_to_smaller_fast.js",
-    "file/src/1-new/convert/_convert_to_smaller_fast.js.html",
-    "src/1-new/convert/_convert_to_smaller_fast.js",
-    "file"
+    "src/integer.js~integer#opposite",
+    "class/src/Integer.js~Integer.html#instance-method-opposite",
+    "src/Integer.js~Integer#opposite",
+    "method"
   ],
   [
-    "src/1-new/convert/_copy.js",
-    "file/src/1-new/convert/_copy.js.html",
-    "src/1-new/convert/_copy.js",
-    "file"
+    "src/integer.js~integer#pow",
+    "class/src/Integer.js~Integer.html#instance-method-pow",
+    "src/Integer.js~Integer#pow",
+    "method"
   ],
   [
-    "src/1-new/convert/_fill.js",
-    "file/src/1-new/convert/_fill.js.html",
-    "src/1-new/convert/_fill.js",
-    "file"
+    "src/integer.js~integer#sub",
+    "class/src/Integer.js~Integer.html#instance-method-sub",
+    "src/Integer.js~Integer#sub",
+    "method"
   ],
   [
-    "src/1-new/convert/_int.js",
-    "file/src/1-new/convert/_int.js.html",
-    "src/1-new/convert/_int.js",
-    "file"
+    "src/integer.js~integer#tostring",
+    "class/src/Integer.js~Integer.html#instance-method-toString",
+    "src/Integer.js~Integer#toString",
+    "method"
   ],
   [
-    "src/1-new/convert/_log.js",
-    "file/src/1-new/convert/_log.js.html",
-    "src/1-new/convert/_log.js",
+    "src/integerring.js",
+    "file/src/IntegerRing.js.html",
+    "src/IntegerRing.js",
     "file"
   ],
   [
-    "src/1-new/convert/_reset.js",
-    "file/src/1-new/convert/_reset.js.html",
-    "src/1-new/convert/_reset.js",
-    "file"
+    "src/integerring.js~integerring#base",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-member-base",
+    "src/IntegerRing.js~IntegerRing#base",
+    "member"
   ],
   [
-    "src/1-new/convert/_to_string.js",
-    "file/src/1-new/convert/_to_string.js.html",
-    "src/1-new/convert/_to_string.js",
-    "file"
+    "src/integerring.js~integerring#constructor",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-constructor-constructor",
+    "src/IntegerRing.js~IntegerRing#constructor",
+    "method"
   ],
   [
-    "src/1-new/convert/_trim_positive.js",
-    "file/src/1-new/convert/_trim_positive.js.html",
-    "src/1-new/convert/_trim_positive.js",
-    "file"
+    "src/integerring.js~integerring#from",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-from",
+    "src/IntegerRing.js~IntegerRing#from",
+    "method"
   ],
   [
-    "src/1-new/convert/_zeros.js",
-    "file/src/1-new/convert/_zeros.js.html",
-    "src/1-new/convert/_zeros.js",
-    "file"
+    "src/integerring.js~integerring#from_string",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-from_string",
+    "src/IntegerRing.js~IntegerRing#from_string",
+    "method"
   ],
   [
-    "src/1-new/convert/convert.js",
-    "file/src/1-new/convert/convert.js.html",
-    "src/1-new/convert/convert.js",
-    "file"
+    "src/integerring.js~integerring#name",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-member-name",
+    "src/IntegerRing.js~IntegerRing#name",
+    "member"
   ],
   [
-    "src/1-new/convert/convert_keep_zeros.js",
-    "file/src/1-new/convert/convert_keep_zeros.js.html",
-    "src/1-new/convert/convert_keep_zeros.js",
-    "file"
+    "src/integerring.js~integerring#tostring",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-toString",
+    "src/IntegerRing.js~IntegerRing#toString",
+    "method"
   ],
   [
-    "src/1-new/convert/index.js",
-    "file/src/1-new/convert/index.js.html",
-    "src/1-new/convert/index.js",
-    "file"
+    "src/integerring.js~integerring.add",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-add",
+    "src/IntegerRing.js~IntegerRing.add",
+    "method"
   ],
   [
-    "src/1-new/convert/parse.js",
-    "file/src/1-new/convert/parse.js.html",
-    "src/1-new/convert/parse.js",
-    "file"
+    "src/integerring.js~integerring.div",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-div",
+    "src/IntegerRing.js~IntegerRing.div",
+    "method"
   ],
   [
-    "src/1-new/convert/parse_keep_zeros.js",
-    "file/src/1-new/convert/parse_keep_zeros.js.html",
-    "src/1-new/convert/parse_keep_zeros.js",
-    "file"
+    "src/integerring.js~integerring.mod",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-mod",
+    "src/IntegerRing.js~IntegerRing.mod",
+    "method"
   ],
   [
-    "src/1-new/convert/stringify.js",
-    "file/src/1-new/convert/stringify.js.html",
-    "src/1-new/convert/stringify.js",
-    "file"
+    "src/integerring.js~integerring.mul",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-mul",
+    "src/IntegerRing.js~IntegerRing.mul",
+    "method"
   ],
   [
-    "src/1-new/convert/stringify_keep_zeros.js",
-    "file/src/1-new/convert/stringify_keep_zeros.js.html",
-    "src/1-new/convert/stringify_keep_zeros.js",
-    "file"
+    "src/integerring.js~integerring.pow",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-pow",
+    "src/IntegerRing.js~IntegerRing.pow",
+    "method"
   ],
   [
-    "src/1-new/convert/trim_natural.js",
-    "file/src/1-new/convert/trim_natural.js.html",
-    "src/1-new/convert/trim_natural.js",
-    "file"
+    "src/integerring.js~integerring.sub",
+    "class/src/IntegerRing.js~IntegerRing.html#static-method-sub",
+    "src/IntegerRing.js~IntegerRing.sub",
+    "method"
   ],
   [
-    "src/1-new/index.js",
-    "file/src/1-new/index.js.html",
-    "src/1-new/index.js",
+    "src/zz.js",
+    "file/src/ZZ.js.html",
+    "src/ZZ.js",
     "file"
   ],
   [
