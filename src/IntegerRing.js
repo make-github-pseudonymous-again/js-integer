@@ -8,28 +8,28 @@ export class IntegerRing {
 		this.base = base ;
 	}
 
-	get ( object , base = undefined , is_negative = 0 ) {
+	from ( object , base = undefined , is_negative = 0 ) {
 
 		switch ( typeof object ) {
 			case 'number' :
-				if ( base !== undefined ) throw 'IntegerRing#get: using the base parameter does not make sense when parsing a JavaScript number.' ;
-				return this.get_string( '' + object , 10 , is_negative ) ;
+				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when parsing a JavaScript number.' ;
+				return this.from_string( '' + object , 10 , is_negative ) ;
 			case 'string' :
 				if ( base === undefined ) base = 10 ;
-				return this.get_string( object , base , is_negative ) ;
+				return this.from_string( object , base , is_negative ) ;
 			default:
-				throw `IntegerRing#get cannot handle ${typeof object}` ;
+				throw `IntegerRing#from cannot handle ${typeof object}` ;
 		}
 
 	}
 
-	get_string ( string , base = 10 , is_negative = 0  ) {
+	from_string ( string , base = 10 , is_negative = 0  ) {
 
-		if ( string.length === 0 ) throw 'IntegerRing#get_string cannot parse empty string.' ;
+		if ( string.length === 0 ) throw 'IntegerRing#from_string cannot parse empty string.' ;
 
-		if ( string[0] === '-' ) return this.get_string( string.slice(1) , base , ~is_negative ) ;
+		if ( string[0] === '-' ) return this.from_string( string.slice(1) , base , ~is_negative ) ;
 
-		if ( string[0] === '+' ) return this.get_string( string.slice(1) , base , is_negative ) ;
+		if ( string[0] === '+' ) return this.from_string( string.slice(1) , base , is_negative ) ;
 
 		const limbs = parse( base , this.base , string ) ;
 

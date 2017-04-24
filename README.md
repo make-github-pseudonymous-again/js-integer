@@ -8,8 +8,10 @@ See [docs](https://aureooms.github.io/js-integer).
 Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).
 
 ```js
-integer.parse( 16 , 100 , 'ff' ) ; // [ 2 , 55 ]
-integer.stringify( 100 , 16 , [ 2 , 55 ] ) ; // 'ff'
+import { ZZ } from '@aureooms/js-integer' ; 
+const a = ZZ.from( '2983928392839289387' ) ;
+const b = ZZ.from( '-302940923028393' ) ;
+a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 ```
 
 [![License](https://img.shields.io/github/license/aureooms/js-integer.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)
@@ -25,8 +27,11 @@ integer.stringify( 100 , 16 , [ 2 , 55 ] ) ; // 'ff'
 
 ## Children
 
-  - [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
-  - [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
+The current undelying implementation uses big endian order. There is no
+alternative for the moment.
+
+  [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
+  [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
 
 ## Reference
