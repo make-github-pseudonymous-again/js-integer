@@ -30,8 +30,8 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 The current undelying implementation uses big endian order. There is no
 alternative for the moment.
 
-  [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
-  [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
+  - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
+  - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
 
 ## Reference
