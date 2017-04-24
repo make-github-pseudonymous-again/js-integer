@@ -1,2 +1,5 @@
-export * from './0-legacy' ;
-export * from './1-new' ;
+export * from './DEFAULT_DISPLAY_BASE' ;
+export * from './DEFAULT_REPRESENTATION_BASE' ;
+export * from './Integer' ;
+export * from './IntegerRing' ;
+export * from './ZZ' ;
