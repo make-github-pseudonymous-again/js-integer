@@ -1,7 +1,9 @@
-[js-integer](http://aureooms.github.io/js-integer)
+[@aureooms/js-integer](https://aureooms.github.io/js-integer)
 ==
 
-Integer numbers library for JavaScript.
+Integers for JavaScript.
+See [docs](https://aureooms.github.io/js-integer).
+Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-integer).
 
 ```js
 integer.parse( 16 , 100 , 'ff' ) ; // [ 2 , 55 ]
