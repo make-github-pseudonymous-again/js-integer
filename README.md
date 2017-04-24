@@ -27,7 +27,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 
 ## Children
 
-The current undelying implementation uses big endian order. There is no
+The current underlying implementation uses big endian order. There is no
 alternative for the moment.
 
   - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
