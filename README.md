@@ -5,7 +5,7 @@
 
 Integers for JavaScript.
 See [docs](https://aureooms.github.io/js-integer).
-Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-integer).
+Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).
 
 ```js
 integer.parse( 16 , 100 , 'ff' ) ; // [ 2 , 55 ]
@@ -22,6 +22,11 @@ integer.stringify( 100 , 16 , [ 2 , 55 ] ) ; // 'ff'
 [![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-integer.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-integer)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg?style=flat)](https://github.com/aureooms/js-integer/issues)
 [![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)
+
+## Children
+
+  - [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
+  - [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
 
 ## Reference
