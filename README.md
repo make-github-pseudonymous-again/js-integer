@@ -33,9 +33,9 @@ alternative for the moment.
   - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
   - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
-
 ## Reference
 
  - [The GNU Multiple Precision Arithmetic Library](https://gmplib.org/)
  - https://gmplib.org/gmp-man-6.0.0a.pdf
  - https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm
+ - [Similar work on GitHub](https://github.com/search?l=JavaScript&o=desc&q=bigint&s=stars&type=Repositories)
