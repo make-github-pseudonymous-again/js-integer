@@ -1,4 +1,5 @@
 import test from 'ava' ;
+import algo from '@aureooms/js-algorithms' ;
 import operator from  '@aureooms/js-operator' ;
 import * as integer from '../../../src' ;
 
@@ -135,8 +136,6 @@ var TEST = [
 	['11541548549', '1541548548', 1],
 ];
 
-
-import algo from '@aureooms/js-algo' ;
 
 var TRAITS = [
 	Uint8Array,

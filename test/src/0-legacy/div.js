@@ -1,4 +1,5 @@
 import test from 'ava' ;
+import algo from '@aureooms/js-algorithms' ;
 import string from '@aureooms/js-string' ;
 import * as integer from '../../../src' ;
 
@@ -94,8 +95,6 @@ var TEST = [
 	['27ad4107', '64c8', '000064c8', '000064c7'],
 
 ];
-
-var algo = require('@aureooms/js-algo');
 
 var TRAITS = [
 	Uint8Array,

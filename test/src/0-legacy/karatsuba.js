@@ -1,7 +1,5 @@
 import test from 'ava' ;
-
-import array from '@aureooms/js-array' ;
-
+import * as array from '@aureooms/js-array' ;
 import * as integer from '../../../src' ;
 
 test('integer.bkaratsuba 16 big endian', function(assert){
