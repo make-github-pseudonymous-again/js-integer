@@ -1,6 +1,6 @@
 {
   "name": "@aureooms/js-integer",
-  "description": "integer code bricks for JavaScript",
+  "description": "Integers for JavaScript",
   "version": "1.0.0",
   "author": "Aurélien Ooms <aurelien.ooms@gmail.com>",
   "ava": {
@@ -11,7 +11,7 @@
   },
   "babel": {
     "presets": [
-      "latest"
+      "env"
     ],
     "env": {
       "development": {
@@ -24,37 +24,33 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@aureooms/js-algo": "^3.0.5",
-    "@aureooms/js-array": "^3.1.0",
+    "@aureooms/js-algorithms": "^3.0.5",
+    "@aureooms/js-array": "^4.0.0",
     "@aureooms/js-operator": "^1.0.2",
-    "@aureooms/js-random": "^1.0.2",
+    "@aureooms/js-random": "^2.0.0",
     "@aureooms/js-string": "^0.2.0",
-    "ava": "^0.17.0",
-    "babel-cli": "^6.18.0",
-    "babel-polyfill": "^6.16.0",
-    "babel-preset-latest": "^6.16.0",
-    "codeclimate-test-reporter": "^0.4.0",
-    "coveralls": "^2.11.14",
-    "esdoc": "^0.5.0",
-    "nyc": "^9.0.1"
+    "ava": "^0.19.1",
+    "babel-cli": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^0.0.0",
+    "codeclimate-test-reporter": "^0.4.1",
+    "coveralls": "^2.13.0",
+    "esdoc": "^0.5.2",
+    "nyc": "^10.2.0"
   },
   "homepage": "https://aureooms.github.io/js-integer",
   "keywords": [
     "algorithm",
     "arithmetic",
     "bignum",
-    "bricks",
-    "code",
     "complexity",
     "integer",
     "javascript",
     "js",
-    "kernel",
     "library",
     "logic",
     "mpa",
-    "multi-precision",
-    "template"
+    "multi-precision"
   ],
   "license": "AGPL-3.0",
   "main": "lib/index.js",
