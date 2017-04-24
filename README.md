@@ -1,6 +1,8 @@
 [@aureooms/js-integer](https://aureooms.github.io/js-integer)
 ==
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg" width="864">
+
 Integers for JavaScript.
 See [docs](https://aureooms.github.io/js-integer).
 Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-integer).
