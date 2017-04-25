@@ -1,5 +1,5 @@
 import { Integer } from './' ;
-import { parse } from '@aureooms/js-integer-big-endian' ;
+import { parse , convert } from '@aureooms/js-integer-big-endian' ;
 
 export class IntegerRing {
 
@@ -13,13 +13,26 @@ export class IntegerRing {
 		switch ( typeof object ) {
 			case 'number' :
 				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when parsing a JavaScript number.' ;
-				return this.from_string( '' + object , 10 , is_negative ) ;
+				return this.from_number( object , is_negative ) ;
 			case 'string' :
 				if ( base === undefined ) base = 10 ;
 				return this.from_string( object , base , is_negative ) ;
 			default:
 				throw `IntegerRing#from cannot handle ${typeof object}` ;
 		}
+
+	}
+
+	from_number ( number , is_negative = 0 ) {
+
+		if ( number < 0 ) {
+			is_negative = ~is_negative ;
+			number = -number ;
+		}
+
+		const limbs = convert( 0x20000000000000 , this.base , [ number ] , 0 , 1 ) ;
+
+		return new Integer( this.base , is_negative , limbs ) ;
 
 	}
 
