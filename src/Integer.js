@@ -4,8 +4,8 @@ import { DEFAULT_DISPLAY_BASE } from './' ;
 import {
 	stringify , convert ,
 	_alloc , _copy , _zeros ,
-	_lt , _jz ,
-	_add , _sub , _mul , _div,
+	_jz , _cmp ,
+	_add , _sub , _mul , _div ,
 } from '@aureooms/js-integer-big-endian' ;
 
 export class Integer {
@@ -16,9 +16,25 @@ export class Integer {
 		this.limbs = limbs ;
 	}
 
+	move ( other ) {
+		other.base = this.base ;
+		other.is_negative = this.is_negative ;
+		other.limbs = this.limbs ;
+		return other ;
+	}
+
+	copy ( ) {
+		return new Integer( this.base , this.is_negative , this.limbs ) ;
+	}
+
+	_limbs_in_base ( base ) {
+		if ( this.base === base ) return this.limbs ;
+		else return convert( this.base , base , this.limbs , 0 , this.limbs.length ) ;
+	}
+
 	toString ( base = DEFAULT_DISPLAY_BASE ) {
 
-		if ( _jz( this.limbs , 0 , this.limbs.length ) ) return '0' ;
+		if ( this.iszero( ) ) return '0' ;
 
 		const digits = stringify( this.base , base , this.limbs , 0 , this.limbs.length ) ;
 
@@ -43,10 +59,7 @@ export class Integer {
 
 			const a = this.limbs ;
 
-			let b ;
-
-			if ( other.base === r ) b = other.limbs ;
-			else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+			const b = other._limbs_in_base( r ) ;
 
 			const c = _zeros( Math.max( a.length , b.length ) + 1 ) ;
 
@@ -56,6 +69,11 @@ export class Integer {
 
 		}
 
+	}
+
+	iadd ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.add(other).move(this);
 	}
 
 	sub ( other ) {
@@ -73,14 +91,11 @@ export class Integer {
 			const r = this.base ;
 			const a = this.limbs ;
 
-			let b ;
-
-			if ( other.base === r ) b = other.limbs ;
-			else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+			const b = other._limbs_in_base( r ) ;
 
 			const c = _zeros( Math.max( a.length , b.length ) ) ;
 
-			if ( _lt( a , 0 , a.length , b , 0 , b.length ) ) {
+			if ( _cmp( a , 0 , a.length , b , 0 , b.length ) < 0 ) {
 
 				_sub( r , b , 0 , b.length , a , 0 , a.length , c , 0 , c.length ) ;
 
@@ -99,6 +114,11 @@ export class Integer {
 
 	}
 
+	isub ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.sub(other).move(this);
+	}
+
 	mul ( other ) {
 
 		const result_is_negative = this.is_negative ^ other.is_negative ;
@@ -106,10 +126,7 @@ export class Integer {
 
 		const a = this.limbs ;
 
-		let b ;
-
-		if ( other.base === r ) b = other.limbs ;
-		else b = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+		const b = other._limbs_in_base( r ) ;
 
 		const c = _zeros( a.length + b.length ) ;
 
@@ -119,16 +136,36 @@ export class Integer {
 
 	}
 
+	imul ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.mul(other).move(this);
+	}
+
 	pow ( other ) {
 		throw 'Integer#pow not implemented yet, waiting for @aureooms/js-integer-big-endian.' ;
+	}
+
+	ipow ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.pow(other).move(this);
 	}
 
 	div ( other ) {
 		return this.divmod( other )[0] ;
 	}
 
+	idiv ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.div(other).move(this);
+	}
+
 	mod ( other ) {
 		return this.divmod( other )[1] ;
+	}
+
+	imod ( other ) {
+		// TODO optimize but be careful with side effects
+		return this.mod(other).move(this);
 	}
 
 	divmod ( other ) {
@@ -141,9 +178,7 @@ export class Integer {
 		_copy( this.limbs , 0 , this.limbs.length , D , 0 ) ;
 
 		// Divisor
-		let d ;
-		if ( other.base === r ) d = other.limbs ;
-		else d = convert( other.base , r , other.limbs , 0 , other.limbs.length ) ;
+		const d = other._limbs_in_base( r ) ;
 
 		// Quotient
 		const q = _zeros( D.length ) ;
@@ -159,6 +194,90 @@ export class Integer {
 
 	opposite ( ) {
 		return new Integer( this.base , ~this.is_negative , this.limbs ) ;
+	}
+
+	negate ( ) {
+		// TODO optimize but be careful with side effects
+		return this.opposite().move(this);
+	}
+
+	sign ( ) {
+		return this.iszero() ? 0 : this.is_negative ? -1 : 1 ;
+	}
+
+	iszero ( ) {
+		return _jz( this.limbs , 0 , this.limbs.length ) ;
+	}
+
+	isone ( ) {
+		if ( this.is_negative ) return false ;
+		return _eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
+	}
+
+	nonzero ( ) {
+		return !this.iszero();
+	}
+
+	binary ( ) {
+		return this.toString( 2 ) ;
+	}
+
+	digits ( base = this.base ) {
+		return convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;
+	}
+
+	bits ( ) {
+		return this.digits( 2 ) ;
+	}
+
+	divides ( other ) {
+		return other.mod( this ).iszero( ) ;
+	}
+
+	divide_knowing_divisible_by ( other ) {
+		return this.div( other ) ;
+	}
+
+	cmp ( other ) {
+
+		if ( this.iszero( ) ) {
+			if ( other.iszero( ) )        return  0 ;
+			else if ( other.is_negative ) return  1 ;
+			else                          return -1 ;
+		}
+
+		if ( this.is_negative < other.is_negative ) return -1 ;
+		if ( this.is_negative > other.is_negative ) return  1 ;
+
+		const a = this.limbs ;
+		const b = other._limbs_in_base( this.base ) ;
+
+		return _cmp( a , 0 , a.length , b , 0 , b.length ) ;
+
+	}
+
+	eq ( other ) {
+		return this.cmp( other ) === 0 ;
+	}
+
+	ge ( other ) {
+		return this.cmp( other ) >= 0 ;
+	}
+
+	gt ( other ) {
+		return this.cmp( other ) > 0 ;
+	}
+
+	le ( other ) {
+		return this.cmp( other ) <= 0 ;
+	}
+
+	lt ( other ) {
+		return this.cmp( other ) < 0 ;
+	}
+
+	ne ( other ) {
+		return this.cmp( other ) !== 0 ;
 	}
 
 }

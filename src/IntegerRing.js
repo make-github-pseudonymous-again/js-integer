@@ -1,4 +1,5 @@
 import { Integer } from './' ;
+import { DEFAULT_DISPLAY_BASE } from './' ;
 import { parse , convert } from '@aureooms/js-integer-big-endian' ;
 
 export class IntegerRing {
@@ -10,15 +11,29 @@ export class IntegerRing {
 
 	from ( object , base = undefined , is_negative = 0 ) {
 
-		switch ( typeof object ) {
-			case 'number' :
-				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when parsing a JavaScript number.' ;
+		if ( object === null || object === undefined ) return this.$0();
+
+		switch ( object.constructor.prototype ) {
+
+			case Number.prototype :
+				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing a Number.' ;
 				return this.from_number( object , is_negative ) ;
-			case 'string' :
-				if ( base === undefined ) base = 10 ;
+
+			case String.prototype :
+				if ( base === undefined ) base = DEFAULT_DISPLAY_BASE ;
 				return this.from_string( object , base , is_negative ) ;
+
+			case Array.prototype :
+				if ( base === undefined ) base = this.base ;
+				return this.from_digits( object , base , is_negative ) ;
+
+			case Integer.prototype :
+				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing an Integer.' ;
+				return new Integer( object.base , object.is_negative ^ is_negative , object.limbs ) ;
+
 			default:
-				throw `IntegerRing#from cannot handle ${typeof object}` ;
+				throw `IntegerRing#from cannot handle ${object.constructor.prototype}` ;
+
 		}
 
 	}
@@ -50,32 +65,76 @@ export class IntegerRing {
 
 	}
 
+	from_digits ( digits , base , is_negative ) {
+
+		const limbs = convert( base , this.base , digits.slice().reverse() , 0 , object.length ) ;
+
+		return new Integer( this.base , is_negative , limbs ) ;
+
+	}
+
 	toString ( ) {
 		return this.name ;
 	}
 
-	static add ( first , second ) {
+	stringify ( first , base = DEFAULT_DISPLAY_BASE ) {
+		return first.toString( base ) ;
+	}
+
+	$0 ( ) {
+		return new Integer( this.base , 0 , [ 0 ] ) ;
+	}
+
+	$1 ( ) {
+		return new Integer( this.base , 0 , [ 1 ] ) ;
+	}
+
+	add ( first , second ) {
 		return first.add(second) ;
 	}
 
-	static sub ( first , second ) {
+	iadd ( first , second ) {
+		return first.iadd(second) ;
+	}
+
+	sub ( first , second ) {
 		return first.sub(second) ;
 	}
 
-	static mul ( first , second ) {
+	isub ( first , second ) {
+		return first.isub(second) ;
+	}
+
+	mul ( first , second ) {
 		return first.mul(second) ;
 	}
 
-	static pow ( first , second ) {
+	imul ( first , second ) {
+		return first.imul(second) ;
+	}
+
+	pow ( first , second ) {
 		return first.pow(second) ;
 	}
 
-	static div ( first , second ) {
+	ipow ( first , second ) {
+		return first.ipow(second) ;
+	}
+
+	div ( first , second ) {
 		return first.div(second) ;
 	}
 
-	static mod ( first , second ) {
+	idiv ( first , second ) {
+		return first.idiv(second) ;
+	}
+
+	mod ( first , second ) {
 		return first.mod(second) ;
+	}
+
+	imod ( first , second ) {
+		return first.imod(second) ;
 	}
 
 }

@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../src' ;
+import { ZZ } from '../../../src' ;
 
 test( 'simple operations with 12 and 20' , t => {
 
