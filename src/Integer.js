@@ -1,11 +1,12 @@
 
-import { DEFAULT_DISPLAY_BASE } from './' ;
+import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 
 import {
-	stringify , convert ,
+	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
 	_jz , _cmp ,
 	_add , _sub , _mul , _div ,
+	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
 export class Integer {
@@ -170,25 +171,58 @@ export class Integer {
 
 	divmod ( other ) {
 
+		if ( other.iszero() ) throw new ZeroDivisionError( 'Integer division by zero' ) ; // optimize
+
 		const quotient_is_negative = this.is_negative ^ other.is_negative ;
 		const r = this.base ;
 
+		// The underlying algorithm does not allow leading 0's so we trim them.
+		const lj = this.limbs.length ;
+		const li =  _trim_positive( this.limbs , 0 , lj ) ;
+
+		// Dividend is 0
+		if ( li >= lj ) return [ new Integer( this.base , 0 , [ 0 ] ) , new Integer( this.base , 0 , [ 0 ] ) ] ;
+
 		// Dividend (& Remainder)
-		const D = _alloc( this.limbs.length ) ;
-		_copy( this.limbs , 0 , this.limbs.length , D , 0 ) ;
+		const D = _alloc( lj - li ) ;
+		_copy( this.limbs , li , lj , D , 0 ) ;
 
 		// Divisor
 		const d = other._limbs_in_base( r ) ;
+		const dj = d.length ;
+		const di = _trim_positive( d , 0 , dj ) ; // di < dj because d != 0
 
 		// Quotient
 		const q = _zeros( D.length ) ;
 
-		_div( r , D , 0 , D.length , d , 0 , d.length , q , 0 , q.length ) ;
+		_div( r , D , 0 , D.length , d , di , dj , q , 0 , q.length ) ;
 
-		return [
-			new Integer( r , quotient_is_negative , q ) , // quotient
-			new Integer( r , 0 , D )                      // remainder
-		] ;
+		const Q = new Integer( r , quotient_is_negative , q ) ; // quotient
+		const R = new Integer( r , 0 , D ) ;                    // remainder
+
+		if ( (this.is_negative || other.is_negative ) && !_jz( D , 0 , D.length ) ) {
+
+			if ( other.is_negative ) {
+
+				if ( !this.is_negative ) {
+					_increment( r , q , 0 , q.length ) ;
+					R.iadd( other ) ; // TODO optimize
+				}
+
+				else {
+					R.negate(); // TODO optimize
+				}
+
+			}
+
+			else {
+				_increment( r , q , 0 , q.length ) ;
+				R.negate().iadd( other ) ; // TODO optimize
+			}
+
+		}
+
+		return [ Q , R ] ;
 
 	}
 
