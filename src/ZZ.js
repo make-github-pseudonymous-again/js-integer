@@ -4,4 +4,4 @@ import {
 	IntegerRing ,
 } from './' ;
 
-export const ZZ = new IntegerRing( 'ZZ' , DEFAULT_REPRESENTATION_BASE ) ;
+export const ZZ = new IntegerRing( 'Integer Ring' , DEFAULT_REPRESENTATION_BASE ) ;
