@@ -212,3 +212,16 @@ test( 'add and subtract with 0' , t => {
 	t.is( b.sub(b).toString(10) , '0' ) ;
 
 }) ;
+
+test ( 'catch ZeroDivisionError' , t => {
+
+	t.plan(1);
+
+	try {
+		ZZ.$1().div(ZZ.$0()) ;
+	}
+	catch ( e ) {
+		t.is( e.toString().substring(0, 17) , 'ZeroDivisionError' ) ;
+	}
+
+}) ;
