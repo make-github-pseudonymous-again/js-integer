@@ -167,6 +167,16 @@ export class Integer {
 		return this.pow(x).move(this);
 	}
 
+	square ( ) {
+		// TODO optimize but be careful with side effects
+		return this.pow(2);
+	}
+
+	isquare ( ) {
+		// TODO optimize but be careful with side effects
+		return this.ipow(2);
+	}
+
 	div ( other ) {
 		return this.divmod( other )[0] ;
 	}
