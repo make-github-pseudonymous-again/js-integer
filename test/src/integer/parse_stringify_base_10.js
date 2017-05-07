@@ -20,6 +20,6 @@ function macro ( t , number ) {
 	t.is( unparsed , number ) ;
 }
 
-macro.tittle = ( _ , number ) => `stringify(parse(${number})) == ${number}` ;
+macro.title = ( _ , number ) => `stringify(parse(${number})) == ${number}` ;
 
 for ( const number of numbers ) test( macro , number ) ;
