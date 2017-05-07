@@ -200,3 +200,15 @@ test( 'multiply two large numbers in-place' , t => {
 	t.is( b.toString( ) , B ) ;
 
 }) ;
+
+test( 'add and subtract with 0' , t => {
+
+	const a = ZZ.from('9999999999999999', 10);
+	const b = ZZ.$0();
+
+	t.is( a.sub(b).toString(10) , '9999999999999999' ) ;
+	t.is( a.sub(a).toString(10) , '0' ) ;
+	t.is( b.sub(a).toString(10) , '-9999999999999999' ) ;
+	t.is( b.sub(b).toString(10) , '0' ) ;
+
+}) ;
