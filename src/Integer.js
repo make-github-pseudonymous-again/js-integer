@@ -4,7 +4,7 @@ import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
-	_jz , _cmp ,
+	_jz , _cmp , _eq ,
 	_add , _sub , _mul , _div , _powd ,
 	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
@@ -278,11 +278,19 @@ export class Integer {
 		return !this.iszero();
 	}
 
-	binary ( ) {
+	bin ( ) {
 		return this.toString( 2 ) ;
 	}
 
-	digits ( base = this.base ) {
+	oct ( ) {
+		return this.toString( 8 ) ;
+	}
+
+	hex ( ) {
+		return this.toString( 16 ) ;
+	}
+
+	digits ( base = DEFAULT_DISPLAY_BASE ) {
 		return convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;
 	}
 

@@ -31,6 +31,10 @@ export class IntegerRing {
 				if ( base === undefined ) base = this.base ;
 				return this.from_digits( object , base , is_negative ) ;
 
+			case Boolean.prototype :
+				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing a Boolean.' ;
+				return this.from_number( +object , is_negative ) ;
+
 			case Integer.prototype :
 				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing an Integer.' ;
 				return new Integer( object.base , object.is_negative ^ is_negative , object.limbs ) ;
@@ -71,7 +75,7 @@ export class IntegerRing {
 
 	from_digits ( digits , base , is_negative ) {
 
-		const limbs = convert( base , this.base , digits.slice().reverse() , 0 , object.length ) ;
+		const limbs = convert( base , this.base , digits.slice().reverse() , 0 , digits.length ) ;
 
 		return new Integer( this.base , is_negative , limbs ) ;
 
