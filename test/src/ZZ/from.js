@@ -1,8 +1,8 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ , ValueError , TypeError } from '../../../src' ;
 
-test( 'parsing' , t => {
+test( 'ZZ.from()' , t => {
 
 	t.is( ZZ.from('zz', 36).toString(36) , 'zz' ) ;
 	//t.is( ZZ.from('0x3b').toString(16) , '3b' ) ;
@@ -13,5 +13,13 @@ test( 'parsing' , t => {
 	t.is( ZZ.from(false).toString() , '0' ) ;
 	t.is( ZZ.from(1===0).toString() , '0' ) ;
 	t.is( ZZ.from('+10').toString() , '10' ) ;
+
+	t.throws( () => ZZ.from({}) , TypeError ) ;
+	t.throws( () => ZZ.from(new Date()) , TypeError ) ;
+	t.throws( () => ZZ.from(new Regex()) , TypeError ) ;
+
+	t.throws( () => ZZ.from(1, 2) , ValueError ) ;
+	t.throws( () => ZZ.from(true, 2) , ValueError ) ;
+	t.throws( () => ZZ.from(ZZ.from(17), 2) , ValueError ) ;
 
 } ) ;

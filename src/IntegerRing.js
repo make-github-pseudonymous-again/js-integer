@@ -1,6 +1,7 @@
 import { Integer } from './' ;
 import { DEFAULT_DISPLAY_BASE } from './' ;
 import { parse , convert } from '@aureooms/js-integer-big-endian' ;
+import { TypeError , ValueError } from '@aureooms/js-error' ;
 
 export class IntegerRing {
 
@@ -20,7 +21,7 @@ export class IntegerRing {
 		switch ( object.constructor.prototype ) {
 
 			case Number.prototype :
-				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing a Number.' ;
+				if ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing a Number.') ;
 				return this.from_number( object , is_negative ) ;
 
 			case String.prototype :
@@ -32,15 +33,15 @@ export class IntegerRing {
 				return this.from_digits( object , base , is_negative ) ;
 
 			case Boolean.prototype :
-				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing a Boolean.' ;
+				if ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing a Boolean.') ;
 				return this.from_number( +object , is_negative ) ;
 
 			case Integer.prototype :
-				if ( base !== undefined ) throw 'IntegerRing#from: using the base parameter does not make sense when passing an Integer.' ;
+				if ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing an Integer.') ;
 				return new Integer( object.base , object.is_negative ^ is_negative , object.limbs ) ;
 
 			default:
-				throw `IntegerRing#from cannot handle ${object.constructor.prototype}` ;
+				throw new TypeError(`IntegerRing#from cannot handle ${object.constructor.prototype}`) ;
 
 		}
 
