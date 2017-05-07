@@ -162,7 +162,7 @@ export class Integer {
 	 */
 	pow ( x ) {
 
-		const is_negative = Math.pow( this.is_negative , x ) ;
+		const is_negative = this.is_negative & x & 1 ? -1 : 0 ;
 
 		const a = this.limbs ;
 		const c = _zeros( Math.max( 1 , a.length * x ) ) ;

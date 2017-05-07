@@ -13,11 +13,19 @@ test( 'ZZ.from()' , t => {
 	t.is( ZZ.from(false).toString() , '0' ) ;
 	t.is( ZZ.from(1===0).toString() , '0' ) ;
 	t.is( ZZ.from('+10').toString() , '10' ) ;
+	t.is( ZZ.from(ZZ.from(2, undefined, -1).pow(12)).toString(), '4096')
+	t.is( ZZ.from(ZZ.from(2, undefined, 0).pow(12)).toString(), '4096')
+	t.is( ZZ.from(ZZ.from(2, undefined, -1).pow(11)).toString(), '-2048')
+	t.is( ZZ.from(ZZ.from(2, undefined, 0).pow(11)).toString(), '2048')
 
 	t.throws( () => ZZ.from({}) , TypeError ) ;
 	t.throws( () => ZZ.from(new Date()) , TypeError ) ;
 	t.throws( () => ZZ.from(new Regex()) , TypeError ) ;
 
+	t.throws( () => ZZ.from('') , ValueError ) ;
+	t.throws( () => ZZ.from('-') , ValueError ) ;
+	t.throws( () => ZZ.from('+') , ValueError ) ;
+	t.throws( () => ZZ.from('+---+-+') , ValueError ) ;
 	t.throws( () => ZZ.from(1, 2) , ValueError ) ;
 	t.throws( () => ZZ.from(true, 2) , ValueError ) ;
 	t.throws( () => ZZ.from(ZZ.from(17), 2) , ValueError ) ;

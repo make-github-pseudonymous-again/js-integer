@@ -62,7 +62,7 @@ export class IntegerRing {
 
 	from_string ( string , base = 10 , is_negative = 0  ) {
 
-		if ( string.length === 0 ) throw 'IntegerRing#from_string cannot parse empty string.' ;
+		if ( string.length === 0 ) throw new ValueError( 'IntegerRing#from_string cannot parse empty string.' ) ;
 
 		if ( string[0] === '-' ) return this.from_string( string.slice(1) , base , ~is_negative ) ;
 
