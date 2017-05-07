@@ -23,7 +23,7 @@
     "url": "https://github.com/aureooms/js-integer/issues"
   },
   "dependencies": {
-    "@aureooms/js-integer-big-endian": "^4.0.0"
+    "@aureooms/js-integer-big-endian": "^4.1.0"
   },
   "devDependencies": {
     "@aureooms/js-algorithms": "^3.0.7",

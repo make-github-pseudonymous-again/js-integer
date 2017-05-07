@@ -5,7 +5,7 @@ import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
 	_jz , _cmp ,
-	_add , _sub , _mul , _div ,
+	_add , _sub , _mul , _div , _powd ,
 	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
@@ -142,13 +142,29 @@ export class Integer {
 		return this.mul(other).move(this);
 	}
 
-	pow ( other ) {
-		throw 'Integer#pow not implemented yet, waiting for @aureooms/js-integer-big-endian.' ;
+	/**
+	 * Computes <code>this</code> raised to the <code>x</code>th power.
+	 * <code>x</code> is a double smaller or equal to 2^53.
+	 *
+	 * @param {Number} x The power to raise <code>this</code> to.
+	 * @return {Integer} <code>this ^ x</code>
+	 */
+	pow ( x ) {
+
+		const is_negative = Math.pow( this.is_negative , x ) ;
+
+		const a = this.limbs ;
+		const c = _zeros( Math.max( 1 , a.length * x ) ) ;
+
+		_powd( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;
+
+		return new Integer( this.base , is_negative , c ) ;
+
 	}
 
-	ipow ( other ) {
+	ipow ( x ) {
 		// TODO optimize but be careful with side effects
-		return this.pow(other).move(this);
+		return this.pow(x).move(this);
 	}
 
 	div ( other ) {
