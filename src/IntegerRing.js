@@ -9,6 +9,10 @@ export class IntegerRing {
 		this.base = base ;
 	}
 
+	characteristic ( ) {
+		return this.$0() ;
+	}
+
 	from ( object , base = undefined , is_negative = 0 ) {
 
 		if ( object === null || object === undefined ) return this.$0();
