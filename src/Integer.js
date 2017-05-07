@@ -1,4 +1,3 @@
-
 import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 
 import {
@@ -89,23 +88,35 @@ export class Integer {
 
 		else {
 
+			// /!\ _sub needs |c| >= |a| >= |b|
+
 			const r = this.base ;
 			const a = this.limbs ;
+			const aj = a.length ;
+			const ai = _trim_positive( a , 0 , aj ) ;
+
+			if ( ai >= aj ) return other.opposite() ;
 
 			const b = other._limbs_in_base( r ) ;
+			const bj = b.length ;
+			const bi = _trim_positive( b , 0 , bj ) ;
 
-			const c = _zeros( Math.max( a.length , b.length ) ) ;
+			if ( bi >= bj ) return this.copy() ;
 
-			if ( _cmp( a , 0 , a.length , b , 0 , b.length ) < 0 ) {
+			if ( _cmp( a , ai , aj , b , bi , bj ) < 0 ) {
 
-				_sub( r , b , 0 , b.length , a , 0 , a.length , c , 0 , c.length ) ;
+				const c = _zeros( bj - bi ) ;
+
+				_sub( r , b , bi , bj , a , ai , aj , c , 0 , c.length ) ;
 
 				return new Integer( r , ~this.is_negative , c ) ;
 			}
 
 			else {
 
-				_sub( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+				const c = _zeros( aj - ai ) ;
+
+				_sub( r , a , ai , aj , b , bi , bj , c , 0 , c.length ) ;
 
 				return new Integer( r , this.is_negative , c ) ;
 
