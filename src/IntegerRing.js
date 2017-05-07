@@ -85,64 +85,12 @@ export class IntegerRing {
 		return this.name ;
 	}
 
-	stringify ( first , base = DEFAULT_DISPLAY_BASE ) {
-		return first.toString( base ) ;
-	}
-
 	$0 ( ) {
 		return new Integer( this.base , 0 , [ 0 ] ) ;
 	}
 
 	$1 ( ) {
 		return new Integer( this.base , 0 , [ 1 ] ) ;
-	}
-
-	add ( first , second ) {
-		return first.add(second) ;
-	}
-
-	iadd ( first , second ) {
-		return first.iadd(second) ;
-	}
-
-	sub ( first , second ) {
-		return first.sub(second) ;
-	}
-
-	isub ( first , second ) {
-		return first.isub(second) ;
-	}
-
-	mul ( first , second ) {
-		return first.mul(second) ;
-	}
-
-	imul ( first , second ) {
-		return first.imul(second) ;
-	}
-
-	pow ( first , second ) {
-		return first.pow(second) ;
-	}
-
-	ipow ( first , second ) {
-		return first.ipow(second) ;
-	}
-
-	div ( first , second ) {
-		return first.div(second) ;
-	}
-
-	idiv ( first , second ) {
-		return first.idiv(second) ;
-	}
-
-	mod ( first , second ) {
-		return first.mod(second) ;
-	}
-
-	imod ( first , second ) {
-		return first.imod(second) ;
 	}
 
 }

@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { parse , stringify } from '../../../src' ;
 
 const numbers = [
 	'0' ,
@@ -15,11 +15,11 @@ const numbers = [
 ] ;
 
 function macro ( t , number ) {
-	const parsed = ZZ.from(number) ;
-	const unparsed = ZZ.stringify(parsed) ;
+	const parsed = parse(number) ;
+	const unparsed = stringify(parsed) ;
 	t.is( unparsed , number ) ;
 }
 
-macro.tittle = ( _ , number ) => `ZZ.stringify(ZZ.from(${number})) == ${number}` ;
+macro.tittle = ( _ , number ) => `stringify(parse(${number})) == ${number}` ;
 
 for ( const number of numbers ) test( macro , number ) ;
