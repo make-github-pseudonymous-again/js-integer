@@ -16,6 +16,9 @@ test( 'ZZ.from()' , t => {
 	t.is( ZZ.from(false).toString() , '0' ) ;
 	t.is( ZZ.from(1===0).toString() , '0' ) ;
 	t.is( ZZ.from('+10').toString() , '10' ) ;
+
+	t.is( ZZ.from( [ 0 , 1 ] ).toString() , ZZ.base.toString() ) ;
+
 	t.is( ZZ.from(ZZ.from(2, undefined, -1).pow(12)).toString(), '4096')
 	t.is( ZZ.from(ZZ.from(2, undefined, 0).pow(12)).toString(), '4096')
 	t.is( ZZ.from(ZZ.from(2, undefined, -1).pow(11)).toString(), '-2048')
