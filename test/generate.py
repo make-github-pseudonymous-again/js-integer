@@ -1,33 +1,6 @@
 import operator
 
-arithmetic = {
-    'add' : {
-        'apply' : operator.add ,
-        'str' : '+'
-    } ,
-    'sub' : {
-        'apply' : operator.sub ,
-        'str' : '-'
-    } ,
-    'mul' : {
-        'apply' : operator.mul ,
-        'str' : '*'
-    } ,
-    # 'pow' : {
-        # 'apply' : operator.pow ,
-        # 'str' : '^'
-    # } ,
-    'div' : {
-        'apply' : operator.floordiv ,
-        'str' : '/'
-    } ,
-    'mod' : {
-        'apply' : operator.mod ,
-        'str' : '%'
-    }
-}
-
-numbers = [
+hugenumbers = [
     1 ,
     17 ,
     91**7 ,
@@ -35,13 +8,58 @@ numbers = [
     3**50
 ]
 
-def write ( f , name , t , opstr , a ) :
+smallnumbers = [ 1 , 3 , 7 , 9 , 11 , 17 , 22 , 24 , 27 , 29 ]
+
+arithmetic = {
+    'add' : {
+        'numbers' : hugenumbers ,
+        'apply' : operator.add ,
+        'str' : '+'
+    } ,
+    'sub' : {
+        'numbers' : hugenumbers ,
+        'apply' : operator.sub ,
+        'str' : '-'
+    } ,
+    'mul' : {
+        'numbers' : hugenumbers ,
+        'apply' : operator.mul ,
+        'str' : '*'
+    } ,
+    'pow' : {
+        'numbers' : smallnumbers ,
+        'apply' : operator.pow ,
+        'str' : '^'
+    } ,
+    'div' : {
+        'numbers' : hugenumbers ,
+        'apply' : operator.floordiv ,
+        'str' : '/'
+    } ,
+    'mod' : {
+        'numbers' : hugenumbers ,
+        'apply' : operator.mod ,
+        'str' : '%'
+    }
+}
+
+def write ( f , numbers , name , t , opstr , a , ispow = True ) :
 
     f.write("import test from 'ava' ;\n")
     f.write("import {{ parse , stringify , {} }} from '../../../../src' ;\n\n".format(name))
 
+    if ispow :
 
-    f.write("""function macro ( t , A , B , C ) {{
+        f.write("""function macro ( t , A , B , C ) {{
+    const a = parse( A ) ;
+    const c = {}( a , B ) ;
+    t.is( stringify( a ) , {} ) ;
+    t.is( stringify( c ) , C ) ;
+}}\n\n""".format( name , a ) )
+
+    else:
+
+        f.write("""function macro ( t , A , B , C ) {{
     const a = parse( A ) ;
     const b = parse( B ) ;
     const c = {}( a , b ) ;
@@ -50,50 +68,65 @@ def write ( f , name , t , opstr , a ) :
     t.is( stringify( c ) , C ) ;
 }}\n\n""".format( name , a ) )
 
+
     f.write("macro.title = ( _ , A , B , C ) => `${{A}} {} ${{B}} = ${{C}}` ;\n\n".format(opstr))
 
     for a in numbers :
 
         for b in numbers :
 
-            x = a
-            y = b
-            c = t( x , y )
-            f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+            if ispow:
 
-            x = -a
-            y = b
-            c = t( x , y )
-            f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+                x = a
+                y = b
+                c = t( x , y )
+                f.write("test( macro , '{}' , {} , '{}' ) ;\n".format(x,y,c))
 
-            x = a
-            y = -b
-            c = t( x , y )
-            f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+                x = -a
+                y = b
+                c = t( x , y )
+                f.write("test( macro , '{}' , {} , '{}' ) ;\n".format(x,y,c))
 
-            x = -a
-            y = -b
-            c = t( x , y )
-            f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+            else:
+
+                x = a
+                y = b
+                c = t( x , y )
+                f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+
+                x = -a
+                y = b
+                c = t( x , y )
+                f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+
+                x = a
+                y = -b
+                c = t( x , y )
+                f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
+
+                x = -a
+                y = -b
+                c = t( x , y )
+                f.write("test( macro , '{}' , '{}' , '{}' ) ;\n".format(x,y,c))
 
 for name , op in arithmetic.items():
 
-    # standard op
+    t = op['apply']
+    nb = op['numbers']
 
+    # standard op
     with open( 'test/src/integer/arithmetic/{}.js'.format(name) , 'w' ) as f :
 
         opstr = op['str']
-        t = op['apply']
         a = 'A'
 
-        write( f , name , t , opstr , a )
+        write( f , nb , name , t , opstr , a , ispow = name == 'pow' )
 
     # in-place op
     iname = 'i{}'.format(name)
     with open( 'test/src/integer/arithmetic/{}.js'.format(iname) , 'w' ) as f :
 
         opstr = op['str'] + '='
-        t = op['apply']
         a = 'C'
 
-        write( f , iname , t , opstr , a )
+        write( f , nb , iname , t , opstr , a , ispow = name == 'pow' )
