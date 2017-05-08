@@ -319,6 +319,8 @@ export class Integer {
 
 	cmp ( other ) {
 
+		// TODO optimize with _trim_positive
+
 		if ( this.iszero( ) ) {
 			if ( other.iszero( ) )        return  0 ;
 			else if ( other.is_negative ) return  1 ;
