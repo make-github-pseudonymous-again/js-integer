@@ -1,8 +1,8 @@
 
-export class ZeroDivisionError {
+export class ZeroDivisionError extends Error {
 
 	constructor ( message ) {
-		this.message = message ;
+		super( message ) ;
 	}
 
 	toString ( ) {
