@@ -114,10 +114,10 @@ test( 'simple in-place operations with 12 and 20' , t => {
 	t.is( b.imul( a ).toString() , '-103680' ) ;
 
 	t.is( a.idiv( b ).toString() , '0' ) ;
-	t.throws( () => b.idiv( a ).toString() , ZeroDivisionError ) ;
+	t.throws( () => b.idiv( a ).toString() , { instanceOf: ZeroDivisionError } ) ;
 
 	t.is( a.imod( b ).toString() , '0' ) ;
-	t.throws( () => b.imod( a ).toString() , ZeroDivisionError ) ;
+	t.throws( () => b.imod( a ).toString() , { instanceOf: ZeroDivisionError } ) ;
 
 }) ;
 
@@ -180,10 +180,10 @@ test( 'simple in-place operations with -12 and 20' , t => {
 	t.is( b.imul( a ).toString() , '-46080' ) ;
 
 	t.is( a.idiv( b ).toString() , '0' ) ;
-	t.throws( ( ) => b.idiv( a ).toString() , ZeroDivisionError ) ;
+	t.throws( ( ) => b.idiv( a ).toString() , { instanceOf: ZeroDivisionError } ) ;
 
 	t.is( a.imod( b ).toString() , '0' ) ;
-	t.throws( ( ) => b.imod( a ).toString() , ZeroDivisionError ) ;
+	t.throws( ( ) => b.imod( a ).toString() , { instanceOf: ZeroDivisionError } ) ;
 
 }) ;
 
