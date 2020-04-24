@@ -14,16 +14,20 @@ const b = ZZ.from( '-302940923028393' ) ;
 a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 ```
 
-[![License](https://img.shields.io/github/license/aureooms/js-integer.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)
-[![NPM version](https://img.shields.io/npm/v/@aureooms/js-integer.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-integer)
-[![Build Status](https://img.shields.io/travis/aureooms/js-integer.svg?style=flat)](https://travis-ci.org/aureooms/js-integer)
-[![Coverage Status](https://img.shields.io/coveralls/aureooms/js-integer.svg?style=flat)](https://coveralls.io/r/aureooms/js-integer)
-[![Dependencies Status](https://img.shields.io/david/aureooms/js-integer.svg?style=flat)](https://david-dm.org/aureooms/js-integer#info=dependencies)
-[![devDependencies Status](https://img.shields.io/david/dev/aureooms/js-integer.svg?style=flat)](https://david-dm.org/aureooms/js-integer#info=devDependencies)
-[![Code Climate](https://img.shields.io/codeclimate/github/aureooms/js-integer.svg?style=flat)](https://codeclimate.com/github/aureooms/js-integer)
-[![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-integer.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-integer)
-[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg?style=flat)](https://github.com/aureooms/js-integer/issues)
+[![License](https://img.shields.io/github/license/aureooms/js-integer.svg)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)
+[![Version](https://img.shields.io/npm/v/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)
+[![Build](https://img.shields.io/travis/aureooms/js-integer/master.svg)](https://travis-ci.org/aureooms/js-integer/branches)
+[![Dependencies](https://img.shields.io/david/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer)
+[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer?type=dev)
+[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg)](https://github.com/aureooms/js-integer/issues)
+[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)
+
+[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/issues)
+[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)
+[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-integer/master.svg)](https://codecov.io/gh/aureooms/js-integer)
+[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)
+[![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)
 
 ## Children
 
