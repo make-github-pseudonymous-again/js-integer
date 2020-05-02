@@ -4,7 +4,7 @@ import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
 	_jz , _cmp , _eq ,
-	_add , _sub , _mul , _div , _powd ,
+	add , _sub , _mul , _idivmod , _powd ,
 	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
@@ -63,7 +63,7 @@ export class Integer {
 
 			const c = _zeros( Math.max( a.length , b.length ) + 1 ) ;
 
-			_add( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+			add( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
 
 			return new Integer( r , result_is_negative , c ) ;
 
@@ -232,7 +232,7 @@ export class Integer {
 		// Quotient
 		const q = _zeros( D.length ) ;
 
-		_div( r , D , 0 , D.length , d , di , dj , q , 0 , q.length ) ;
+		_idivmod( r , D , 0 , D.length , d , di , dj , q , 0 , q.length ) ;
 
 		const Q = new Integer( r , quotient_is_negative , q ) ; // quotient
 		const R = new Integer( r , 0 , D ) ;                    // remainder
