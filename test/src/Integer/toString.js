@@ -12,4 +12,10 @@ test( 'ZZ.from(3).pow(50).bin()' , t => {
 test( 'ZZ.from(3).pow(50).oct()' , t => { t.is(ZZ.from(3).pow(50).oct() , '230012517606662772047361711' ) ; } ) ;
 test( 'ZZ.from(3).pow(50).hex()' , t => { t.is(ZZ.from(3).pow(50).hex() , '980553f0db2fd09de3c9' ) ; } ) ;
 
-// TODO test side effects of priting in an other base
+test( 'toString is pure' , t => {
+	const x = ZZ.from(10000) ;
+	t.is('10000', x.toString(10));
+	t.is('10000', x.toString(10));
+	t.is('2710', x.toString(16));
+	t.is('2710', x.toString(16));
+})
