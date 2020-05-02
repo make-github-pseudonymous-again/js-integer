@@ -4,7 +4,7 @@ import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
 	_jz , _cmp , _eq ,
-	add , _sub , _mul , _idivmod , _powd ,
+	add , _sub , mul , _idivmod , _powd ,
 	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
@@ -142,7 +142,7 @@ export class Integer {
 
 		const c = _zeros( a.length + b.length ) ;
 
-		_mul( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
+		mul( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;
 
 		return new Integer( r , result_is_negative , c ) ;
 
