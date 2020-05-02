@@ -17,10 +17,10 @@
   resolved "https://registry.yarnpkg.com/@aureooms/js-error/-/js-error-4.0.0.tgz#cea0a145f5290f443911b3d1890d7254a18eeb9b"
   integrity sha512-omwmz82cPxqRnorZ8tqeIcPj1QcJnCsMiVYcwOh/QfUXhJ+DmiBPgWOm5WWAQvQzYVKe0/k7+s2ie+UoRJagjA==
 
-"@aureooms/js-integer-big-endian@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@aureooms/js-integer-big-endian/-/js-integer-big-endian-4.1.0.tgz#edfc6de6bb95ad12308a497276dae08a800e91e9"
-  integrity sha1-7fxt5ruVrRIwiklydtrgioAOkek=
+"@aureooms/js-integer-big-endian@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@aureooms/js-integer-big-endian/-/js-integer-big-endian-5.0.0.tgz#f16380210038e8f40dc1c160c5414981d1695e0e"
+  integrity sha512-dj5zu9FACN8Z6j0C5gu/0dGJ1idMAiO2zjw9XTK9qpbiiVrKw+cPgTmTAVxyu8B1zVo2TPh0K0do0dko1mjmTA==
 
 "@aureooms/js-operator@1.0.2":
   version "1.0.2"
