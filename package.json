@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@aureooms/js-error": "^4.0.0",
-    "@aureooms/js-integer-big-endian": "^5.0.1"
+    "@aureooms/js-integer-big-endian": "^6.0.0"
   },
   "devDependencies": {
     "@aureooms/js-algorithms": "3.0.7",
