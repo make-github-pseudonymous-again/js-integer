@@ -4,7 +4,7 @@ import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
 	_jz , _cmp , _eq ,
-	add , _sub , mul , _idivmod , _powd ,
+	add , _sub , mul , _idivmod , _pow_double ,
 	_increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
@@ -167,7 +167,7 @@ export class Integer {
 		const a = this.limbs ;
 		const c = _zeros( Math.max( 1 , a.length * x ) ) ;
 
-		_powd( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;
+		_pow_double( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;
 
 		return new Integer( this.base , is_negative , c ) ;
 
