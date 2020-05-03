@@ -366,8 +366,24 @@ export class Integer {
 		return eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
 	}
 
-	nonzero ( ) {
+	isnonzero ( ) {
 		return !this.iszero();
+	}
+
+	isnegative ( ) {
+		return this.is_negative ;
+	}
+
+	ispositive ( ) {
+		return this.sign() > 0 ;
+	}
+
+	isnonnegative ( ) {
+		return !this.negative();
+	}
+
+	isnonpositive ( ) {
+		return !this.positive() ;
 	}
 
 	parity ( ) {
