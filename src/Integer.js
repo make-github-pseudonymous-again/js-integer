@@ -337,7 +337,11 @@ export class Integer {
 		const a = this.limbs ;
 		const b = other._limbs_in_base( this.base ) ;
 
-		return cmp( a , 0 , a.length , b , 0 , b.length ) ;
+		return this.is_negative === 0 ?
+			cmp( a , 0 , a.length , b , 0 , b.length ) :
+			cmp( b , 0 , b.length , a , 0 , a.length ) ;
+
+	}
 
 	}
 
