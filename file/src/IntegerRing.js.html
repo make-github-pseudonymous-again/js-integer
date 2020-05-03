@@ -32,8 +32,10 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Integer.js~Integer.html">Integer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/IntegerRing.js~IntegerRing.html">IntegerRing</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ZeroDivisionError.js~ZeroDivisionError.html">ZeroDivisionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-_from_number">_from_number</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$0">$0</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$1">$1</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$_1">$_1</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-add">add</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-div">div</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-iadd">iadd</a></span></span></li>
@@ -51,6 +53,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_DISPLAY_BASE">DEFAULT_DISPLAY_BASE</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_REPRESENTATION_BASE">DEFAULT_REPRESENTATION_BASE</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ZZ">ZZ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MAX_BASE">MAX_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MAX_NUMBER">MAX_NUMBER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MIN_BASE">MIN_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MIN_NUMBER">MIN_NUMBER</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -60,6 +66,7 @@
 import { DEFAULT_DISPLAY_BASE } from &apos;./&apos; ;
 import { parse , convert } from &apos;@aureooms/js-integer-big-endian&apos; ;
 import { TypeError , ValueError } from &apos;@aureooms/js-error&apos; ;
+import { _from_number } from &apos;./_from_number&apos; ;
 
 export class IntegerRing {
 
@@ -107,14 +114,11 @@ export class IntegerRing {
 
 	from_number ( number , is_negative = 0 ) {
 
-		if ( number &lt; 0 ) {
-			is_negative = ~is_negative ;
-			number = -number ;
-		}
+		const dirty = _from_number(number) ;
 
-		const limbs = convert( 0x20000000000000 , this.base , [ number ] , 0 , 1 ) ;
+		const limbs = dirty._limbs_in_base(this.base) ;
 
-		return new Integer( this.base , is_negative , limbs ) ;
+		return new Integer( this.base , is_negative ^ dirty.is_negative , limbs ) ;
 
 	}
 
@@ -145,11 +149,29 @@ export class IntegerRing {
 	}
 
 	$0 ( ) {
+		// TODO Could we use an empty array instead ?
 		return new Integer( this.base , 0 , [ 0 ] ) ;
 	}
 
 	$1 ( ) {
 		return new Integer( this.base , 0 , [ 1 ] ) ;
+	}
+
+	$_1 ( ) {
+		return new Integer( this.base , -1 , [ 1 ] ) ;
+	}
+
+	has ( x ) {
+		if ( x instanceof Integer ) return true ;
+		return Number.isInteger(x) ;
+	}
+
+	min ( a , b ) {
+		return a.le(b) ? a : b ;
+	}
+
+	max ( a , b ) {
+		return a.ge(b) ? a : b ;
 	}
 
 }

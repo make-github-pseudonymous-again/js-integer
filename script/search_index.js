@@ -12,6 +12,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~$_1",
+    "function/index.html#static-function-$_1",
+    "<span>$_1</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/default_display_base.js~default_display_base",
     "variable/index.html#static-variable-DEFAULT_DISPLAY_BASE",
     "<span>DEFAULT_DISPLAY_BASE</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/DEFAULT_DISPLAY_BASE.js</span>",
@@ -36,6 +42,30 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@aureooms/js-integer/src/_limits.js~max_base",
+    "variable/index.html#static-variable-MAX_BASE",
+    "<span>MAX_BASE</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/_limits.js</span>",
+    "variable"
+  ],
+  [
+    "@aureooms/js-integer/src/_limits.js~max_number",
+    "variable/index.html#static-variable-MAX_NUMBER",
+    "<span>MAX_NUMBER</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/_limits.js</span>",
+    "variable"
+  ],
+  [
+    "@aureooms/js-integer/src/_limits.js~min_base",
+    "variable/index.html#static-variable-MIN_BASE",
+    "<span>MIN_BASE</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/_limits.js</span>",
+    "variable"
+  ],
+  [
+    "@aureooms/js-integer/src/_limits.js~min_number",
+    "variable/index.html#static-variable-MIN_NUMBER",
+    "<span>MIN_NUMBER</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/_limits.js</span>",
+    "variable"
+  ],
+  [
     "@aureooms/js-integer/src/zz.js~zz",
     "variable/index.html#static-variable-ZZ",
     "<span>ZZ</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/ZZ.js</span>",
@@ -46,6 +76,12 @@ window.esdocSearchIndex = [
     "class/src/ZeroDivisionError.js~ZeroDivisionError.html",
     "<span>ZeroDivisionError</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/ZeroDivisionError.js</span>",
     "class"
+  ],
+  [
+    "@aureooms/js-integer/src/_from_number.js~_from_number",
+    "function/index.html#static-function-_from_number",
+    "<span>_from_number</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/_from_number.js</span>",
+    "function"
   ],
   [
     "@aureooms/js-integer/src/integer.js~add",
@@ -438,9 +474,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#abs",
+    "class/src/Integer.js~Integer.html#instance-method-abs",
+    "src/Integer.js~Integer#abs",
+    "method"
+  ],
+  [
     "src/integer.js~integer#add",
     "class/src/Integer.js~Integer.html#instance-method-add",
     "src/Integer.js~Integer#add",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#addn",
+    "class/src/Integer.js~Integer.html#instance-method-addn",
+    "src/Integer.js~Integer#addn",
     "method"
   ],
   [
@@ -462,21 +510,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#clone",
+    "class/src/Integer.js~Integer.html#instance-method-clone",
+    "src/Integer.js~Integer#clone",
+    "method"
+  ],
+  [
     "src/integer.js~integer#cmp",
     "class/src/Integer.js~Integer.html#instance-method-cmp",
     "src/Integer.js~Integer#cmp",
     "method"
   ],
   [
-    "src/integer.js~integer#constructor",
-    "class/src/Integer.js~Integer.html#instance-constructor-constructor",
-    "src/Integer.js~Integer#constructor",
+    "src/integer.js~integer#cmpn",
+    "class/src/Integer.js~Integer.html#instance-method-cmpn",
+    "src/Integer.js~Integer#cmpn",
     "method"
   ],
   [
-    "src/integer.js~integer#copy",
-    "class/src/Integer.js~Integer.html#instance-method-copy",
-    "src/Integer.js~Integer#copy",
+    "src/integer.js~integer#constructor",
+    "class/src/Integer.js~Integer.html#instance-constructor-constructor",
+    "src/Integer.js~Integer#constructor",
     "method"
   ],
   [
@@ -510,9 +564,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#divn",
+    "class/src/Integer.js~Integer.html#instance-method-divn",
+    "src/Integer.js~Integer#divn",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#divround",
+    "class/src/Integer.js~Integer.html#instance-method-divround",
+    "src/Integer.js~Integer#divround",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#egcd",
+    "class/src/Integer.js~Integer.html#instance-method-egcd",
+    "src/Integer.js~Integer#egcd",
+    "method"
+  ],
+  [
     "src/integer.js~integer#eq",
     "class/src/Integer.js~Integer.html#instance-method-eq",
     "src/Integer.js~Integer#eq",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#eqn",
+    "class/src/Integer.js~Integer.html#instance-method-eqn",
+    "src/Integer.js~Integer#eqn",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#gcd",
+    "class/src/Integer.js~Integer.html#instance-method-gcd",
+    "src/Integer.js~Integer#gcd",
     "method"
   ],
   [
@@ -522,9 +606,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#gen",
+    "class/src/Integer.js~Integer.html#instance-method-gen",
+    "src/Integer.js~Integer#gen",
+    "method"
+  ],
+  [
     "src/integer.js~integer#gt",
     "class/src/Integer.js~Integer.html#instance-method-gt",
     "src/Integer.js~Integer#gt",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#gtn",
+    "class/src/Integer.js~Integer.html#instance-method-gtn",
+    "src/Integer.js~Integer#gtn",
     "method"
   ],
   [
@@ -534,9 +630,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#iabs",
+    "class/src/Integer.js~Integer.html#instance-method-iabs",
+    "src/Integer.js~Integer#iabs",
+    "method"
+  ],
+  [
     "src/integer.js~integer#iadd",
     "class/src/Integer.js~Integer.html#instance-method-iadd",
     "src/Integer.js~Integer#iadd",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#iaddn",
+    "class/src/Integer.js~Integer.html#instance-method-iaddn",
+    "src/Integer.js~Integer#iaddn",
     "method"
   ],
   [
@@ -546,9 +654,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#idivmod",
+    "class/src/Integer.js~Integer.html#instance-method-idivmod",
+    "src/Integer.js~Integer#idivmod",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#idivn",
+    "class/src/Integer.js~Integer.html#instance-method-idivn",
+    "src/Integer.js~Integer#idivn",
+    "method"
+  ],
+  [
     "src/integer.js~integer#imod",
     "class/src/Integer.js~Integer.html#instance-method-imod",
     "src/Integer.js~Integer#imod",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#imodn",
+    "class/src/Integer.js~Integer.html#instance-method-imodn",
+    "src/Integer.js~Integer#imodn",
     "method"
   ],
   [
@@ -558,9 +684,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#imuln",
+    "class/src/Integer.js~Integer.html#instance-method-imuln",
+    "src/Integer.js~Integer#imuln",
+    "method"
+  ],
+  [
     "src/integer.js~integer#ipow",
     "class/src/Integer.js~Integer.html#instance-method-ipow",
     "src/Integer.js~Integer#ipow",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#ipown",
+    "class/src/Integer.js~Integer.html#instance-method-ipown",
+    "src/Integer.js~Integer#ipown",
     "method"
   ],
   [
@@ -570,9 +708,51 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/integer.js~integer#iseven",
+    "class/src/Integer.js~Integer.html#instance-method-iseven",
+    "src/Integer.js~Integer#iseven",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#isnegative",
+    "class/src/Integer.js~Integer.html#instance-method-isnegative",
+    "src/Integer.js~Integer#isnegative",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#isnonnegative",
+    "class/src/Integer.js~Integer.html#instance-method-isnonnegative",
+    "src/Integer.js~Integer#isnonnegative",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#isnonpositive",
+    "class/src/Integer.js~Integer.html#instance-method-isnonpositive",
+    "src/Integer.js~Integer#isnonpositive",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#isnonzero",
+    "class/src/Integer.js~Integer.html#instance-method-isnonzero",
+    "src/Integer.js~Integer#isnonzero",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#isodd",
+    "class/src/Integer.js~Integer.html#instance-method-isodd",
+    "src/Integer.js~Integer#isodd",
+    "method"
+  ],
+  [
     "src/integer.js~integer#isone",
     "class/src/Integer.js~Integer.html#instance-method-isone",
     "src/Integer.js~Integer#isone",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#ispositive",
+    "class/src/Integer.js~Integer.html#instance-method-ispositive",
+    "src/Integer.js~Integer#ispositive",
     "method"
   ],
   [
@@ -588,6 +768,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#isubn",
+    "class/src/Integer.js~Integer.html#instance-method-isubn",
+    "src/Integer.js~Integer#isubn",
+    "method"
+  ],
+  [
     "src/integer.js~integer#iszero",
     "class/src/Integer.js~Integer.html#instance-method-iszero",
     "src/Integer.js~Integer#iszero",
@@ -597,6 +783,12 @@ window.esdocSearchIndex = [
     "src/integer.js~integer#le",
     "class/src/Integer.js~Integer.html#instance-method-le",
     "src/Integer.js~Integer#le",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#len",
+    "class/src/Integer.js~Integer.html#instance-method-len",
+    "src/Integer.js~Integer#len",
     "method"
   ],
   [
@@ -612,9 +804,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#ltn",
+    "class/src/Integer.js~Integer.html#instance-method-ltn",
+    "src/Integer.js~Integer#ltn",
+    "method"
+  ],
+  [
     "src/integer.js~integer#mod",
     "class/src/Integer.js~Integer.html#instance-method-mod",
     "src/Integer.js~Integer#mod",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#modn",
+    "class/src/Integer.js~Integer.html#instance-method-modn",
+    "src/Integer.js~Integer#modn",
     "method"
   ],
   [
@@ -630,6 +834,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#muln",
+    "class/src/Integer.js~Integer.html#instance-method-muln",
+    "src/Integer.js~Integer#muln",
+    "method"
+  ],
+  [
     "src/integer.js~integer#ne",
     "class/src/Integer.js~Integer.html#instance-method-ne",
     "src/Integer.js~Integer#ne",
@@ -642,9 +852,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/integer.js~integer#nonzero",
-    "class/src/Integer.js~Integer.html#instance-method-nonzero",
-    "src/Integer.js~Integer#nonzero",
+    "src/integer.js~integer#nen",
+    "class/src/Integer.js~Integer.html#instance-method-nen",
+    "src/Integer.js~Integer#nen",
     "method"
   ],
   [
@@ -660,9 +870,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#parity",
+    "class/src/Integer.js~Integer.html#instance-method-parity",
+    "src/Integer.js~Integer#parity",
+    "method"
+  ],
+  [
     "src/integer.js~integer#pow",
     "class/src/Integer.js~Integer.html#instance-method-pow",
     "src/Integer.js~Integer#pow",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#pown",
+    "class/src/Integer.js~Integer.html#instance-method-pown",
+    "src/Integer.js~Integer#pown",
     "method"
   ],
   [
@@ -684,9 +906,33 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#subn",
+    "class/src/Integer.js~Integer.html#instance-method-subn",
+    "src/Integer.js~Integer#subn",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#tojson",
+    "class/src/Integer.js~Integer.html#instance-method-toJSON",
+    "src/Integer.js~Integer#toJSON",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#tonumber",
+    "class/src/Integer.js~Integer.html#instance-method-toNumber",
+    "src/Integer.js~Integer#toNumber",
+    "method"
+  ],
+  [
     "src/integer.js~integer#tostring",
     "class/src/Integer.js~Integer.html#instance-method-toString",
     "src/Integer.js~Integer#toString",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#valueof",
+    "class/src/Integer.js~Integer.html#instance-method-valueOf",
+    "src/Integer.js~Integer#valueOf",
     "method"
   ],
   [
@@ -705,6 +951,12 @@ window.esdocSearchIndex = [
     "src/integerring.js~integerring#$1",
     "class/src/IntegerRing.js~IntegerRing.html#instance-method-$1",
     "src/IntegerRing.js~IntegerRing#$1",
+    "method"
+  ],
+  [
+    "src/integerring.js~integerring#$_1",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-$_1",
+    "src/IntegerRing.js~IntegerRing#$_1",
     "method"
   ],
   [
@@ -750,6 +1002,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integerring.js~integerring#has",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-has",
+    "src/IntegerRing.js~IntegerRing#has",
+    "method"
+  ],
+  [
+    "src/integerring.js~integerring#max",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-max",
+    "src/IntegerRing.js~IntegerRing#max",
+    "method"
+  ],
+  [
+    "src/integerring.js~integerring#min",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-method-min",
+    "src/IntegerRing.js~IntegerRing#min",
+    "method"
+  ],
+  [
     "src/integerring.js~integerring#name",
     "class/src/IntegerRing.js~IntegerRing.html#instance-member-name",
     "src/IntegerRing.js~IntegerRing#name",
@@ -784,6 +1054,18 @@ window.esdocSearchIndex = [
     "class/src/ZeroDivisionError.js~ZeroDivisionError.html#instance-method-toString",
     "src/ZeroDivisionError.js~ZeroDivisionError#toString",
     "method"
+  ],
+  [
+    "src/_from_number.js",
+    "file/src/_from_number.js.html",
+    "src/_from_number.js",
+    "file"
+  ],
+  [
+    "src/_limits.js",
+    "file/src/_limits.js.html",
+    "src/_limits.js",
+    "file"
   ],
   [
     "src/index.js",

@@ -46,6 +46,18 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/usage.html"><a href="manual/usage.html" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/usage.html"><a href="manual/usage.html#notation" data-ice="link">Notation</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/usage.html"><a href="manual/usage.html#instructions" data-ice="link">Instructions</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#initialization" data-ice="link">Initialization</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#copying" data-ice="link">Copying</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#comparison" data-ice="link">Comparison</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#integer-arithmetic" data-ice="link">Integer Arithmetic</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#greatest-common-divisor" data-ice="link">Greatest Common Divisor</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#modular-arithmetic" data-ice="link">Modular Arithmetic</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#bit-operations" data-ice="link">Bit operations</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#test" data-ice="link">Test</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#utilities" data-ice="link">Utilities</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/usage.html"><a href="manual/usage.html#conversion" data-ice="link">Conversion</a></li>
 </ul>
   </div>
 <div data-ice="manual">
@@ -68,6 +80,126 @@ import &apos;@babel/polyfill&apos; ;</code>
 // or
 import * as integer from &apos;@aureooms/js-integer&apos; ;</code>
 </code></pre>
+<h2 id="notation">Notation</h2><p>The Notation tries to emulate the notation in <a href="https://github.com/indutny/bn.js">bn.js</a>.</p>
+<h2 id="instructions">Instructions</h2><p>Prefixes/postfixes are put in parens at the of the line.</p>
+<h3 id="initialization">Initialization</h3><ul>
+<li>[x] <code>ZZ.from(object, base = undefined, is_negative = 0)</code> (Base is guessed depending on object type if <code>undefined</code>, default is 10.)</li>
+</ul>
+<h3 id="copying">Copying</h3><ul>
+<li>[x] <code>a.clone()</code> - clone number</li>
+<li>[x] <code>a.move(b)</code> - copy <code>a</code>&apos;s&apos; properties to <code>b</code></li>
+</ul>
+<blockquote>
+<p>Note that we plan to be pure in the future.</p>
+</blockquote>
+<h3 id="comparison">Comparison</h3><ul>
+<li>[x] <code>a.cmp(b)</code> - compare numbers and return <code>-1</code> (a <code>&lt;</code> b), <code>0</code> (a <code>=</code> b), or <code>1</code> (a <code>&gt;</code> b) depending on the comparison result (<code>cmpn</code>)</li>
+<li>[x] <code>a.lt(b)</code> - <code>a</code> less than <code>b</code> (<code>n</code>)</li>
+<li>[x] <code>a.le(b)</code> - <code>a</code> less than or equals <code>b</code> (<code>n</code>)</li>
+<li>[x] <code>a.gt(b)</code> - <code>a</code> greater than <code>b</code> (<code>n</code>)</li>
+<li>[x] <code>a.ge(b)</code> - <code>a</code> greater than or equals <code>b</code> (<code>n</code>)</li>
+<li>[x] <code>a.eq(b)</code> - <code>a</code> equals <code>b</code> (<code>n</code>)</li>
+</ul>
+<h3 id="integer-arithmetic">Integer Arithmetic</h3><ul>
+<li>[x] <code>a.negate()</code> - negate sign (<code>ineg</code> in bn.js)</li>
+<li>[x] <code>a.opposite()</code> - negate sign (<code>neg</code> in bn.js)</li>
+<li><p>[x] <code>a.abs()</code> - absolute value (<code>i</code>)</p>
+</li>
+<li><p>[x] <code>a.add(b)</code> - addition (<code>i</code>, <code>n</code>, <code>in</code>)</p>
+</li>
+<li>[x] <code>a.sub(b)</code> - subtraction (<code>i</code>, <code>n</code>, <code>in</code>)</li>
+<li>[x] <code>a.mul(b)</code> - multiply (<code>i</code>, <code>n</code>, <code>in</code>)</li>
+<li>[x] <code>a.square()</code> - square (<code>i</code>, <code>sqr</code> in bn.js)</li>
+<li><p>[x] <code>a.pow(b)</code> - raise <code>a</code> to the power of <code>b</code> (<code>i</code>, <code>n</code>, <code>in</code>)</p>
+</li>
+<li><p>[x] <code>[q,r] = a.divmod(b)</code> - divide (<code>i</code>, <code>n</code>)</p>
+</li>
+<li>[x] <code>q = a.div(b)</code> - division quotient (<code>u</code>, <code>n</code>)</li>
+<li>[x] <code>r = a.mod(b)</code> - division remained (<code>u</code>, <code>n</code>) (but no <code>umodn</code>)</li>
+<li>[x] <code>q = a.divround(b)</code> - rounded division</li>
+</ul>
+<blockquote>
+<p>In the future, remove in-place operations. They make very little sense except
+in a few exceptional cases like increment/decrement. If the result is too big
+to fit in the original array we will have to resize it to make it fit anyway.
+Maybe little endianess would save the day in that case. Who knows...
+Could use an immutable flag that is set as soon as a shallow copy is made?
+Then all operations could try to run in-place if no shallow copy exists.</p>
+</blockquote>
+<h3 id="greatest-common-divisor">Greatest Common Divisor</h3><ul>
+<li>[x] <code>a.gcd(b)</code> - GCD</li>
+<li>[x] <code>a.egcd(b)</code> - Extended GCD results (<code>{ gcd: ..., x: ..., y: ..., u: ..., v: ... }</code>)</li>
+</ul>
+<h3 id="modular-arithmetic">Modular Arithmetic</h3><ul>
+<li>[ ] <code>ZZ(n)</code> - integers modulo <code>n</code></li>
+<li>[ ] <code>ZZ(n).get(3)</code> - <code>returns the equivalence class [3]_n</code></li>
+<li>[ ] <code>a.add(b)</code> - no comment</li>
+<li>[ ] <code>a.sub(b)</code> - no comment</li>
+<li>[ ] <code>a.mul(b)</code> - no comment</li>
+<li>[ ] <code>a.inv()</code> - inverse <code>a</code> modulo <code>n</code></li>
+<li>[ ] <code>a.square()</code> - no comment</li>
+<li>[ ] <code>a.pow(b)</code> - no comment</li>
+</ul>
+<h3 id="bit-operations">Bit operations</h3><p>We should really have two packages:</p>
+<ul>
+<li>One for immutable, keyable, hashable integers.</li>
+<li>One for safe in-place word array manipulation.</li>
+</ul>
+<p>There are multiple reasons for this:</p>
+<ul>
+<li>Some bit operations do not really care about endianess</li>
+<li>It only works efficiently with a radix that is a power of 2</li>
+</ul>
+<p>Q: Does it make any sense to have those operations defined for unbounded
+integers?</p>
+<p>The following will be implemented in a package to come.</p>
+<ul>
+<li>[ ] <code>a.or(b)</code> - or (<code>i</code>, <code>u</code>, <code>iu</code>)</li>
+<li>[ ] <code>a.and(b)</code> - and (<code>i</code>, <code>u</code>, <code>iu</code>, <code>andln</code>) (NOTE: <code>andln</code> is going to be replaced with <code>andn</code> in future)</li>
+<li>[ ] <code>a.xor(b)</code> - xor (<code>i</code>, <code>u</code>, <code>iu</code>)</li>
+<li>[ ] <code>a.setn(b)</code> - set specified bit to <code>1</code></li>
+<li>[ ] <code>a.shln(b)</code> - shift left (<code>i</code>, <code>u</code>, <code>iu</code>)</li>
+<li>[ ] <code>a.shrn(b)</code> - shift right (<code>i</code>, <code>u</code>, <code>iu</code>)</li>
+<li>[ ] <code>a.testn(b)</code> - test if specified bit is set</li>
+<li>[ ] <code>a.maskn(b)</code> - clear bits with indexes higher or equal to <code>b</code> (<code>i</code>)</li>
+<li>[ ] <code>a.bincn(b)</code> - add <code>1 &lt;&lt; b</code> to the number</li>
+<li>[ ] <code>a.notn(w)</code> - not (for the width specified by <code>w</code>) (<code>i</code>)</li>
+</ul>
+<h3 id="test">Test</h3><ul>
+<li>[x] <code>a.sign()</code> - return -1, 0, 1</li>
+<li>[x] <code>a.iszero()</code> - no comments</li>
+<li>[x] <code>a.isone()</code> - no comments</li>
+<li>[x] <code>a.ispositive()</code> - no comments</li>
+<li>[x] <code>a.isnegative()</code> - no comments</li>
+<li>[x] <code>a.isnonnegative()</code> - no comments</li>
+<li>[x] <code>a.isnonpositive()</code> - no comments</li>
+<li>[x] <code>a.iseven()</code> - no comments</li>
+<li>[x] <code>a.isodd()</code> - no comments</li>
+<li>[x] <code>a.divides(b)</code> - no comments</li>
+</ul>
+<h3 id="utilities">Utilities</h3><ul>
+<li>[x] <code>ZZ.has(object)</code> - returns true if the supplied <code>object</code> is an integer.</li>
+<li>[x] <code>ZZ.max(a, b)</code> - return <code>a</code> if <code>a</code> larger than <code>b</code>.</li>
+<li>[x] <code>ZZ.min(a, b)</code> - return <code>a</code> if <code>a</code> smaller than <code>b</code>.</li>
+<li>[ ] <code>a.bitLength()</code> - get number of bits occupied</li>
+<li>[ ] <code>a.zeroBits()</code> - return number of less-significant consequent zero bits (example: <code>1010000</code> has 4 zero bits)</li>
+<li>[ ] <code>a.byteLength()</code> - return number of bytes occupied</li>
+<li>[ ] <code>a.toTwos(width)</code> - convert to two&apos;s complement representation, where <code>width</code> is bit width</li>
+<li>[ ] <code>a.fromTwos(width)</code> - convert from two&apos;s complement representation, where <code>width</code> is the bit width</li>
+</ul>
+<h3 id="conversion">Conversion</h3><ul>
+<li>[x] <code>a.toString(base=10)</code> - convert to base-string (No zero padding, this is up to you)</li>
+<li>[x] <code>a.bin()</code> - alias for <code>a.toString(2)</code></li>
+<li>[x] <code>a.oct()</code> - alias for <code>a.toString(8)</code></li>
+<li>[x] <code>a.hex()</code> - alias for <code>a.toString(16)</code></li>
+<li>[x] <code>d = a.digits(base=10)</code> - returns little endian array of digits in given base so that d[0] is the first digit, d[1] the second, etc.</li>
+<li>[x] <code>a.bin()</code> - alias for <code>a.digits(2)</code>.</li>
+<li>[x] <code>a.valueOf()</code> - convert to Javascript Number (limited to 53 bits <code>toNumber</code> in bn.js)</li>
+<li>[x] <code>a.toJSON()</code> - convert to JSON compatible hex string (alias of <code>toString(16)</code>)</li>
+<li>[ ] <code>a.to(type, endian, length)</code> - convert to an instance of <code>type</code>, which must behave like an <code>Array</code> (<code>toArrayLike</code> in bn.js)</li>
+<li>[ ] <code>a.toArray(endian, length)</code> - convert to byte <code>Array</code>, and optionally zero pad to length, throwing if already exceeding</li>
+<li>[ ] <code>a.toBuffer(endian, length)</code> - convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: <code>a.toArrayLike(Buffer, endian, length)</code></li>
+</ul>
 </div>
 </div>
 

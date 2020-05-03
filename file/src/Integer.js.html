@@ -32,8 +32,10 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Integer.js~Integer.html">Integer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/IntegerRing.js~IntegerRing.html">IntegerRing</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/ZeroDivisionError.js~ZeroDivisionError.html">ZeroDivisionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-_from_number">_from_number</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$0">$0</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$1">$1</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-$_1">$_1</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-add">add</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-div">div</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-iadd">iadd</a></span></span></li>
@@ -51,6 +53,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_DISPLAY_BASE">DEFAULT_DISPLAY_BASE</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DEFAULT_REPRESENTATION_BASE">DEFAULT_REPRESENTATION_BASE</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ZZ">ZZ</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MAX_BASE">MAX_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MAX_NUMBER">MAX_NUMBER</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MIN_BASE">MIN_BASE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-MIN_NUMBER">MIN_NUMBER</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -58,13 +64,20 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/Integer.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from &apos;./&apos; ;
 
+import { ValueError } from &apos;@aureooms/js-error&apos; ;
+
+import { _from_number } from &apos;./_from_number&apos; ;
+
 import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
-	_jz , _cmp , _eq ,
-	add , _sub , mul , _idivmod , _powd ,
-	_increment ,
+	jz , cmp , eq ,
+	add , _sub , mul , _idivmod , _pow_double ,
+	increment ,
+	euclidean_algorithm , extended_euclidean_algorithm ,
 } from &apos;@aureooms/js-integer-big-endian&apos; ;
+
+import { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from &apos;./_limits&apos; ;
 
 export class Integer {
 
@@ -81,11 +94,12 @@ export class Integer {
 		return other ;
 	}
 
-	copy ( ) {
+	clone ( ) {
 		return new Integer( this.base , this.is_negative , this.limbs ) ;
 	}
 
 	_limbs_in_base ( base ) {
+		// TODO save result for later ? Maybe replace base ?
 		if ( this.base === base ) return this.limbs ;
 		else return convert( this.base , base , this.limbs , 0 , this.limbs.length ) ;
 	}
@@ -134,6 +148,16 @@ export class Integer {
 		return this.add(other).move(this);
 	}
 
+	addn ( number ) {
+		// TODO optimize
+		return this.add(_from_number(number)) ;
+	}
+
+	iaddn ( number ) {
+		// TODO optimize but be careful with side effects
+		return this.addn(number).move(this);
+	}
+
 	sub ( other ) {
 
 		if ( this.is_negative !== other.is_negative ) {
@@ -159,9 +183,9 @@ export class Integer {
 			const bj = b.length ;
 			const bi = _trim_positive( b , 0 , bj ) ;
 
-			if ( bi &gt;= bj ) return this.copy() ;
+			if ( bi &gt;= bj ) return this.clone() ;
 
-			if ( _cmp( a , ai , aj , b , bi , bj ) &lt; 0 ) {
+			if ( cmp( a , ai , aj , b , bi , bj ) &lt; 0 ) {
 
 				const c = _zeros( bj - bi ) ;
 
@@ -189,6 +213,14 @@ export class Integer {
 		return this.sub(other).move(this);
 	}
 
+	subn ( number ) {
+		return this.sub(_from_number(number));
+	}
+
+	isubn ( number ) {
+		return this.subn(number).move(this);
+	}
+
 	mul ( other ) {
 
 		const result_is_negative = this.is_negative ^ other.is_negative ;
@@ -211,6 +243,14 @@ export class Integer {
 		return this.mul(other).move(this);
 	}
 
+	muln ( number ) {
+		return this.mul(_from_number(number));
+	}
+
+	imuln ( number ) {
+		return this.muln(number).move(this);
+	}
+
 	/**
 	 * Computes &lt;code&gt;this&lt;/code&gt; raised to the &lt;code&gt;x&lt;/code&gt;th power.
 	 * &lt;code&gt;x&lt;/code&gt; is a double smaller or equal to 2^53.
@@ -218,31 +258,42 @@ export class Integer {
 	 * @param {Number} x The power to raise &lt;code&gt;this&lt;/code&gt; to.
 	 * @return {Integer} &lt;code&gt;this ^ x&lt;/code&gt;
 	 */
-	pow ( x ) {
+	pown ( x ) {
 
 		const is_negative = this.is_negative &amp; x &amp; 1 ? -1 : 0 ;
 
 		const a = this.limbs ;
 		const c = _zeros( Math.max( 1 , a.length * x ) ) ;
 
-		_powd( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;
+		_pow_double( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;
 
 		return new Integer( this.base , is_negative , c ) ;
 
 	}
 
-	ipow ( x ) {
+	pow ( other ) {
+		return this.pown( other.valueOf() ) ;
+	}
+
+	ipow ( other ) {
 		// TODO optimize but be careful with side effects
-		return this.pow(x).move(this);
+		return this.pow(other).move(this);
+	}
+
+	ipown ( number ) {
+		// TODO optimize but be careful with side effects
+		return this.pown(other).move(this);
 	}
 
 	square ( ) {
 		// TODO optimize but be careful with side effects
+		// TODO use this.mul(this) instead?
 		return this.pow(2);
 	}
 
 	isquare ( ) {
 		// TODO optimize but be careful with side effects
+		// TODO use this.imul(this) instead?
 		return this.ipow(2);
 	}
 
@@ -250,18 +301,40 @@ export class Integer {
 		return this.divmod( other )[0] ;
 	}
 
+	divn ( number ) {
+		return this.div(_from_number(number)) ;
+	}
+
 	idiv ( other ) {
 		// TODO optimize but be careful with side effects
 		return this.div(other).move(this);
+	}
+
+	idivn ( number ) {
+		return this.divn(number).move(this);
 	}
 
 	mod ( other ) {
 		return this.divmod( other )[1] ;
 	}
 
+	modn ( number ) {
+		return this.mod(_from_number(number)) ;
+	}
+
 	imod ( other ) {
 		// TODO optimize but be careful with side effects
 		return this.mod(other).move(this);
+	}
+
+	imodn ( number ) {
+		return this.modn(number).move(this);
+	}
+
+	divround ( other ) {
+		const [ q , r ] = this.divmod(other) ;
+		if ( r &gt;= ( this.base / 2 | 0 ) ) increment( r , q.limbs , 0 , q.limbs.length ) ;
+		return q ;
 	}
 
 	divmod ( other ) {
@@ -295,12 +368,12 @@ export class Integer {
 		const Q = new Integer( r , quotient_is_negative , q ) ; // quotient
 		const R = new Integer( r , 0 , D ) ;                    // remainder
 
-		if ( (this.is_negative || other.is_negative ) &amp;&amp; !_jz( D , 0 , D.length ) ) {
+		if ( (this.is_negative || other.is_negative ) &amp;&amp; !jz( D , 0 , D.length ) ) {
 
 			if ( other.is_negative ) {
 
 				if ( !this.is_negative ) {
-					_increment( r , q , 0 , q.length ) ;
+					increment( r , q , 0 , q.length ) ;
 					R.iadd( other ) ; // TODO optimize
 				}
 
@@ -311,7 +384,7 @@ export class Integer {
 			}
 
 			else {
-				_increment( r , q , 0 , q.length ) ;
+				increment( r , q , 0 , q.length ) ;
 				R.negate().iadd( other ) ; // TODO optimize
 			}
 
@@ -319,6 +392,12 @@ export class Integer {
 
 		return [ Q , R ] ;
 
+	}
+
+	idivmod ( other ) {
+		// TODO optimize but be careful with side effects
+		const [ q , r ] = this.divmod(other) ;
+		return [ q.move(this) , r ] ;
 	}
 
 	opposite ( ) {
@@ -330,21 +409,59 @@ export class Integer {
 		return this.opposite().move(this);
 	}
 
+	abs ( ) {
+		return this.sign() &gt;= 0 ? this : this.opposite(this) ;
+	}
+
+	iabs ( ) {
+		return this.sign() &gt;= 0 ? this : this.negate(this) ;
+	}
+
 	sign ( ) {
 		return this.iszero() ? 0 : this.is_negative ? -1 : 1 ;
 	}
 
 	iszero ( ) {
-		return _jz( this.limbs , 0 , this.limbs.length ) ;
+		return jz( this.limbs , 0 , this.limbs.length ) ;
 	}
 
 	isone ( ) {
 		if ( this.is_negative ) return false ;
-		return _eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
+		return eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
 	}
 
-	nonzero ( ) {
+	isnonzero ( ) {
 		return !this.iszero();
+	}
+
+	isnegative ( ) {
+		return this.is_negative ;
+	}
+
+	ispositive ( ) {
+		return this.sign() &gt; 0 ;
+	}
+
+	isnonnegative ( ) {
+		return !this.negative();
+	}
+
+	isnonpositive ( ) {
+		return !this.positive() ;
+	}
+
+	parity ( ) {
+		// TODO optimize this, there is a much faster way to test for parity
+		// when the base is a multiple of two
+		return this.modn(2) ;
+	}
+
+	iseven ( ) {
+		return this.parity().iszero() ;
+	}
+
+	isodd ( ) {
+		return !this.iseven() ;
 	}
 
 	bin ( ) {
@@ -359,7 +476,13 @@ export class Integer {
 		return this.toString( 16 ) ;
 	}
 
+	toJSON ( ) {
+		return this.hex( ) ;
+	}
+
 	digits ( base = DEFAULT_DISPLAY_BASE ) {
+		// TODO Once #to is implemented we can rewrite this as
+		// return this.to(LITTLE_ENDIAN, base, Array) ;
 		return convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;
 	}
 
@@ -372,11 +495,12 @@ export class Integer {
 	}
 
 	divide_knowing_divisible_by ( other ) {
+		// TODO optimize
 		return this.div( other ) ;
 	}
 
-	cmp ( other ) {
 
+	cmp ( other ) {
 		// TODO optimize with _trim_positive
 
 		if ( this.iszero( ) ) {
@@ -391,32 +515,116 @@ export class Integer {
 		const a = this.limbs ;
 		const b = other._limbs_in_base( this.base ) ;
 
-		return _cmp( a , 0 , a.length , b , 0 , b.length ) ;
+		return this.is_negative === 0 ?
+			cmp( a , 0 , a.length , b , 0 , b.length ) :
+			cmp( b , 0 , b.length , a , 0 , a.length ) ;
 
+	}
+
+	cmpn ( number ) {
+		return this.cmp(_from_number(number)) ;
 	}
 
 	eq ( other ) {
 		return this.cmp( other ) === 0 ;
 	}
 
+	eqn ( number ) {
+		return this.cmpn( number ) === 0 ;
+	}
+
 	ge ( other ) {
 		return this.cmp( other ) &gt;= 0 ;
+	}
+
+	gen ( number ) {
+		return this.cmpn( number ) &gt;= 0 ;
 	}
 
 	gt ( other ) {
 		return this.cmp( other ) &gt; 0 ;
 	}
 
+	gtn ( number ) {
+		return this.cmpn( number ) &gt; 0 ;
+	}
+
 	le ( other ) {
 		return this.cmp( other ) &lt;= 0 ;
+	}
+
+	len ( number ) {
+		return this.cmpn( number ) &lt;= 0 ;
 	}
 
 	lt ( other ) {
 		return this.cmp( other ) &lt; 0 ;
 	}
 
+	ltn ( number ) {
+		return this.cmpn( number ) &lt; 0 ;
+	}
+
 	ne ( other ) {
 		return this.cmp( other ) !== 0 ;
+	}
+
+	nen ( number ) {
+		return this.cmpn( number ) !== 0 ;
+	}
+
+	gcd ( other ) {
+		const r = this.base ;
+		const a = this.limbs ;
+		const b = other._limbs_in_base( r ) ;
+		const [ d , di , dj ] = euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;
+		const gcd = _alloc( dj - di ) ;
+		_copy( d , di , dj , gcd , 0 ) ;
+		return new Integer( r , 0 , gcd ) ;
+	}
+
+	egcd ( other ) {
+		const r = this.base ;
+		const a = this.limbs ;
+		const b = other._limbs_in_base( r ) ;
+		const [ R0 , R0i , S0 , S0i , T0 , T0i , S1 , S1i , T1 , T1i , steps ] = extended_euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;
+		const gcd = _alloc( R0.length - R0i ) ;
+		_copy( R0 , R0i , R0.length , gcd , 0 ) ;
+		const x = _alloc( S0.length - S0i ) ;
+		_copy( S0 , S0i , S0.length , x , 0 ) ;
+		const y = _alloc( T0.length - T0i ) ;
+		_copy( T0 , T0i , T0.length , y , 0 ) ;
+		const u = _alloc( S1.length - S1i ) ;
+		_copy( S1 , S1i , S1.length , u , 0 ) ;
+		const v = _alloc( T1.length - T1i ) ;
+		_copy( T1 , T1i , T1.length , v , 0 ) ;
+		return { // TODO use immutable zero
+			gcd: new Integer(r, 0, gcd) ,
+			x: x.length ? new Integer(r, this.is_negative ^ ((steps % 2)-1), x) : new Integer(r, 0, [0]) ,
+			y: y.length ? new Integer(r, other.is_negative ^ (-(steps % 2)), y) : new Integer(r, 0, [0]) ,
+			u: u.length ? new Integer(r, this.is_negative ^ (-(steps % 2)), u) : new Integer(r, 0, [0]) ,
+			v: v.length ? new Integer(r, other.is_negative ^ ((steps % 2)-1), v) : new Integer(r, 0, [0]) ,
+		} ;
+	}
+
+	valueOf ( ) {
+
+		if (this.gtn(MAX_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer larger than ${MAX_NUMBER}. Got ${this.toString()}`) ;
+		if (this.ltn(MIN_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer smaller than ${MIN_NUMBER}. Got ${this.toString()}`) ;
+
+		const limbs = convert( this.base , MAX_BASE , this.limbs , 0 , this.limbs.length ) ;
+
+		const sign = this.is_negative ? -1 : 1 ;
+
+		const value = limbs.length === 2 ?
+			limbs[0] * MAX_BASE + limbs[1] :
+			limbs[0] ;
+
+		return sign * value ;
+	}
+
+	toNumber ( ) {
+		return this.valueOf( ) ;
 	}
 
 }
