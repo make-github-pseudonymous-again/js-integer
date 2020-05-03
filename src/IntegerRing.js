@@ -94,4 +94,8 @@ export class IntegerRing {
 		return new Integer( this.base , 0 , [ 1 ] ) ;
 	}
 
+	$_1 ( ) {
+		return new Integer( this.base , -1 , [ 1 ] ) ;
+	}
+
 }

@@ -8,6 +8,10 @@ export function $1 ( ) {
 	return ZZ.$1() ;
 }
 
+export function $_1 ( ) {
+	return ZZ.$_1() ;
+}
+
 export function parse ( object , base = undefined , is_negative = 0 ) {
 	return ZZ.from( object , base , is_negative ) ;
 }
