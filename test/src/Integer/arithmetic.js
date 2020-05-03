@@ -225,3 +225,91 @@ test ( 'catch ZeroDivisionError' , t => {
 	}
 
 }) ;
+
+test( 'simple in-place operations with 12 and 20 <double>' , t => {
+
+	const a = ZZ.from( 12 ) ;
+	const b = ZZ.from( 20 ) ;
+
+	t.is( a.iaddn( b.valueOf() ).toString() , '32' ) ;
+	t.is( b.iaddn( a.valueOf() ).toString() , '52' ) ;
+
+	t.is( a.isubn( b.valueOf() ).toString() , '-20' ) ;
+	t.is( b.isubn( a.valueOf() ).toString() , '72' ) ;
+
+	t.is( a.imuln( b.valueOf() ).toString() , '-1440' ) ;
+	t.is( b.imuln( a.valueOf() ).toString() , '-103680' ) ;
+
+	t.is( a.idivn( b.valueOf() ).toString() , '0' ) ;
+	t.throws( () => b.idivn( a.valueOf() ).toString() , { instanceOf: ZeroDivisionError } ) ;
+
+	t.is( a.imodn( b ).toString() , '0' ) ;
+	t.throws( () => b.imodn( a.valueOf() ).toString() , { instanceOf: ZeroDivisionError } ) ;
+
+}) ;
+
+test( 'simple in-place operations with -12 and -20 <double>' , t => {
+
+	const a = ZZ.from( -12 ) ;
+	const b = ZZ.from( -20 ) ;
+
+	t.is( a.iaddn( b.valueOf() ).toString() , '-32' ) ;
+	t.is( b.iaddn( a.valueOf() ).toString() , '-52' ) ;
+
+	t.is( a.isubn( b.valueOf() ).toString() , '20' ) ;
+	t.is( b.isubn( a.valueOf() ).toString() , '-72' ) ;
+
+	t.is( a.imuln( b.valueOf() ).toString() , '-1440' ) ;
+	t.is( b.imuln( a.valueOf() ).toString() , '103680' ) ;
+
+	t.is( a.idivn( b.valueOf() ).toString() , '-1' ) ;
+	t.is( b.idivn( a.valueOf() ).toString() , '-103680' ) ;
+
+	t.is( a.imodn( b.valueOf() ).toString() , '-1' ) ;
+	t.is( b.imodn( a.valueOf() ).toString() , '0' ) ;
+
+}) ;
+
+test( 'simple in-place operations with 12 and -20 <double>' , t => {
+
+	const a = ZZ.from(  12 ) ;
+	const b = ZZ.from( -20 ) ;
+
+	t.is( a.iaddn( b.valueOf() ).toString() , '-8' ) ;
+	t.is( b.iaddn( a.valueOf() ).toString() , '-28' ) ;
+
+	t.is( a.isubn( b.valueOf() ).toString() , '20' ) ;
+	t.is( b.isubn( a.valueOf() ).toString() , '-48' ) ;
+
+	t.is( a.imuln( b.valueOf() ).toString() , '-960' ) ;
+	t.is( b.imuln( a.valueOf() ).toString() , '46080' ) ;
+
+	t.is( a.idivn( b.valueOf() ).toString() , '-1' ) ;
+	t.is( b.idivn( a.valueOf() ).toString() , '-46080' ) ;
+
+	t.is( a.imodn( b.valueOf() ).toString() , '-1' ) ;
+	t.is( b.imodn( a.valueOf() ).toString() , '0' ) ;
+
+}) ;
+
+test( 'simple in-place operations with -12 and 20 <double>' , t => {
+
+	const a = ZZ.from( -12 ) ;
+	const b = ZZ.from(  20 ) ;
+
+	t.is( a.iaddn( b.valueOf() ).toString() , '8' ) ;
+	t.is( b.iaddn( a.valueOf() ).toString() , '28' ) ;
+
+	t.is( a.isubn( b.valueOf() ).toString() , '-20' ) ;
+	t.is( b.isubn( a.valueOf() ).toString() , '48' ) ;
+
+	t.is( a.imuln( b.valueOf() ).toString() , '-960' ) ;
+	t.is( b.imuln( a.valueOf() ).toString() , '-46080' ) ;
+
+	t.is( a.idivn( b.valueOf() ).toString() , '0' ) ;
+	t.throws( ( ) => b.idivn( a.valueOf() ).toString() , { instanceOf: ZeroDivisionError } ) ;
+
+	t.is( a.imodn( b.valueOf() ).toString() , '0' ) ;
+	t.throws( ( ) => b.imodn( a.valueOf() ).toString() , { instanceOf: ZeroDivisionError } ) ;
+
+}) ;
