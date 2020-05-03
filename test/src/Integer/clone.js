@@ -6,7 +6,7 @@ test ( 'Integer#copy' , t => {
 	const s = '34998403804830' ;
 
 	const a = ZZ.from(s) ;
-	const b = a.copy();
+	const b = a.clone();
 
 	t.is(a.toString(), s);
 	t.is(b.toString(), s);

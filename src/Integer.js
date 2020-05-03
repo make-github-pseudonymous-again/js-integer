@@ -23,7 +23,7 @@ export class Integer {
 		return other ;
 	}
 
-	copy ( ) {
+	clone ( ) {
 		return new Integer( this.base , this.is_negative , this.limbs ) ;
 	}
 
@@ -101,7 +101,7 @@ export class Integer {
 			const bj = b.length ;
 			const bi = _trim_positive( b , 0 , bj ) ;
 
-			if ( bi >= bj ) return this.copy() ;
+			if ( bi >= bj ) return this.clone() ;
 
 			if ( cmp( a , ai , aj , b , bi , bj ) < 0 ) {
 
