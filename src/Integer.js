@@ -6,6 +6,7 @@ import {
 	jz , cmp , eq ,
 	add , _sub , mul , _idivmod , _pow_double ,
 	increment ,
+	euclidean_algorithm , extended_euclidean_algorithm ,
 } from '@aureooms/js-integer-big-endian' ;
 
 import { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from './_limits' ;
@@ -366,6 +367,41 @@ export class Integer {
 	lt ( other ) {
 		return this.cmp( other ) < 0 ;
 	}
+
+	gcd ( other ) {
+		const r = this.base ;
+		const a = this.limbs ;
+		const b = other._limbs_in_base( r ) ;
+		const [ d , di , dj ] = euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;
+		const gcd = _alloc( dj - di ) ;
+		_copy( d , di , dj , gcd , 0 ) ;
+		return new Integer( r , 0 , gcd ) ;
+	}
+
+	egcd ( other ) {
+		const r = this.base ;
+		const a = this.limbs ;
+		const b = other._limbs_in_base( r ) ;
+		const [ R0 , R0i , S0 , S0i , T0 , T0i , S1 , S1i , T1 , T1i , steps ] = extended_euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;
+		const gcd = _alloc( R0.length - R0i ) ;
+		_copy( R0 , R0i , R0.length , gcd , 0 ) ;
+		const x = _alloc( S0.length - S0i ) ;
+		_copy( S0 , S0i , S0.length , x , 0 ) ;
+		const y = _alloc( T0.length - T0i ) ;
+		_copy( T0 , T0i , T0.length , y , 0 ) ;
+		const u = _alloc( S1.length - S1i ) ;
+		_copy( S1 , S1i , S1.length , u , 0 ) ;
+		const v = _alloc( T1.length - T1i ) ;
+		_copy( T1 , T1i , T1.length , v , 0 ) ;
+		return { // TODO use immutable zero
+			gcd: new Integer(r, 0, gcd) ,
+			x: x.length ? new Integer(r, this.is_negative ^ ((steps % 2)-1), x) : new Integer(r, 0, [0]) ,
+			y: y.length ? new Integer(r, other.is_negative ^ (-(steps % 2)), y) : new Integer(r, 0, [0]) ,
+			u: u.length ? new Integer(r, this.is_negative ^ (-(steps % 2)), u) : new Integer(r, 0, [0]) ,
+			v: v.length ? new Integer(r, other.is_negative ^ ((steps % 2)-1), v) : new Integer(r, 0, [0]) ,
+		} ;
+	}
+
 
 	ne ( other ) {
 		return this.cmp( other ) !== 0 ;
