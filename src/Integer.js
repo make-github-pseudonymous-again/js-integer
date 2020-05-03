@@ -1,5 +1,7 @@
 import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 
+import { ValueError } from '@aureooms/js-error' ;
+
 import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
