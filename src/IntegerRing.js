@@ -68,6 +68,8 @@ export class IntegerRing {
 
 		const limbs = parse( base , this.base , string ) ;
 
+		if (limbs.length === 1 && limbs[0] === 0) is_negative = 0 ;
+
 		return new Integer( this.base , is_negative , limbs ) ;
 
 	}
