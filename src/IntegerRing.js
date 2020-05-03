@@ -104,4 +104,12 @@ export class IntegerRing {
 		return Number.isInteger(x) ;
 	}
 
+	min ( a , b ) {
+		return a.le(b) ? a : b ;
+	}
+
+	max ( a , b ) {
+		return a.ge(b) ? a : b ;
+	}
+
 }
