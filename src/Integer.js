@@ -345,6 +345,14 @@ export class Integer {
 		return this.opposite().move(this);
 	}
 
+	abs ( ) {
+		return this.sign() >= 0 ? this : this.opposite(this) ;
+	}
+
+	iabs ( ) {
+		return this.sign() >= 0 ? this : this.negate(this) ;
+	}
+
 	sign ( ) {
 		return this.iszero() ? 0 : this.is_negative ? -1 : 1 ;
 	}
