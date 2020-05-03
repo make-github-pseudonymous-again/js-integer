@@ -8,6 +8,8 @@ import {
 	increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
+import { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from './_limits' ;
+
 export class Integer {
 
 	constructor ( base , is_negative , limbs ) {
@@ -367,6 +369,26 @@ export class Integer {
 
 	ne ( other ) {
 		return this.cmp( other ) !== 0 ;
+	}
+
+	valueOf ( ) {
+
+		if (this.gtn(MAX_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer larger than ${MAX_NUMBER}. Got ${this.toString()}`) ;
+		if (this.ltn(MIN_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer smaller than ${MIN_NUMBER}. Got ${this.toString()}`) ;
+
+		const limbs = convert( this.base , MAX_BASE , this.limbs , 0 , this.limbs.length ) ;
+
+		const sign = this.is_negative ? -1 : 1 ;
+
+		const value = limbs.length === 2 ?
+			limbs[0] * MAX_BASE + limbs[1] :
+			limbs[0] ;
+
+		return sign * value ;
+	}
+
+	toNumber ( ) {
+		return this.valueOf( ) ;
 	}
 
 }
