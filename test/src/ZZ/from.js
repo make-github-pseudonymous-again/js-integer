@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , ValueError , TypeError } from '../../../src' ;
+import { ZZ , ValueError , TypeError , MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
 
 test( 'ZZ.from()' , t => {
 
@@ -19,6 +19,9 @@ test( 'ZZ.from()' , t => {
 	t.is( ZZ.from('+10').toString() , '10' ) ;
 
 	t.is( ZZ.from( [ 0 , 1 ] ).toString() , ZZ.base.toString() ) ;
+
+	t.is( MAX_NUMBER.toString() , ZZ.from(MAX_NUMBER).toString() ) ;
+	t.is( MIN_NUMBER.toString() , ZZ.from(MIN_NUMBER).toString() ) ;
 
 	t.is( ZZ.from(ZZ.from(2, undefined, -1).pow(12)).toString(), '4096')
 	t.is( ZZ.from(ZZ.from(2, undefined, 0).pow(12)).toString(), '4096')

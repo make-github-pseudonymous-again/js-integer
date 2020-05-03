@@ -2,6 +2,7 @@ import { Integer } from './' ;
 import { DEFAULT_DISPLAY_BASE } from './' ;
 import { parse , convert } from '@aureooms/js-integer-big-endian' ;
 import { TypeError , ValueError } from '@aureooms/js-error' ;
+import { _from_number } from './_from_number' ;
 
 export class IntegerRing {
 
@@ -49,14 +50,11 @@ export class IntegerRing {
 
 	from_number ( number , is_negative = 0 ) {
 
-		if ( number < 0 ) {
-			is_negative = ~is_negative ;
-			number = -number ;
-		}
+		const dirty = _from_number(number) ;
 
-		const limbs = convert( 0x20000000000000 , this.base , [ number ] , 0 , 1 ) ;
+		const limbs = dirty._limbs_in_base(this.base) ;
 
-		return new Integer( this.base , is_negative , limbs ) ;
+		return new Integer( this.base , is_negative ^ dirty.is_negative , limbs ) ;
 
 	}
 
