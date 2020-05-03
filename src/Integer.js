@@ -269,7 +269,7 @@ export class Integer {
 
 	divround ( other ) {
 		const [ q , r ] = this.divmod(other) ;
-		if ( r >= ( this.base / 2 | 0 ) ) increment( r , q.limbs , 0 , q.limbs.length ) ;
+		if ( r.ge(other.divn(2).addn(other.iseven() ? 0 : 1)) ) increment( q.base , q.limbs , 0 , q.limbs.length ) ;
 		return q ;
 	}
 
