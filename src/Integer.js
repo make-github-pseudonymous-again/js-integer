@@ -370,6 +370,20 @@ export class Integer {
 		return !this.iszero();
 	}
 
+	parity ( ) {
+		// TODO optimize this, there is a much faster way to test for parity
+		// when the base is a multiple of two
+		return this.modn(2) ;
+	}
+
+	iseven ( ) {
+		return this.parity().iszero() ;
+	}
+
+	isodd ( ) {
+		return !this.iseven() ;
+	}
+
 	bin ( ) {
 		return this.toString( 2 ) ;
 	}
