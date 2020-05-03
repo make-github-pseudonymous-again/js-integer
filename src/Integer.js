@@ -2,6 +2,8 @@ import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 
 import { ValueError } from '@aureooms/js-error' ;
 
+import { _from_number } from './_from_number' ;
+
 import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
@@ -81,6 +83,16 @@ export class Integer {
 		return this.add(other).move(this);
 	}
 
+	addn ( number ) {
+		// TODO optimize
+		return this.add(_from_number(number)) ;
+	}
+
+	iaddn ( number ) {
+		// TODO optimize but be careful with side effects
+		return this.addn(number).move(this);
+	}
+
 	sub ( other ) {
 
 		if ( this.is_negative !== other.is_negative ) {
@@ -136,6 +148,14 @@ export class Integer {
 		return this.sub(other).move(this);
 	}
 
+	subn ( number ) {
+		return this.sub(_from_number(number));
+	}
+
+	isubn ( number ) {
+		return this.subn(number).move(this);
+	}
+
 	mul ( other ) {
 
 		const result_is_negative = this.is_negative ^ other.is_negative ;
@@ -158,6 +178,14 @@ export class Integer {
 		return this.mul(other).move(this);
 	}
 
+	muln ( number ) {
+		return this.mul(_from_number(number));
+	}
+
+	imuln ( number ) {
+		return this.muln(number).move(this);
+	}
+
 	/**
 	 * Computes <code>this</code> raised to the <code>x</code>th power.
 	 * <code>x</code> is a double smaller or equal to 2^53.
@@ -165,7 +193,7 @@ export class Integer {
 	 * @param {Number} x The power to raise <code>this</code> to.
 	 * @return {Integer} <code>this ^ x</code>
 	 */
-	pow ( x ) {
+	pown ( x ) {
 
 		const is_negative = this.is_negative & x & 1 ? -1 : 0 ;
 
@@ -178,9 +206,18 @@ export class Integer {
 
 	}
 
-	ipow ( x ) {
+	pow ( other ) {
+		return this.pown( other.valueOf() ) ;
+	}
+
+	ipow ( other ) {
 		// TODO optimize but be careful with side effects
-		return this.pow(x).move(this);
+		return this.pow(other).move(this);
+	}
+
+	ipown ( number ) {
+		// TODO optimize but be careful with side effects
+		return this.pown(other).move(this);
 	}
 
 	square ( ) {
@@ -197,18 +234,34 @@ export class Integer {
 		return this.divmod( other )[0] ;
 	}
 
+	divn ( number ) {
+		return this.div(_from_number(number)) ;
+	}
+
 	idiv ( other ) {
 		// TODO optimize but be careful with side effects
 		return this.div(other).move(this);
+	}
+
+	idivn ( number ) {
+		return this.divn(number).move(this);
 	}
 
 	mod ( other ) {
 		return this.divmod( other )[1] ;
 	}
 
+	modn ( number ) {
+		return this.mod(_from_number(number)) ;
+	}
+
 	imod ( other ) {
 		// TODO optimize but be careful with side effects
 		return this.mod(other).move(this);
+	}
+
+	imodn ( number ) {
+		return this.modn(number).move(this);
 	}
 
 	divmod ( other ) {
@@ -266,6 +319,12 @@ export class Integer {
 
 		return [ Q , R ] ;
 
+	}
+
+	idivmod ( other ) {
+		// TODO optimize but be careful with side effects
+		const [ q , r ] = this.divmod(other) ;
+		return [ q.move(this) , r ] ;
 	}
 
 	opposite ( ) {
@@ -326,8 +385,8 @@ export class Integer {
 		return this.div( other ) ;
 	}
 
-	cmp ( other ) {
 
+	cmp ( other ) {
 		// TODO optimize with _trim_positive
 
 		if ( this.iszero( ) ) {
@@ -348,26 +407,56 @@ export class Integer {
 
 	}
 
+	cmpn ( number ) {
+		return this.cmp(_from_number(number)) ;
 	}
 
 	eq ( other ) {
 		return this.cmp( other ) === 0 ;
 	}
 
+	eqn ( number ) {
+		return this.cmpn( number ) === 0 ;
+	}
+
 	ge ( other ) {
 		return this.cmp( other ) >= 0 ;
+	}
+
+	gen ( number ) {
+		return this.cmpn( number ) >= 0 ;
 	}
 
 	gt ( other ) {
 		return this.cmp( other ) > 0 ;
 	}
 
+	gtn ( number ) {
+		return this.cmpn( number ) > 0 ;
+	}
+
 	le ( other ) {
 		return this.cmp( other ) <= 0 ;
 	}
 
+	len ( number ) {
+		return this.cmpn( number ) <= 0 ;
+	}
+
 	lt ( other ) {
 		return this.cmp( other ) < 0 ;
+	}
+
+	ltn ( number ) {
+		return this.cmpn( number ) < 0 ;
+	}
+
+	ne ( other ) {
+		return this.cmp( other ) !== 0 ;
+	}
+
+	nen ( number ) {
+		return this.cmpn( number ) !== 0 ;
 	}
 
 	gcd ( other ) {
@@ -402,11 +491,6 @@ export class Integer {
 			u: u.length ? new Integer(r, this.is_negative ^ (-(steps % 2)), u) : new Integer(r, 0, [0]) ,
 			v: v.length ? new Integer(r, other.is_negative ^ ((steps % 2)-1), v) : new Integer(r, 0, [0]) ,
 		} ;
-	}
-
-
-	ne ( other ) {
-		return this.cmp( other ) !== 0 ;
 	}
 
 	valueOf ( ) {
