@@ -267,6 +267,12 @@ export class Integer {
 		return this.modn(number).move(this);
 	}
 
+	divround ( other ) {
+		const [ q , r ] = this.divmod(other) ;
+		if ( r >= ( this.base / 2 | 0 ) ) increment( r , q.limbs , 0 , q.limbs.length ) ;
+		return q ;
+	}
+
 	divmod ( other ) {
 
 		if ( other.iszero() ) throw new ZeroDivisionError( 'Integer division by zero' ) ; // optimize
