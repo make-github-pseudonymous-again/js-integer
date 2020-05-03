@@ -3,9 +3,9 @@ import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
 import {
 	stringify , convert , _trim_positive ,
 	_alloc , _copy , _zeros ,
-	_jz , _cmp , _eq ,
+	jz , cmp , eq ,
 	add , _sub , mul , _idivmod , _pow_double ,
-	_increment ,
+	increment ,
 } from '@aureooms/js-integer-big-endian' ;
 
 export class Integer {
@@ -103,7 +103,7 @@ export class Integer {
 
 			if ( bi >= bj ) return this.copy() ;
 
-			if ( _cmp( a , ai , aj , b , bi , bj ) < 0 ) {
+			if ( cmp( a , ai , aj , b , bi , bj ) < 0 ) {
 
 				const c = _zeros( bj - bi ) ;
 
@@ -237,12 +237,12 @@ export class Integer {
 		const Q = new Integer( r , quotient_is_negative , q ) ; // quotient
 		const R = new Integer( r , 0 , D ) ;                    // remainder
 
-		if ( (this.is_negative || other.is_negative ) && !_jz( D , 0 , D.length ) ) {
+		if ( (this.is_negative || other.is_negative ) && !jz( D , 0 , D.length ) ) {
 
 			if ( other.is_negative ) {
 
 				if ( !this.is_negative ) {
-					_increment( r , q , 0 , q.length ) ;
+					increment( r , q , 0 , q.length ) ;
 					R.iadd( other ) ; // TODO optimize
 				}
 
@@ -253,7 +253,7 @@ export class Integer {
 			}
 
 			else {
-				_increment( r , q , 0 , q.length ) ;
+				increment( r , q , 0 , q.length ) ;
 				R.negate().iadd( other ) ; // TODO optimize
 			}
 
@@ -277,12 +277,12 @@ export class Integer {
 	}
 
 	iszero ( ) {
-		return _jz( this.limbs , 0 , this.limbs.length ) ;
+		return jz( this.limbs , 0 , this.limbs.length ) ;
 	}
 
 	isone ( ) {
 		if ( this.is_negative ) return false ;
-		return _eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
+		return eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;
 	}
 
 	nonzero ( ) {
@@ -333,7 +333,7 @@ export class Integer {
 		const a = this.limbs ;
 		const b = other._limbs_in_base( this.base ) ;
 
-		return _cmp( a , 0 , a.length , b , 0 , b.length ) ;
+		return cmp( a , 0 , a.length , b , 0 , b.length ) ;
 
 	}
 
