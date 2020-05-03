@@ -301,6 +301,10 @@ export class Integer {
 		return this.toString( 16 ) ;
 	}
 
+	toJSON ( ) {
+		return this.hex( ) ;
+	}
+
 	digits ( base = DEFAULT_DISPLAY_BASE ) {
 		return convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;
 	}
