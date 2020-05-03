@@ -371,7 +371,7 @@ export class Integer {
 	}
 
 	isnegative ( ) {
-		return this.is_negative ;
+		return this.is_negative === -1 ? true : false ;
 	}
 
 	ispositive ( ) {
@@ -379,11 +379,11 @@ export class Integer {
 	}
 
 	isnonnegative ( ) {
-		return !this.negative();
+		return !this.isnegative();
 	}
 
 	isnonpositive ( ) {
-		return !this.positive() ;
+		return !this.ispositive() ;
 	}
 
 	parity ( ) {
