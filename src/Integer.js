@@ -350,7 +350,7 @@ export class Integer {
 	}
 
 	iabs ( ) {
-		return this.sign() >= 0 ? this : this.negate(this) ;
+		return this.abs().move(this) ;
 	}
 
 	sign ( ) {
