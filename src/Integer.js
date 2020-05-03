@@ -35,6 +35,7 @@ export class Integer {
 	}
 
 	_limbs_in_base ( base ) {
+		// TODO save result for later ? Maybe replace base ?
 		if ( this.base === base ) return this.limbs ;
 		else return convert( this.base , base , this.limbs , 0 , this.limbs.length ) ;
 	}
@@ -222,11 +223,13 @@ export class Integer {
 
 	square ( ) {
 		// TODO optimize but be careful with side effects
+		// TODO use this.mul(this) instead?
 		return this.pow(2);
 	}
 
 	isquare ( ) {
 		// TODO optimize but be careful with side effects
+		// TODO use this.imul(this) instead?
 		return this.ipow(2);
 	}
 
@@ -370,6 +373,8 @@ export class Integer {
 	}
 
 	digits ( base = DEFAULT_DISPLAY_BASE ) {
+		// TODO Once #to is implemented we can rewrite this as
+		// return this.to(LITTLE_ENDIAN, base, Array) ;
 		return convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;
 	}
 
@@ -382,6 +387,7 @@ export class Integer {
 	}
 
 	divide_knowing_divisible_by ( other ) {
+		// TODO optimize
 		return this.div( other ) ;
 	}
 

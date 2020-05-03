@@ -87,6 +87,7 @@ export class IntegerRing {
 	}
 
 	$0 ( ) {
+		// TODO Could we use an empty array instead ?
 		return new Integer( this.base , 0 , [ 0 ] ) ;
 	}
 
