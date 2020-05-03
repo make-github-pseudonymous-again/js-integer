@@ -99,4 +99,9 @@ export class IntegerRing {
 		return new Integer( this.base , -1 , [ 1 ] ) ;
 	}
 
+	has ( x ) {
+		if ( x instanceof Integer ) return true ;
+		return Number.isInteger(x) ;
+	}
+
 }
