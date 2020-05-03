@@ -230,7 +230,7 @@ export class Integer {
 	isquare ( ) {
 		// TODO optimize but be careful with side effects
 		// TODO use this.imul(this) instead?
-		return this.ipown(2);
+		return this.square().move(this);
 	}
 
 	div ( other ) {
