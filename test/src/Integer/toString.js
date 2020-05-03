@@ -11,6 +11,7 @@ test( 'ZZ.from(3).pow(50).bin()' , t => {
 } ) ;
 test( 'ZZ.from(3).pow(50).oct()' , t => { t.is(ZZ.from(3).pow(50).oct() , '230012517606662772047361711' ) ; } ) ;
 test( 'ZZ.from(3).pow(50).hex()' , t => { t.is(ZZ.from(3).pow(50).hex() , '980553f0db2fd09de3c9' ) ; } ) ;
+test( 'ZZ.from(3).pow(50).toJSON()' , t => { t.is(ZZ.from(3).pow(50).toJSON() , '980553f0db2fd09de3c9' ) ; } ) ;
 
 test( 'toString is pure' , t => {
 	const x = ZZ.from(10000) ;
