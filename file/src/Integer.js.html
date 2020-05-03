@@ -282,19 +282,19 @@ export class Integer {
 
 	ipown ( number ) {
 		// TODO optimize but be careful with side effects
-		return this.pown(other).move(this);
+		return this.pown(number).move(this);
 	}
 
 	square ( ) {
 		// TODO optimize but be careful with side effects
 		// TODO use this.mul(this) instead?
-		return this.pow(2);
+		return this.pown(2);
 	}
 
 	isquare ( ) {
 		// TODO optimize but be careful with side effects
 		// TODO use this.imul(this) instead?
-		return this.ipow(2);
+		return this.square().move(this);
 	}
 
 	div ( other ) {
@@ -333,7 +333,7 @@ export class Integer {
 
 	divround ( other ) {
 		const [ q , r ] = this.divmod(other) ;
-		if ( r &gt;= ( this.base / 2 | 0 ) ) increment( r , q.limbs , 0 , q.limbs.length ) ;
+		if ( r.ge(other.divn(2).addn(other.iseven() ? 0 : 1)) ) increment( q.base , q.limbs , 0 , q.limbs.length ) ;
 		return q ;
 	}
 
@@ -414,7 +414,7 @@ export class Integer {
 	}
 
 	iabs ( ) {
-		return this.sign() &gt;= 0 ? this : this.negate(this) ;
+		return this.abs().move(this) ;
 	}
 
 	sign ( ) {
@@ -435,7 +435,7 @@ export class Integer {
 	}
 
 	isnegative ( ) {
-		return this.is_negative ;
+		return this.is_negative === -1 ? true : false ;
 	}
 
 	ispositive ( ) {
@@ -443,11 +443,11 @@ export class Integer {
 	}
 
 	isnonnegative ( ) {
-		return !this.negative();
+		return !this.isnegative();
 	}
 
 	isnonpositive ( ) {
-		return !this.positive() ;
+		return !this.ispositive() ;
 	}
 
 	parity ( ) {
