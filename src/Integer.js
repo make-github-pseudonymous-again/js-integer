@@ -218,19 +218,19 @@ export class Integer {
 
 	ipown ( number ) {
 		// TODO optimize but be careful with side effects
-		return this.pown(other).move(this);
+		return this.pown(number).move(this);
 	}
 
 	square ( ) {
 		// TODO optimize but be careful with side effects
 		// TODO use this.mul(this) instead?
-		return this.pow(2);
+		return this.pown(2);
 	}
 
 	isquare ( ) {
 		// TODO optimize but be careful with side effects
 		// TODO use this.imul(this) instead?
-		return this.ipow(2);
+		return this.ipown(2);
 	}
 
 	div ( other ) {
