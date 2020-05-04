@@ -24,7 +24,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 
 [![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/issues)
 [![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)
-[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-integer/master.svg)](https://codecov.io/gh/aureooms/js-integer)
+[![Code coverage (alls)](https://img.shields.io/coveralls/github/aureooms/js-integer/master.svg)](https://coveralls.io/r/aureooms/js-integer)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)
 [![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)
 [![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)
