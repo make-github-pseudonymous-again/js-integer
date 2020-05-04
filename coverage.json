@@ -1,6 +1,6 @@
 {
-  "coverage": "0.81%",
-  "expectCount": 123,
+  "coverage": "0.74%",
+  "expectCount": 135,
   "actualCount": 1,
   "files": {
     "src/DEFAULT_DISPLAY_BASE.js": {
@@ -157,7 +157,7 @@
       ]
     },
     "src/integer.js": {
-      "expectCount": 17,
+      "expectCount": 29,
       "actualCount": 0,
       "undocumentLines": [
         3,
@@ -176,7 +176,19 @@
         55,
         59,
         63,
-        67
+        67,
+        71,
+        75,
+        79,
+        83,
+        87,
+        91,
+        95,
+        99,
+        103,
+        107,
+        111,
+        115
       ]
     }
   }

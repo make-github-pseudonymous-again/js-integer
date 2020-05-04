@@ -90,9 +90,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~addn",
+    "function/index.html#static-function-addn",
+    "<span>addn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~div",
     "function/index.html#static-function-div",
     "<span>div</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~divn",
+    "function/index.html#static-function-divn",
+    "<span>divn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -102,9 +114,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~iaddn",
+    "function/index.html#static-function-iaddn",
+    "<span>iaddn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~idiv",
     "function/index.html#static-function-idiv",
     "<span>idiv</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~idivn",
+    "function/index.html#static-function-idivn",
+    "<span>idivn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -114,9 +138,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~imodn",
+    "function/index.html#static-function-imodn",
+    "<span>imodn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~imul",
     "function/index.html#static-function-imul",
     "<span>imul</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~imuln",
+    "function/index.html#static-function-imuln",
+    "<span>imuln</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -126,9 +162,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~ipown",
+    "function/index.html#static-function-ipown",
+    "<span>ipown</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~isub",
     "function/index.html#static-function-isub",
     "<span>isub</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~isubn",
+    "function/index.html#static-function-isubn",
+    "<span>isubn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -138,9 +186,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~modn",
+    "function/index.html#static-function-modn",
+    "<span>modn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~mul",
     "function/index.html#static-function-mul",
     "<span>mul</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~muln",
+    "function/index.html#static-function-muln",
+    "<span>muln</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -156,6 +216,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~pown",
+    "function/index.html#static-function-pown",
+    "<span>pown</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~stringify",
     "function/index.html#static-function-stringify",
     "<span>stringify</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
@@ -165,6 +231,12 @@ window.esdocSearchIndex = [
     "@aureooms/js-integer/src/integer.js~sub",
     "function/index.html#static-function-sub",
     "<span>sub</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~subn",
+    "function/index.html#static-function-subn",
+    "<span>subn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [

@@ -3227,7 +3227,7 @@
     "__docId__": 163,
     "kind": "file",
     "name": "src/integer.js",
-    "content": "import { DEFAULT_DISPLAY_BASE , ZZ } from './' ;\n\nexport function $0 ( ) {\n\treturn ZZ.$0() ;\n}\n\nexport function $1 ( ) {\n\treturn ZZ.$1() ;\n}\n\nexport function $_1 ( ) {\n\treturn ZZ.$_1() ;\n}\n\nexport function parse ( object , base = undefined , is_negative = 0 ) {\n\treturn ZZ.from( object , base , is_negative ) ;\n}\n\nexport function stringify ( integer , base = DEFAULT_DISPLAY_BASE ) {\n\treturn integer.toString( base ) ;\n}\n\nexport function add ( first , second ) {\n\treturn first.add(second) ;\n}\n\nexport function iadd ( first , second ) {\n\treturn first.iadd(second) ;\n}\n\nexport function sub ( first , second ) {\n\treturn first.sub(second) ;\n}\n\nexport function isub ( first , second ) {\n\treturn first.isub(second) ;\n}\n\nexport function mul ( first , second ) {\n\treturn first.mul(second) ;\n}\n\nexport function imul ( first , second ) {\n\treturn first.imul(second) ;\n}\n\nexport function pow ( first , second ) {\n\treturn first.pow(second) ;\n}\n\nexport function ipow ( first , second ) {\n\treturn first.ipow(second) ;\n}\n\nexport function div ( first , second ) {\n\treturn first.div(second) ;\n}\n\nexport function idiv ( first , second ) {\n\treturn first.idiv(second) ;\n}\n\nexport function mod ( first , second ) {\n\treturn first.mod(second) ;\n}\n\nexport function imod ( first , second ) {\n\treturn first.imod(second) ;\n}\n",
+    "content": "import { DEFAULT_DISPLAY_BASE , ZZ } from './' ;\n\nexport function $0 ( ) {\n\treturn ZZ.$0() ;\n}\n\nexport function $1 ( ) {\n\treturn ZZ.$1() ;\n}\n\nexport function $_1 ( ) {\n\treturn ZZ.$_1() ;\n}\n\nexport function parse ( object , base = undefined , is_negative = 0 ) {\n\treturn ZZ.from( object , base , is_negative ) ;\n}\n\nexport function stringify ( integer , base = DEFAULT_DISPLAY_BASE ) {\n\treturn integer.toString( base ) ;\n}\n\nexport function add ( first , second ) {\n\treturn first.add(second) ;\n}\n\nexport function iadd ( first , second ) {\n\treturn first.iadd(second) ;\n}\n\nexport function sub ( first , second ) {\n\treturn first.sub(second) ;\n}\n\nexport function isub ( first , second ) {\n\treturn first.isub(second) ;\n}\n\nexport function mul ( first , second ) {\n\treturn first.mul(second) ;\n}\n\nexport function imul ( first , second ) {\n\treturn first.imul(second) ;\n}\n\nexport function pow ( first , second ) {\n\treturn first.pow(second) ;\n}\n\nexport function ipow ( first , second ) {\n\treturn first.ipow(second) ;\n}\n\nexport function div ( first , second ) {\n\treturn first.div(second) ;\n}\n\nexport function idiv ( first , second ) {\n\treturn first.idiv(second) ;\n}\n\nexport function mod ( first , second ) {\n\treturn first.mod(second) ;\n}\n\nexport function imod ( first , second ) {\n\treturn first.imod(second) ;\n}\n\nexport function addn ( first , second ) {\n\treturn first.addn(second) ;\n}\n\nexport function iaddn ( first , second ) {\n\treturn first.iaddn(second) ;\n}\n\nexport function subn ( first , second ) {\n\treturn first.subn(second) ;\n}\n\nexport function isubn ( first , second ) {\n\treturn first.isubn(second) ;\n}\n\nexport function muln ( first , second ) {\n\treturn first.muln(second) ;\n}\n\nexport function imuln ( first , second ) {\n\treturn first.imuln(second) ;\n}\n\nexport function pown ( first , second ) {\n\treturn first.pown(second) ;\n}\n\nexport function ipown ( first , second ) {\n\treturn first.ipown(second) ;\n}\n\nexport function divn ( first , second ) {\n\treturn first.divn(second) ;\n}\n\nexport function idivn ( first , second ) {\n\treturn first.idivn(second) ;\n}\n\nexport function modn ( first , second ) {\n\treturn first.modn(second) ;\n}\n\nexport function imodn ( first , second ) {\n\treturn first.imodn(second) ;\n}\n",
     "static": true,
     "longname": "/home/aureooms/dev/js/js-integer/src/integer.js",
     "access": "public",
@@ -3823,6 +3823,438 @@
     }
   },
   {
+    "__docId__": 181,
+    "kind": "function",
+    "name": "addn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~addn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{addn}",
+    "description": null,
+    "lineNumber": 71,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 182,
+    "kind": "function",
+    "name": "iaddn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~iaddn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{iaddn}",
+    "description": null,
+    "lineNumber": 75,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 183,
+    "kind": "function",
+    "name": "subn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~subn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{subn}",
+    "description": null,
+    "lineNumber": 79,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 184,
+    "kind": "function",
+    "name": "isubn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~isubn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{isubn}",
+    "description": null,
+    "lineNumber": 83,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 185,
+    "kind": "function",
+    "name": "muln",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~muln",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{muln}",
+    "description": null,
+    "lineNumber": 87,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 186,
+    "kind": "function",
+    "name": "imuln",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~imuln",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{imuln}",
+    "description": null,
+    "lineNumber": 91,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 187,
+    "kind": "function",
+    "name": "pown",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~pown",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{pown}",
+    "description": null,
+    "lineNumber": 95,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 188,
+    "kind": "function",
+    "name": "ipown",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~ipown",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{ipown}",
+    "description": null,
+    "lineNumber": 99,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 189,
+    "kind": "function",
+    "name": "divn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~divn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{divn}",
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 190,
+    "kind": "function",
+    "name": "idivn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~idivn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{idivn}",
+    "description": null,
+    "lineNumber": 107,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 191,
+    "kind": "function",
+    "name": "modn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~modn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{modn}",
+    "description": null,
+    "lineNumber": 111,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 192,
+    "kind": "function",
+    "name": "imodn",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~imodn",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{imodn}",
+    "description": null,
+    "lineNumber": 115,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
     "kind": "index",
     "content": "[@aureooms/js-integer](https://aureooms.github.io/js-integer)\n==\n\n<img src=\"https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg\" width=\"864\">\n\nIntegers for JavaScript.\nSee [docs](https://aureooms.github.io/js-integer).\nParent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).\n\n```js\nimport { ZZ } from '@aureooms/js-integer' ; \nconst a = ZZ.from( '2983928392839289387' ) ;\nconst b = ZZ.from( '-302940923028393' ) ;\na.mul( b ).toString( ) ; // '-903954021577363596419770144565091'\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-integer.svg)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)\n[![Version](https://img.shields.io/npm/v/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n[![Build](https://img.shields.io/travis/aureooms/js-integer/master.svg)](https://travis-ci.org/aureooms/js-integer/branches)\n[![Dependencies](https://img.shields.io/david/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer)\n[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg)](https://github.com/aureooms/js-integer/issues)\n[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-integer/master.svg)](https://codecov.io/gh/aureooms/js-integer)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)\n[![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)\n\n## Children\n\nThe current underlying implementation uses big endian order. There is no\nalternative for the moment.\n\n  - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)\n  - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)\n\n## Reference\n\n - [The GNU Multiple Precision Arithmetic Library](https://gmplib.org/)\n - https://gmplib.org/gmp-man-6.0.0a.pdf\n - https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm\n - [Similar work on GitHub](https://github.com/search?l=JavaScript&o=desc&q=bigint&s=stars&type=Repositories)\n",
     "longname": "/home/aureooms/dev/js/js-integer/README.md",
@@ -3832,7 +4264,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@aureooms/js-integer\",\n  \"description\": \"Integers for JavaScript\",\n  \"version\": \"5.0.1\",\n  \"author\": \"Aurélien Ooms <aurelien.ooms@gmail.com>\",\n  \"ava\": {\n    \"require\": [\n      \"@babel/polyfill\",\n      \"@babel/register\"\n    ],\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"timeout\": \"1m\",\n    \"concurrency\": 8\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@babel/preset-env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-integer/issues\"\n  },\n  \"dependencies\": {\n    \"@aureooms/js-error\": \"^4.0.0\",\n    \"@aureooms/js-integer-big-endian\": \"^8.0.0\"\n  },\n  \"devDependencies\": {\n    \"@aureooms/js-algorithms\": \"3.0.7\",\n    \"@aureooms/js-array\": \"4.0.0\",\n    \"@aureooms/js-itertools\": \"4.0.0\",\n    \"@aureooms/js-operator\": \"1.0.2\",\n    \"@aureooms/js-random\": \"2.0.0\",\n    \"@aureooms/js-string\": \"0.2.0\",\n    \"@babel/cli\": \"7.8.4\",\n    \"@babel/core\": \"7.9.6\",\n    \"@babel/polyfill\": \"7.8.7\",\n    \"@babel/preset-env\": \"7.9.6\",\n    \"@babel/register\": \"7.9.0\",\n    \"ava\": \"3.8.1\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"np\": \"6.2.3\",\n    \"nyc\": \"15.0.1\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"homepage\": \"https://aureooms.github.io/js-integer\",\n  \"keywords\": [\n    \"algorithm\",\n    \"arithmetic\",\n    \"bignum\",\n    \"complexity\",\n    \"integer\",\n    \"javascript\",\n    \"js\",\n    \"library\",\n    \"logic\",\n    \"mpa\",\n    \"multi-precision\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-integer.git\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"esdoc\": \"esdoc\",\n    \"prepare\": \"npm run build\",\n    \"release\": \"np\",\n    \"test\": \"ava\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@aureooms/js-integer\",\n  \"description\": \"Integers for JavaScript\",\n  \"version\": \"5.1.0\",\n  \"author\": \"Aurélien Ooms <aurelien.ooms@gmail.com>\",\n  \"ava\": {\n    \"require\": [\n      \"@babel/polyfill\",\n      \"@babel/register\"\n    ],\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"timeout\": \"3m\",\n    \"concurrency\": 8\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@babel/preset-env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-integer/issues\"\n  },\n  \"dependencies\": {\n    \"@aureooms/js-error\": \"^4.0.0\",\n    \"@aureooms/js-integer-big-endian\": \"^8.0.0\"\n  },\n  \"devDependencies\": {\n    \"@aureooms/js-algorithms\": \"3.0.7\",\n    \"@aureooms/js-array\": \"4.0.0\",\n    \"@aureooms/js-itertools\": \"4.0.0\",\n    \"@aureooms/js-operator\": \"1.0.2\",\n    \"@aureooms/js-random\": \"2.0.0\",\n    \"@aureooms/js-string\": \"0.2.0\",\n    \"@babel/cli\": \"7.8.4\",\n    \"@babel/core\": \"7.9.6\",\n    \"@babel/polyfill\": \"7.8.7\",\n    \"@babel/preset-env\": \"7.9.6\",\n    \"@babel/register\": \"7.9.0\",\n    \"ava\": \"3.8.1\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"np\": \"6.2.3\",\n    \"nyc\": \"15.0.1\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"homepage\": \"https://aureooms.github.io/js-integer\",\n  \"keywords\": [\n    \"algorithm\",\n    \"arithmetic\",\n    \"bignum\",\n    \"complexity\",\n    \"integer\",\n    \"javascript\",\n    \"js\",\n    \"library\",\n    \"logic\",\n    \"mpa\",\n    \"multi-precision\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-integer.git\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"esdoc\": \"esdoc\",\n    \"prepare\": \"npm run build\",\n    \"release\": \"np\",\n    \"test\": \"ava\"\n  }\n}\n",
     "longname": "/home/aureooms/dev/js/js-integer/package.json",
     "name": "package.json",
     "static": true,
