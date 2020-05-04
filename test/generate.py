@@ -1,5 +1,3 @@
-import operator
-
 MAX_NUMBER = 2**53 - 1
 MIN_NUMBER = -2**53
 
@@ -14,53 +12,86 @@ smallnumbers = sorted([ 1 , 3 , 7 , 9 , 11 , 17 , 22 , 24 , 27 , 29 , 1234 , 567
 arithmetic = {
     'add' : {
         'numbers' : smallnumbers + hugenumbers ,
-        'apply' : operator.add ,
+        'apply' : lambda a,b: (a+b,) ,
         'str' : '+'
     } ,
     'sub' : {
         'numbers' : smallnumbers + hugenumbers ,
-        'apply' : operator.sub ,
+        'apply' : lambda a,b: (a-b,) ,
         'str' : '-'
     } ,
     'mul' : {
         'numbers' : smallnumbers + hugenumbers ,
-        'apply' : operator.mul ,
+        'apply' : lambda a,b: (a*b,) ,
         'str' : '*'
     } ,
     'pow' : {
         'numbers' : smallnumbers ,
-        'apply' : operator.pow ,
+        'apply' : lambda a,b: (a**b,) ,
         'str' : '^'
     } ,
     'div' : {
         'numbers' : smallnumbers + hugenumbers ,
-        'apply' : operator.floordiv ,
+        'apply' : lambda a,b: (a//b,) ,
         'str' : '/'
     } ,
     'mod' : {
         'numbers' : smallnumbers + hugenumbers ,
-        'apply' : operator.mod ,
+        'apply' : lambda a,b: (a%b,) ,
         'str' : '%'
-    }
+    } ,
+    'divmod' : {
+        'numbers' : smallnumbers + hugenumbers ,
+        'apply' : lambda a, b: (a // b, a % b) ,
+        'str' : '/%'
+    } ,
 }
 
 def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) :
 
+    outputsize = 2 if 'divmod' in name else 1
+
     f.write("import test from 'ava' ;\n")
     f.write("import {{ parse , stringify , {} }} from '../../../../src' ;\n\n".format(name))
 
-    if isn :
+    if outputsize == 2 :
 
-        f.write("""function macro ( t , A , B , C ) {{
+        if isn :
+
+            f.write("""function macro ( t , A , B , C , D ) {{
+    const a = parse( A ) ;
+    const [c, d] = {}( a , B ) ;
+    t.is( stringify( a ) , {} ) ;
+    t.is( stringify( c ) , C ) ;
+    t.is( stringify( d ) , D ) ;
+}}\n\n""".format( name , 'D' if isi else 'A'  ) )
+
+        else:
+
+            f.write("""function macro ( t , A , B , C , D ) {{
+    const a = parse( A ) ;
+    const b = parse( B ) ;
+    const [c, d] = {}( a , b ) ;
+    t.is( stringify( a ) , {} ) ;
+    t.is( stringify( b ) , B ) ;
+    t.is( stringify( c ) , C ) ;
+    t.is( stringify( d ) , D ) ;
+}}\n\n""".format( name , 'D' if isi else 'A' ) )
+
+    else :
+
+        if isn :
+
+            f.write("""function macro ( t , A , B , C ) {{
     const a = parse( A ) ;
     const c = {}( a , B ) ;
     t.is( stringify( a ) , {} ) ;
     t.is( stringify( c ) , C ) ;
 }}\n\n""".format( name , 'C' if isi else 'A'  ) )
 
-    else:
+        else:
 
-        f.write("""function macro ( t , A , B , C ) {{
+            f.write("""function macro ( t , A , B , C ) {{
     const a = parse( A ) ;
     const b = parse( B ) ;
     const c = {}( a , b ) ;
@@ -70,12 +101,23 @@ def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) 
 }}\n\n""".format( name , 'C' if isi else 'A' ) )
 
 
-    f.write("macro.title = ( _ , A , B , C ) => `{}(${{A}},${{B}}) = ${{C}}` ;\n\n".format(name))
+    if outputsize == 2 :
 
-    if isn:
-        LINE = "test( macro , '{}' , {} , '{}' ) ;\n"
+        f.write("macro.title = ( _ , A , B , C , D ) => `{}(${{A}},${{B}}) = [${{C}},${{D}}]` ;\n\n".format(name))
+
+        if isn:
+            LINE = "test( macro , '{}' , {} , '{}' , '{}' ) ;\n"
+        else:
+            LINE = "test( macro , '{}' , '{}' , '{}' , '{}' ) ;\n"
+
     else:
-        LINE = "test( macro , '{}' , '{}' , '{}' ) ;\n"
+
+        f.write("macro.title = ( _ , A , B , C ) => `{}(${{A}},${{B}}) = ${{C}}` ;\n\n".format(name))
+
+        if isn:
+            LINE = "test( macro , '{}' , {} , '{}' ) ;\n"
+        else:
+            LINE = "test( macro , '{}' , '{}' , '{}' ) ;\n"
 
     for a in numbers :
 
@@ -85,13 +127,13 @@ def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) 
             y = b
             c = t( x , y )
             if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                f.write(LINE.format(x,y,c))
+                f.write(LINE.format(x,y,*c))
 
             x = -a
             y = b
             c = t( x , y )
             if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                f.write(LINE.format(x,y,c))
+                f.write(LINE.format(x,y,*c))
 
             if not ispow:
 
@@ -99,13 +141,13 @@ def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) 
                 y = -b
                 c = t( x , y )
                 if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                    f.write(LINE.format(x,y,c))
+                    f.write(LINE.format(x,y,*c))
 
                 x = -a
                 y = -b
                 c = t( x , y )
                 if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                    f.write(LINE.format(x,y,c))
+                    f.write(LINE.format(x,y,*c))
 
 def open_and_write ( opname , t , nb , **kwargs ) :
     with open( 'test/src/integer/arithmetic/{}.js'.format(opname) , 'w' ) as f :
