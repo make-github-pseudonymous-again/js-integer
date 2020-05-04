@@ -336,6 +336,15 @@ export class Integer {
 		return [ q , r.move(this) ] ;
 	}
 
+	divmodn ( number ) {
+		return this.divmod(_from_number(number)) ;
+	}
+
+	idivmodn ( number ) {
+		const [ q , r ] = this.divmodn(number) ;
+		return [ q , r.move(this) ] ;
+	}
+
 	opposite ( ) {
 		return new Integer( this.base , ~this.is_negative , this.limbs ) ;
 	}
