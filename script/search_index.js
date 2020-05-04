@@ -102,6 +102,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@aureooms/js-integer/src/integer.js~divmod",
+    "function/index.html#static-function-divmod",
+    "<span>divmod</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~divmodn",
+    "function/index.html#static-function-divmodn",
+    "<span>divmodn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
     "@aureooms/js-integer/src/integer.js~divn",
     "function/index.html#static-function-divn",
     "<span>divn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
@@ -123,6 +135,18 @@ window.esdocSearchIndex = [
     "@aureooms/js-integer/src/integer.js~idiv",
     "function/index.html#static-function-idiv",
     "<span>idiv</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~idivmod",
+    "function/index.html#static-function-idivmod",
+    "<span>idivmod</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
+    "function"
+  ],
+  [
+    "@aureooms/js-integer/src/integer.js~idivmodn",
+    "function/index.html#static-function-idivmodn",
+    "<span>idivmodn</span> <span class=\"search-result-import-path\">@aureooms/js-integer/src/integer.js</span>",
     "function"
   ],
   [
@@ -636,6 +660,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/integer.js~integer#divmodn",
+    "class/src/Integer.js~Integer.html#instance-method-divmodn",
+    "src/Integer.js~Integer#divmodn",
+    "method"
+  ],
+  [
     "src/integer.js~integer#divn",
     "class/src/Integer.js~Integer.html#instance-method-divn",
     "src/Integer.js~Integer#divn",
@@ -729,6 +759,12 @@ window.esdocSearchIndex = [
     "src/integer.js~integer#idivmod",
     "class/src/Integer.js~Integer.html#instance-method-idivmod",
     "src/Integer.js~Integer#idivmod",
+    "method"
+  ],
+  [
+    "src/integer.js~integer#idivmodn",
+    "class/src/Integer.js~Integer.html#instance-method-idivmodn",
+    "src/Integer.js~Integer#idivmodn",
     "method"
   ],
   [
