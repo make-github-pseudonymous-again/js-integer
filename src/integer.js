@@ -67,3 +67,51 @@ export function mod ( first , second ) {
 export function imod ( first , second ) {
 	return first.imod(second) ;
 }
+
+export function addn ( first , second ) {
+	return first.addn(second) ;
+}
+
+export function iaddn ( first , second ) {
+	return first.iaddn(second) ;
+}
+
+export function subn ( first , second ) {
+	return first.subn(second) ;
+}
+
+export function isubn ( first , second ) {
+	return first.isubn(second) ;
+}
+
+export function muln ( first , second ) {
+	return first.muln(second) ;
+}
+
+export function imuln ( first , second ) {
+	return first.imuln(second) ;
+}
+
+export function pown ( first , second ) {
+	return first.pown(second) ;
+}
+
+export function ipown ( first , second ) {
+	return first.ipown(second) ;
+}
+
+export function divn ( first , second ) {
+	return first.divn(second) ;
+}
+
+export function idivn ( first , second ) {
+	return first.idivn(second) ;
+}
+
+export function modn ( first , second ) {
+	return first.modn(second) ;
+}
+
+export function imodn ( first , second ) {
+	return first.imodn(second) ;
+}
