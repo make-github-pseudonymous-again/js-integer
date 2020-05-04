@@ -9,7 +9,7 @@ function macro ( t , a , b , q , r ) {
 
 	t.is(q.toString(), Q.toString()) ;
 	t.is(r.toString(), R.toString()) ;
-	t.is(q.toString(), A.toString()) ;
+	t.is(r.toString(), A.toString()) ;
 }
 
 macro.title = ( providedTitle , a , b , q , r ) => `${a} idivmod ${b} = [${q}, ${r}]` ;

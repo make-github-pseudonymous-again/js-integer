@@ -333,7 +333,7 @@ export class Integer {
 	idivmod ( other ) {
 		// TODO optimize but be careful with side effects
 		const [ q , r ] = this.divmod(other) ;
-		return [ q.move(this) , r ] ;
+		return [ q , r.move(this) ] ;
 	}
 
 	opposite ( ) {
