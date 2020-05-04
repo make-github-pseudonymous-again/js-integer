@@ -68,6 +68,14 @@ export function imod ( first , second ) {
 	return first.imod(second) ;
 }
 
+export function divmod ( first , second ) {
+	return first.divmod(second) ;
+}
+
+export function idivmod ( first , second ) {
+	return first.idivmod(second) ;
+}
+
 export function addn ( first , second ) {
 	return first.addn(second) ;
 }
@@ -114,4 +122,12 @@ export function modn ( first , second ) {
 
 export function imodn ( first , second ) {
 	return first.imodn(second) ;
+}
+
+export function divmodn ( first , second ) {
+	return first.divmodn(second) ;
+}
+
+export function idivmodn ( first , second ) {
+	return first.idivmodn(second) ;
 }
