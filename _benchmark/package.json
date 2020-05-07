@@ -1,0 +1,24 @@
+{
+  "name": "_benchmark",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "bench": "node index.js"
+  },
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "bigi": "1.4.2",
+    "biginteger": "1.0.3",
+    "bn.js": "^5.1.1",
+    "eccjs": "0.3.1",
+    "js-big-integer": "3.0.1",
+    "jsbi": "^3.1.2",
+    "xorshift.js": "^1.0.5"
+  },
+  "optionalDependencies": {
+    "bignum": "0.13.1"
+  }
+}
