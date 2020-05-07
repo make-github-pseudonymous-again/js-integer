@@ -37,9 +37,10 @@ console.timeEnd('prepare');
 
 console.time('loop');
 for (let k = 0; k < N; ++k) {
+ x = x.mul(y);
  //x *= y;
- x = x.add(y);
- x = x.sub(y);
+ //x = x.add(y);
+ //x = x.sub(y);
  //x = x + y;
  //x = x - y;
 }

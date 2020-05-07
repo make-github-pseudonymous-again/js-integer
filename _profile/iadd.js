@@ -38,8 +38,8 @@ console.timeEnd('prepare');
 console.time('loop');
 for (let k = 0; k < N; ++k) {
  //x *= y;
- x = x.add(y);
- x = x.sub(y);
+ x.iadd(y);
+ x.isub(y);
  //x = x + y;
  //x = x - y;
 }
