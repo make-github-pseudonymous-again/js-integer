@@ -293,29 +293,64 @@ fns['bn.js'].k256 = 'k256' ;
 function newFixture ( ) {
   const fixture = {};
 
-  const a = prng.randomBytes(32).toString('hex');
-  const b = prng.randomBytes(32).toString('hex');
-  const aj = prng.randomBytes(768).toString('hex');
-  const bj = prng.randomBytes(768).toString('hex');
+  const _a32 = prng.randomBytes(32).toString('hex');
+  const _b32 = prng.randomBytes(32).toString('hex');
+  const _a64 = prng.randomBytes(64).toString('hex');
+  const _b64 = prng.randomBytes(64).toString('hex');
+  const _a128 = prng.randomBytes(128).toString('hex');
+  const _b128 = prng.randomBytes(128).toString('hex');
+  const _a256 = prng.randomBytes(256).toString('hex');
+  const _b256 = prng.randomBytes(256).toString('hex');
+  const _a512 = prng.randomBytes(512).toString('hex');
+  const _b512 = prng.randomBytes(512).toString('hex');
+  const _a768 = prng.randomBytes(768).toString('hex');
+  const _b768 = prng.randomBytes(768).toString('hex');
+  const _a1024 = prng.randomBytes(1024).toString('hex');
+  const _b1024 = prng.randomBytes(1024).toString('hex');
+  const _a2048 = prng.randomBytes(2048).toString('hex');
+  const _b2048 = prng.randomBytes(2048).toString('hex');
+  const _a4096 = prng.randomBytes(4096).toString('hex');
+  const _b4096 = prng.randomBytes(4096).toString('hex');
+  const _a8192 = prng.randomBytes(8192).toString('hex');
+  const _b8192 = prng.randomBytes(8192).toString('hex');
 
-  const a10base = new bn(a, 16).toString(10);
-  const a16base = new bn(a, 16).toString(16);
+  const a10base = new bn(_a32, 16).toString(10);
+  const a16base = new bn(_b32, 16).toString(16);
 
   const init = fn => {
-    const  a1 = fn.from16(a);
-    const  b1 = fn.from16(b);
-    const a1j = fn.from16(aj);
-    const b1j = fn.from16(bj);
+    const a32 = fn.from16(_a32);
+    const b32 = fn.from16(_b32);
+    const a64 = fn.from16(_a64);
+    const b64 = fn.from16(_b64);
+    const a128 = fn.from16(_a128);
+    const b128 = fn.from16(_b128);
+    const a256 = fn.from16(_a256);
+    const b256 = fn.from16(_b256);
+    const a512 = fn.from16(_a512);
+    const b512 = fn.from16(_b512);
+    const a768 = fn.from16(_a768);
+    const b768 = fn.from16(_b768);
+    const a1024 = fn.from16(_a1024);
+    const b1024 = fn.from16(_b1024);
+    const a2048 = fn.from16(_a2048);
+    const b2048 = fn.from16(_b2048);
+    const a4096 = fn.from16(_a4096);
+    const b4096 = fn.from16(_b4096);
+    const a8192 = fn.from16(_a8192);
+    const b8192 = fn.from16(_b8192);
     const x = fn.from16('2adbeef');
-    const as1 = fn.add(fn.sqr(a1), x);
-    const am1 = fn.toRed && fn.toRed(a1);
+    const as1 = fn.add(fn.sqr(a32), x);
+    const am1 = fn.toRed && fn.toRed(a32);
     const pow1 = fn.fromRed && fn.fromRed(am1);
     return {
-      a1, b1, a1j, b1j, as1, am1, pow1, a10base, a16base,
+      a32, b32, a64, b64, a128, b128, a256, b256, a512, b512, a768, b768,
+      a1024, b1024, a2048, b2048, a4096, b4096, a8192, b8192,
+      as1, am1, pow1, a10base, a16base,
     } ;
   }
 
   Object.keys(fns).forEach( name => {
+    if(!filter.test(name)) return;
     fixture[name] = {};
     fixture[name].args = init(fns[name]);
     fixture[name].outs = {};
@@ -329,22 +364,32 @@ while (fixtures.length < NFIXTURES) fixtures.push(newFixture()) ;
 
 add('from10', 'a10base');
 add('from16', 'a16base');
-add('to10', 'a1');
-add('to16', 'a1');
-add('add', 'a1', 'b1');
-add('add', 'a1j', 'b1j');
-add('sub', 'a1', 'b1');
-add('sub', 'a1j', 'b1j');
-add('mul', 'a1', 'b1');
-add('mul', 'a1j', 'b1j');
-add('sqr', 'a1');
-add('div', 'as1', 'a1');
-add('mod', 'as1', 'a1');
+add('to10', 'a32');
+add('to16', 'a32');
+add('add', 'a32', 'b32');
+add('add', 'a768', 'b768');
+add('sub', 'a32', 'b32');
+add('sub', 'a768', 'b768');
+
+add('mul', 'a32', 'b32');
+add('mul', 'a64', 'b64');
+add('mul', 'a128', 'b128');
+add('mul', 'a256', 'b256');
+add('mul', 'a512', 'b512');
+add('mul', 'a768', 'b768');
+add('mul', 'a1024', 'b1024');
+add('mul', 'a2048', 'b2048');
+add('mul', 'a4096', 'b4096');
+add('mul', 'a8192', 'b8192');
+
+add('sqr', 'a32');
+add('div', 'as1', 'a32');
+add('mod', 'as1', 'a32');
 add('sqrm', 'am1');
 add('powm', 'am1', 'pow1');
 add('invm', 'am1');
-add('gcd', 'a1', 'b1');
-add('egcd', 'a1', 'b1');
+add('gcd', 'a32', 'b32');
+add('egcd', 'a32', 'b32');
 
 start();
 
@@ -354,6 +399,7 @@ const results = new Array(NFIXTURES) ;
 for ( let i = 0; i < NFIXTURES; ++i ) {
   results[i] = {};
   Object.keys(fns).forEach( name => {
+    if(!filter.test(name)) return;
     const fn = fns[name];
     const fixture = fixtures[i][name];
     Object.keys(fixture.outs).forEach( key => {
