@@ -1,28 +1,43 @@
 /* global BigInt */
 /* eslint-disable new-cap, no-new, no-unused-expressions */
 
-const { ZZ } = require('..') ;
+const ArgumentParser = require('argparse').ArgumentParser;
 var benchmark = require('benchmark');
 var crypto = require('crypto');
-var bn = require('bn.js');
-var bignum;
+var XorShift128Plus = require('xorshift.js').XorShift128Plus;
+
+const { ZZ , DEFAULT_DISPLAY_BASE , DEFAULT_REPRESENTATION_BASE } = require('..');
+const bn = require('bn.js');
+let bignum;
 try {
   bignum = require('bignum');
 } catch (err) {
   console.log('Load bignum error: ' + err.message.split('\n')[0]);
 }
-var sjcl = require('eccjs').sjcl.bn;
-var bigi = require('bigi');
-var BigInteger = require('js-big-integer').BigInteger;
-var JSBI = require('jsbi');
-var SilentMattBigInteger = require('biginteger').BigInteger;
-var XorShift128Plus = require('xorshift.js').XorShift128Plus;
-var benchmarks = [];
+const sjcl = require('eccjs').sjcl.bn;
+const bigi = require('bigi');
+const BigInteger = require('js-big-integer').BigInteger;
+const JSBI = require('jsbi');
+const SilentMattBigInteger = require('biginteger').BigInteger;
 
-var selfOnly = process.env.SELF_ONLY;
-var seed = process.env.SEED || crypto.randomBytes(16).toString('hex');
-console.log('Seed: ' + seed);
-var prng = new XorShift128Plus(seed);
+const parser = new ArgumentParser();
+parser.addArgument(['-s', '--seed'], {defaultValue: process.env.SEED || crypto.randomBytes(16).toString('hex')});
+parser.addArgument(['-l', '--libs'], {defaultValue: '.'});
+parser.addArgument(['-b', '--benches'], {defaultValue: '.'});
+parser.addArgument(['-f', '--fast'], {action: 'storeTrue'});
+const args = parser.parseArgs();
+const seed = args.seed;
+const filter = new RegExp(args.libs, 'i');
+const re = new RegExp(args.benches, 'i');
+const fast = args.fast;
+
+const benchmarks = [];
+
+console.log('args:', args);
+console.log('DEFAULT_DISPLAY_BASE:', DEFAULT_DISPLAY_BASE);
+console.log('DEFAULT_REPRESENTATION_BASE:', DEFAULT_REPRESENTATION_BASE);
+
+const prng = new XorShift128Plus(seed);
 
 const NFIXTURES = 25;
 var fixtures = [];
@@ -31,13 +46,12 @@ function findexRefresh () {
   if (++findex === fixtures.length) findex = 0;
 }
 
-const filter = process.argv[3] ? new RegExp(process.argv[3], 'i') : /./;
-
 const k256 = 'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f' ;
 
 function add (op, ...args) {
+  const key = op + '-' + args.join('-');
   benchmarks.push({
-    name: op,
+    name: key,
     start: function start () {
       var suite = new benchmark.Suite();
 
@@ -48,35 +62,31 @@ function add (op, ...args) {
         if (name === 'BigInt' && typeof BigInt === 'undefined') return ;
         if (name === 'bignum' && bignum === undefined) return ;
 
-        if (!selfOnly || name === '@aureooms/js-integer') {
-          const opFn = fns[name][op];
-          if (!opFn) return;
-          if (!(opFn instanceof Function)) throw new Error(`opFN is not a function: ${opFN}`) ;
-          const fixture = fixtures[findex][name];
+        const opFn = fns[name][op];
+        if (!opFn) return;
+        if (!(opFn instanceof Function)) throw new Error(`opFN is not a function: ${opFN}`) ;
+        const fixture = fixtures[findex][name];
 
-          if (args.length === 1) {
-            const key = op + '-' + args[0];
-            const x = fixture.args[args[0]];
-            const outs = fixture.outs;
-            const testFn = () => outs[key] = opFn(x) ;
-            suite.add(name + '#' + key, testFn, {
-              onStart: findexRefresh,
-              onCycle: findexRefresh
-            });
-          }
-          else if (args.length === 2) {
-            const key = op + '-' + args[0] + '-' + args[1];
-            const a = fixture.args[args[0]];
-            const b = fixture.args[args[1]];
-            const outs = fixture.outs;
-            const testFn = () => outs[key] = opFn(a, b) ;
-            suite.add(name + '#' + key, testFn, {
-              onStart: findexRefresh,
-              onCycle: findexRefresh
-            });
-          }
-          else throw new Error('Too many args.') ;
+        if (args.length === 1) {
+          const x = fixture.args[args[0]];
+          const outs = fixture.outs;
+          const testFn = () => outs[key] = opFn(x) ;
+          suite.add(name + '#' + key, testFn, {
+            onStart: findexRefresh,
+            onCycle: findexRefresh
+          });
         }
+        else if (args.length === 2) {
+          const a = fixture.args[args[0]];
+          const b = fixture.args[args[1]];
+          const outs = fixture.outs;
+          const testFn = () => outs[key] = opFn(a, b) ;
+          suite.add(name + '#' + key, testFn, {
+            onStart: findexRefresh,
+            onCycle: findexRefresh
+          });
+        }
+        else throw new Error('Too many args.') ;
       });
 
       suite
@@ -95,7 +105,6 @@ function add (op, ...args) {
 }
 
 function start () {
-  var re = process.argv[2] ? new RegExp(process.argv[2], 'i') : /./;
 
   benchmarks
     .filter(function (b) {
@@ -106,7 +115,7 @@ function start () {
     });
 }
 
-if (/fast/i.test(process.argv[4])) {
+if (fast) {
   console.log('Running in fast mode...');
   benchmark.options.minTime = 0.3;
   benchmark.options.maxTime = 1;
