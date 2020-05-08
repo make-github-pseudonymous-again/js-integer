@@ -371,16 +371,21 @@ add('add', 'a768', 'b768');
 add('sub', 'a32', 'b32');
 add('sub', 'a768', 'b768');
 
-add('mul', 'a32', 'b32');
-add('mul', 'a64', 'b64');
-add('mul', 'a128', 'b128');
-add('mul', 'a256', 'b256');
-add('mul', 'a512', 'b512');
-add('mul', 'a768', 'b768');
-add('mul', 'a1024', 'b1024');
-add('mul', 'a2048', 'b2048');
-add('mul', 'a4096', 'b4096');
-add('mul', 'a8192', 'b8192');
+const ALL_OPS = [
+  [ 'a32', 'b32' ]  ,
+  [ 'a64', 'b64' ] ,
+  [ 'a128', 'b128' ] ,
+  [ 'a256', 'b256' ] ,
+  [ 'a512', 'b512' ] ,
+  [ 'a768', 'b768' ] ,
+  [ 'a1024', 'b1024' ] ,
+  [ 'a2048', 'b2048' ] ,
+  [ 'a4096', 'b4096' ] ,
+  [ 'a8192', 'b8192' ] ,
+] ;
+
+for ( const [ a , b ] of ALL_OPS ) add('mul', a, b) ;
+for ( const [ a , b ] of ALL_OPS ) add('div', a, b) ;
 
 add('sqr', 'a32');
 add('div', 'as1', 'a32');
@@ -418,6 +423,7 @@ for ( let i = 0; i < NFIXTURES; ++i ) {
       console.error('DIFFERENT OUTPUTS for', i, key) ;
       console.error(distinctResults) ;
       console.error(i, key, theseResults) ;
+      console.error(fixtures[i]) ;
     }
     else {
       console.error(i, key, JSON.stringify(Object.keys(theseResults)), 'OK') ;

@@ -4,8 +4,8 @@ const crypto = require('crypto');
 const ArgumentParser = require('argparse').ArgumentParser;
 //const itertools = require('@aureooms/js-itertools');
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
-const { THRESHOLD_MUL_TOOM22 } = require('@aureooms/js-integer-big-endian');
-const { ZZ } = require('..');
+const { THRESHOLD_MUL_TOOM22 , THRESHOLD_DIV_DC } = require('@aureooms/js-integer-big-endian');
+const { ZZ , DEFAULT_DISPLAY_BASE , DEFAULT_REPRESENTATION_BASE } = require('..');
 const BN = require('bn.js');
 
 const parser = new ArgumentParser();
@@ -29,18 +29,22 @@ console.log('_y:', _y);
 
 let x = ZZ.from(_x, 16);
 const y = ZZ.from(_y, 16);
+x.iadd(y.square());
 
 console.log('limbs x:', x.limbs.length);
 console.log('limbs y:', y.limbs.length);
+console.log('DEFAULT_DISPLAY_BASE:', DEFAULT_DISPLAY_BASE);
+console.log('DEFAULT_REPRESENTATION_BASE:', DEFAULT_REPRESENTATION_BASE);
 console.log('THRESHOLD_MUL_TOOM22:', THRESHOLD_MUL_TOOM22);
+console.log('THRESHOLD_DIV_DC:', THRESHOLD_DIV_DC);
 
 console.timeEnd('prepare');
 
 console.time('loop');
 let z;
 for (let k = 0; k < N; ++k) {
- z = x.mul(y);
+ z = x.mod(y);
 }
 console.timeEnd('loop');
 
-if (Math.random() < 0.0001) console.log(z);
+console.log(z.toString(16) === z.toString(16) ? 'OK' : 'ERROR: NOT OK');
