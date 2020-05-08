@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const ArgumentParser = require('argparse').ArgumentParser;
 //const itertools = require('@aureooms/js-itertools');
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
-const { ZZ } = require('..');
+const { ZZ , DEFAULT_DISPLAY_BASE , DEFAULT_REPRESENTATION_BASE } = require('..');
 const BN = require('bn.js');
 
 const parser = new ArgumentParser();
@@ -20,11 +20,16 @@ console.log('operand size (bytes):', M);
 console.log('number of operations:', N);
 console.log('seed:', seed);
 
+const MAX_PRINT_DIGITS = 79;
+const _show = _x => _x.length <= MAX_PRINT_DIGITS ?
+	_x :
+	_x.slice(0,(MAX_PRINT_DIGITS-3)/2) + '...' + _x.slice(_x.length-(MAX_PRINT_DIGITS-3)/2) ;
+
 const prng = new XorShift128Plus(seed);
 const _x = prng.randomBytes(M).toString('hex');
-console.log('_x:', _x);
+console.log('_x:', _show(_x));
 const _y = prng.randomBytes(M).toString('hex');
-console.log('_y:', _y);
+console.log('_y:', _show(_y));
 
 let x = ZZ.from(_x, 16);
 const y = ZZ.from(_y, 16);
@@ -32,17 +37,23 @@ const y = ZZ.from(_y, 16);
 //const y = BigInt('0x'+_y) ;
 //let x = new BN(_x,16) ;
 //const y = new BN(_y,16) ;
+let z = x;
+
+console.log('limbs x:', x.limbs.length);
+console.log('limbs y:', y.limbs.length);
+console.log('DEFAULT_DISPLAY_BASE:', DEFAULT_DISPLAY_BASE);
+console.log('DEFAULT_REPRESENTATION_BASE:', DEFAULT_REPRESENTATION_BASE);
 
 console.timeEnd('prepare');
 
 console.time('loop');
 for (let k = 0; k < N; ++k) {
  //x *= y;
- x = x.add(y);
- x = x.sub(y);
+ z = z.add(y);
+ z = z.sub(y);
  //x = x + y;
  //x = x - y;
 }
 console.timeEnd('loop');
 
-if (Math.random() < 0.0001) console.log(x);
+console.log(z.toString(16) === z.toString(16) ? 'OK' : 'ERROR: NOT OK');
