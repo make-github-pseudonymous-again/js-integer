@@ -240,7 +240,7 @@ const fns = {
     from10: s => SilentMattBigInteger.parse(s, 10),
     from16: s => SilentMattBigInteger.parse(s, 16),
     to10: x => x.toString(10),
-    to16: x => x.toString(16),
+    to16: x => x.toString(16).toLowerCase(),
     add: (a,b) => a.add(b),
     sub: (a,b) => a.subtract(b),
     mul: (a,b) => a.multiply(b),
@@ -420,7 +420,7 @@ for ( let i = 0; i < NFIXTURES; ++i ) {
       results[i][key] = results[i][key] || {} ;
 
       const result = fixture.outs[key] ;
-      const str = result instanceof String ? result : fn.to16(result).toLowerCase() ;
+      const str = result.constructor.prototype === String.prototype ? result : fn.to16(result).toLowerCase() ;
       results[i][key][name] = str;
     }) ;
   } ) ;
