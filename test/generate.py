@@ -1,10 +1,25 @@
+from math import ceil
+from math import sqrt
+
 MAX_NUMBER = 2**53 - 1
 MIN_NUMBER = -2**53
 
+LARGEST_BASE = ceil(sqrt(MAX_NUMBER))
+LARGEST_LIMB = LARGEST_BASE - 1
+
+print('MAX_NUMBER', MAX_NUMBER)
+print('MIN_NUMBER', MIN_NUMBER)
+print('LARGEST_BASE', LARGEST_BASE)
+print('LARGEST_LIMB', LARGEST_LIMB)
+
+assert(LARGEST_LIMB ** 2 < MAX_NUMBER)
+
 hugenumbers = sorted([
+    LARGEST_LIMB ,
+    LARGEST_BASE ,
     91**7 ,
     2**30 ,
-    3**50
+    3**50 ,
 ])
 
 smallnumbers = sorted([ 1 , 3 , 7 , 9 , 11 , 17 , 22 , 24 , 27 , 29 , 1234 , 5678 ])
