@@ -55,7 +55,7 @@ function add (op, ...args) {
     start: function start () {
       var suite = new benchmark.Suite();
 
-      console.log('Benchmarking: ' + op);
+      console.log('Benchmarking: ' + key);
 
       Object.keys(fns).forEach(function (name) {
         if (!filter.test(name)) return ;
@@ -121,7 +121,8 @@ if (fast) {
   benchmark.options.maxTime = 1;
   benchmark.options.minSamples = 3;
 } else {
-  benchmark.options.minTime = 1;
+  benchmark.options.minTime = 3;
+  benchmark.options.minSamples = 10;
 }
 
 const fns = {
@@ -353,7 +354,11 @@ function newFixture ( ) {
     const pow1 = fn.fromRed && fn.fromRed(am1);
     return {
       a32, b32, a64, b64, a128, b128, a256, b256, a512, b512, a768, b768,
-      a1024, b1024, a2048, b2048, a4096, b4096, a8192, b8192,
+      _a32, _b32, _a64, _b64, _a128, _b128, _a256, _b256, _a512, _b512, _a768, _b768,
+      a1024, b1024, a2048, b2048,
+      a4096, b4096, a8192, b8192,
+      _a1024, _b1024, _a2048, _b2048,
+      _a4096, _b4096, _a8192, _b8192,
       as1, am1, pow1, a10base, a16base,
     } ;
   }
@@ -373,12 +378,22 @@ while (fixtures.length < NFIXTURES) fixtures.push(newFixture()) ;
 
 add('from10', 'a10base');
 add('from16', 'a16base');
-add('to10', 'a32');
-add('to16', 'a32');
-add('add', 'a32', 'b32');
-add('add', 'a768', 'b768');
-add('sub', 'a32', 'b32');
-add('sub', 'a768', 'b768');
+
+const ALL = [
+  'a32' ,
+  'a64' ,
+  'a128' ,
+  'a256' ,
+  'a512' ,
+  'a768' ,
+  'a1024' ,
+  'a2048' ,
+  'a4096' ,
+  'a8192' ,
+] ;
+
+for ( const x of ALL ) add('from16', '_'+x) ;
+for ( const x of ALL ) add('to16', x) ;
 
 const ALL_OPS = [
   [ 'a32', 'b32' ]  ,
@@ -393,6 +408,8 @@ const ALL_OPS = [
   [ 'a8192', 'b8192' ] ,
 ] ;
 
+for ( const [ a , b ] of ALL_OPS ) add('add', a, b) ;
+for ( const [ a , b ] of ALL_OPS ) add('sub', a, b) ;
 for ( const [ a , b ] of ALL_OPS ) add('mul', a, b) ;
 for ( const [ a , b ] of ALL_OPS ) add('div', a, b) ;
 
