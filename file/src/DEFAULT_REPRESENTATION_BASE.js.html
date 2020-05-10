@@ -78,7 +78,8 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/DEFAULT_REPRESENTATION_BASE.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { DEFAULT_DISPLAY_BASE } from &apos;./&apos; ;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">//import { DEFAULT_DISPLAY_BASE } from &apos;./&apos; ;
+import { MAX_BASE } from &apos;./_limits&apos; ;
 
 /*
  * Biggest power of DEFAULT_DISPLAY_BASE whose square holds in a single double
@@ -86,7 +87,10 @@
  * and for fast base DEFAULT_DISPLAY_BASE printing. On older machines with no
  * native doubles, it might be worth to only use ints.
  */
-export const DEFAULT_REPRESENTATION_BASE = Math.pow(DEFAULT_DISPLAY_BASE,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(DEFAULT_DISPLAY_BASE))) ;
+//export const DEFAULT_REPRESENTATION_BASE = Math.pow(DEFAULT_DISPLAY_BASE,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(DEFAULT_DISPLAY_BASE))) ;
+//export const DEFAULT_REPRESENTATION_BASE = Math.pow(16,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(16))) ;
+//export const DEFAULT_REPRESENTATION_BASE = Math.pow(2,26) | 0;
+export const DEFAULT_REPRESENTATION_BASE = MAX_BASE;
 </code></pre>
 
 </div>
