@@ -14,7 +14,7 @@
     "biginteger": "1.0.3",
     "bn.js": "^5.1.1",
     "eccjs": "0.3.1",
-    "js-big-integer": "3.0.1",
+    "js-big-integer": "3.0.3",
     "jsbi": "^3.1.2",
     "xorshift.js": "^1.0.5"
   },
