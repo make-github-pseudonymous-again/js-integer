@@ -24,45 +24,51 @@ hugenumbers = sorted([
 
 smallnumbers = sorted([ 1 , 3 , 7 , 9 , 11 , 17 , 22 , 24 , 27 , 29 , 1234 , 5678 ])
 
+zero = [0]
+
 arithmetic = {
     'add' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'numbers' : zero + smallnumbers + hugenumbers ,
         'apply' : lambda a,b: (a+b,) ,
         'str' : '+'
     } ,
     'sub' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'numbers' : zero + smallnumbers + hugenumbers ,
         'apply' : lambda a,b: (a-b,) ,
         'str' : '-'
     } ,
     'mul' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'numbers' : zero + smallnumbers + hugenumbers ,
         'apply' : lambda a,b: (a*b,) ,
         'str' : '*'
     } ,
     'pow' : {
-        'numbers' : smallnumbers ,
+        'left' : zero + smallnumbers + hugenumbers ,
+        'right' : zero + smallnumbers ,
         'apply' : lambda a,b: (a**b,) ,
         'str' : '^'
     } ,
     'div' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'left' : zero + smallnumbers + hugenumbers ,
+        'right' : smallnumbers + hugenumbers ,
         'apply' : lambda a,b: (a//b,) ,
         'str' : '/'
     } ,
     'mod' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'left' : zero + smallnumbers + hugenumbers ,
+        'right' : smallnumbers + hugenumbers ,
         'apply' : lambda a,b: (a%b,) ,
         'str' : '%'
     } ,
     'divmod' : {
-        'numbers' : smallnumbers + hugenumbers ,
+        'left' : zero + smallnumbers + hugenumbers ,
+        'right' : smallnumbers + hugenumbers ,
         'apply' : lambda a, b: (a // b, a % b) ,
         'str' : '/%'
     } ,
 }
 
-def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) :
+def write ( f , left, right , name , t , ispow = False , isn = False , isi = False) :
 
     outputsize = 2 if 'divmod' in name else 1
 
@@ -134,9 +140,9 @@ def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) 
         else:
             LINE = "test( macro , '{}' , '{}' , '{}' ) ;\n"
 
-    for a in numbers :
+    for a in left :
 
-        for b in numbers :
+        for b in right :
 
             x = a
             y = b
@@ -144,42 +150,47 @@ def write ( f , numbers , name , t , ispow = False , isn = False , isi = False) 
             if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
                 f.write(LINE.format(x,y,*c))
 
-            x = -a
-            y = b
-            c = t( x , y )
-            if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                f.write(LINE.format(x,y,*c))
+            if a != 0:
+                x = -a
+                y = b
+                c = t( x , y )
+                if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
+                    f.write(LINE.format(x,y,*c))
 
             if not ispow:
 
-                x = a
-                y = -b
-                c = t( x , y )
-                if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                    f.write(LINE.format(x,y,*c))
+                if b != 0:
+                    x = a
+                    y = -b
+                    c = t( x , y )
+                    if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
+                        f.write(LINE.format(x,y,*c))
 
-                x = -a
-                y = -b
-                c = t( x , y )
-                if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
-                    f.write(LINE.format(x,y,*c))
+                    if a != 0:
+                        x = -a
+                        y = -b
+                        c = t( x , y )
+                        if not isn or MIN_NUMBER <= y <= MAX_NUMBER:
+                            f.write(LINE.format(x,y,*c))
 
-def open_and_write ( opname , t , nb , **kwargs ) :
+def open_and_write ( opname , t , left , right , **kwargs ) :
     with open( 'test/src/integer/arithmetic/{}.js'.format(opname) , 'w' ) as f :
-        write( f , nb , opname , t , **kwargs )
+        write( f , left , right , opname , t , **kwargs )
 
 for name , op in arithmetic.items():
 
     t = op['apply']
-    nb = op['numbers']
+
+    left = op.get('left', op.get('numbers'))
+    right = op.get('right', op.get('numbers'))
 
     ispow = name == 'pow'
 
     # standard op
-    open_and_write( name , t , nb , ispow = ispow )
+    open_and_write( name , t , left , right , ispow = ispow )
     # in-place op
-    open_and_write( 'i' + name , t , nb , isi = True , ispow = ispow )
+    open_and_write( 'i' + name , t , left , right , isi = True , ispow = ispow )
     # standard op with number arg
-    open_and_write( name + 'n' , t , nb , isn = True , ispow = ispow )
+    open_and_write( name + 'n' , t , left , right , isn = True , ispow = ispow )
     # in-place op with number arg
-    open_and_write( 'i' + name + 'n' , t , nb , isi = True , isn = True , ispow = ispow )
+    open_and_write( 'i' + name + 'n' , t , left , right , isi = True , isn = True , ispow = ispow )

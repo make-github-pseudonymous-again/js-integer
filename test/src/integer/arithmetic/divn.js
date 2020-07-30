@@ -10,6 +10,38 @@ function macro ( t , A , B , C ) {
 
 macro.title = ( _ , A , B , C ) => `divn(${A},${B}) = ${C}` ;
 
+test( macro , '0' , 1 , '0' ) ;
+test( macro , '0' , -1 , '0' ) ;
+test( macro , '0' , 3 , '0' ) ;
+test( macro , '0' , -3 , '0' ) ;
+test( macro , '0' , 7 , '0' ) ;
+test( macro , '0' , -7 , '0' ) ;
+test( macro , '0' , 9 , '0' ) ;
+test( macro , '0' , -9 , '0' ) ;
+test( macro , '0' , 11 , '0' ) ;
+test( macro , '0' , -11 , '0' ) ;
+test( macro , '0' , 17 , '0' ) ;
+test( macro , '0' , -17 , '0' ) ;
+test( macro , '0' , 22 , '0' ) ;
+test( macro , '0' , -22 , '0' ) ;
+test( macro , '0' , 24 , '0' ) ;
+test( macro , '0' , -24 , '0' ) ;
+test( macro , '0' , 27 , '0' ) ;
+test( macro , '0' , -27 , '0' ) ;
+test( macro , '0' , 29 , '0' ) ;
+test( macro , '0' , -29 , '0' ) ;
+test( macro , '0' , 1234 , '0' ) ;
+test( macro , '0' , -1234 , '0' ) ;
+test( macro , '0' , 5678 , '0' ) ;
+test( macro , '0' , -5678 , '0' ) ;
+test( macro , '0' , 94906265 , '0' ) ;
+test( macro , '0' , -94906265 , '0' ) ;
+test( macro , '0' , 94906266 , '0' ) ;
+test( macro , '0' , -94906266 , '0' ) ;
+test( macro , '0' , 1073741824 , '0' ) ;
+test( macro , '0' , -1073741824 , '0' ) ;
+test( macro , '0' , 51676101935731 , '0' ) ;
+test( macro , '0' , -51676101935731 , '0' ) ;
 test( macro , '1' , 1 , '1' ) ;
 test( macro , '-1' , 1 , '-1' ) ;
 test( macro , '1' , -1 , '-1' ) ;
