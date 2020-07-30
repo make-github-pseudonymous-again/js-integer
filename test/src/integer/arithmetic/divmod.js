@@ -1,6 +1,8 @@
 import test from 'ava' ;
 import { parse , stringify , divmod } from '../../../../src' ;
 
+const fmt = x => x.length <= 40 ? x : x.slice(0,19) + '..' + x.slice(-19);
+
 function macro ( t , A , B , C , D ) {
     const a = parse( A ) ;
     const b = parse( B ) ;
@@ -11,7 +13,7 @@ function macro ( t , A , B , C , D ) {
     t.is( stringify( d ) , D ) ;
 }
 
-macro.title = ( _ , A , B , C , D ) => `divmod(${A},${B}) = [${C},${D}]` ;
+macro.title = ( _ , A , B , C , D ) => `divmod(${fmt(A)},${fmt(B)}) = [${fmt(C)},${fmt(D)}]` ;
 
 test( macro , '0' , '1' , '0' , '0' ) ;
 test( macro , '0' , '-1' , '0' , '0' ) ;

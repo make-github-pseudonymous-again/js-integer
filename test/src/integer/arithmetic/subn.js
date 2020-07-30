@@ -1,6 +1,8 @@
 import test from 'ava' ;
 import { parse , stringify , subn } from '../../../../src' ;
 
+const fmt = x => x.length <= 40 ? x : x.slice(0,19) + '..' + x.slice(-19);
+
 function macro ( t , A , B , C ) {
     const a = parse( A ) ;
     const c = subn( a , B ) ;
@@ -8,7 +10,7 @@ function macro ( t , A , B , C ) {
     t.is( stringify( c ) , C ) ;
 }
 
-macro.title = ( _ , A , B , C ) => `subn(${A},${B}) = ${C}` ;
+macro.title = ( _ , A , B , C ) => `subn(${fmt(A)},${B}) = ${fmt(C)}` ;
 
 test( macro , '0' , 0 , '0' ) ;
 test( macro , '0' , 1 , '-1' ) ;

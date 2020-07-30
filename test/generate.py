@@ -75,6 +75,8 @@ def write ( f , left, right , name , t , ispow = False , isn = False , isi = Fal
     f.write("import test from 'ava' ;\n")
     f.write("import {{ parse , stringify , {} }} from '../../../../src' ;\n\n".format(name))
 
+    f.write("const fmt = x => x.length <= 40 ? x : x.slice(0,19) + '..' + x.slice(-19);\n\n")
+
     if outputsize == 2 :
 
         if isn :
@@ -124,20 +126,20 @@ def write ( f , left, right , name , t , ispow = False , isn = False , isi = Fal
 
     if outputsize == 2 :
 
-        f.write("macro.title = ( _ , A , B , C , D ) => `{}(${{A}},${{B}}) = [${{C}},${{D}}]` ;\n\n".format(name))
-
         if isn:
+            f.write("macro.title = ( _ , A , B , C , D ) => `{}(${{fmt(A)}},${{B}}) = [${{fmt(C)}},${{fmt(D)}}]` ;\n\n".format(name))
             LINE = "test( macro , '{}' , {} , '{}' , '{}' ) ;\n"
         else:
+            f.write("macro.title = ( _ , A , B , C , D ) => `{}(${{fmt(A)}},${{fmt(B)}}) = [${{fmt(C)}},${{fmt(D)}}]` ;\n\n".format(name))
             LINE = "test( macro , '{}' , '{}' , '{}' , '{}' ) ;\n"
 
     else:
 
-        f.write("macro.title = ( _ , A , B , C ) => `{}(${{A}},${{B}}) = ${{C}}` ;\n\n".format(name))
-
         if isn:
+            f.write("macro.title = ( _ , A , B , C ) => `{}(${{fmt(A)}},${{B}}) = ${{fmt(C)}}` ;\n\n".format(name))
             LINE = "test( macro , '{}' , {} , '{}' ) ;\n"
         else:
+            f.write("macro.title = ( _ , A , B , C ) => `{}(${{fmt(A)}},${{fmt(B)}}) = ${{fmt(C)}}` ;\n\n".format(name))
             LINE = "test( macro , '{}' , '{}' , '{}' ) ;\n"
 
     for a in left :
