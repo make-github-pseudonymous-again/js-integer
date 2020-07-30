@@ -31,4 +31,26 @@ test( macro ,
 	ZZ.from('52310721570994454309603316505452077132504750494613585448247191340916543146521771411345313270814742631')
 ) ;
 
+function auto ( t , a ) {
+	t.is( a.abs().toString() , a.gcd(a).toString() ) ;
+}
+
+auto.title = (providedTitle, a) => `auto gcd(${a.toString()},${a.toString()}) = ${a.toString()}` ;
+
+test( auto , ZZ.$0() ) ;
+test( auto , ZZ.$1() ) ;
+test( auto , ZZ.$_1() ) ;
+test( auto , ZZ.from(2) ) ;
+test( auto , ZZ.from(13280123) ) ;
+test( auto ,
+	ZZ.from('37650526072328171936695291762250209370684337226819795603338569781977444693437332193180866661042770508342415236941382410000000000000000')
+) ;
+
+test( auto ,
+	ZZ.from('-37650526072328171936695291762250209370684337226819795603338569781977444693437332193180866661042770508342415236941382410000000000000000')
+) ;
+
+test( macro , ZZ.from(-3) , ZZ.from(3) , ZZ.from(3) ) ;
+test( macro , ZZ.from(3) , ZZ.from(-3) , ZZ.from(3) ) ;
+
 // test generated with https://github.com/aureooms-research/gcd
