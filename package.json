@@ -11,7 +11,7 @@
     "files": [
       "test/src/**/*"
     ],
-    "timeout": "5m",
+    "timeout": "10m",
     "concurrency": 8
   },
   "babel": {
