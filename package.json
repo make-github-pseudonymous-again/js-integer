@@ -28,8 +28,8 @@
     "url": "https://github.com/aureooms/js-integer/issues"
   },
   "dependencies": {
-    "@aureooms/js-error": "^4.0.0",
-    "@aureooms/js-integer-big-endian": "^10.0.0"
+    "@aureooms/js-error": "^4.0.1",
+    "@aureooms/js-integer-big-endian": "^10.1.0"
   },
   "devDependencies": {
     "@aureooms/js-algorithms": "3.0.7",
