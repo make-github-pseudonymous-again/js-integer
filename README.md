@@ -34,6 +34,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 The current underlying implementation uses big endian order. There is no
 alternative for the moment.
 
+  - [ ] [BigInt](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)
   - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
   - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
