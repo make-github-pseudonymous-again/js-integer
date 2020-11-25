@@ -1,7 +1,16 @@
-[@aureooms/js-integer](https://aureooms.github.io/js-integer)
+:zzz: [@aureooms/js-integer](https://aureooms.github.io/js-integer)
 ==
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg" width="864">
+<p align="center">
+<a href="https://en.wikipedia.org/wiki/File:Latex_integers.svg">
+<img alt="The Zahlen symbol" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg" width="300">
+</a><br/>
+<a href="https://en.wikipedia.org/wiki/User:Alejo2083">
+User:Alejo2083
+</a>
+/
+<a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>
+</p>
 
 Integers for JavaScript.
 See [docs](https://aureooms.github.io/js-integer).
@@ -29,7 +38,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 [![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)
 [![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)
 
-## Children
+## :baby: Children
 
 The current underlying implementation uses big endian order. There is no
 alternative for the moment.
@@ -38,9 +47,11 @@ alternative for the moment.
   - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)
   - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)
 
-## Reference
+## :scroll: Reference
 
  - [The GNU Multiple Precision Arithmetic Library](https://gmplib.org/)
  - https://gmplib.org/gmp-man-6.0.0a.pdf
  - https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm
+
+## :link: Links
  - [Similar work on GitHub](https://github.com/search?l=JavaScript&o=desc&q=bigint&s=stars&type=Repositories)
