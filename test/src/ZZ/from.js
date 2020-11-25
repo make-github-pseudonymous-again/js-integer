@@ -1,6 +1,9 @@
 import test from 'ava' ;
 
-import { ZZ , ValueError , TypeError , MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
+import { ValueError } from '../../../src';
+import { TypeError } from '../../../src';
+import { MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
+import { ZZ } from '../../../src' ;
 
 test( 'ZZ.from()' , t => {
 
