@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , ValueError , TypeError , MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
+import { ZZ , { instanceOf: ValueError } , { instanceOf: TypeError } , MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
 
 test( 'ZZ.from()' , t => {
 
