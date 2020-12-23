@@ -13,9 +13,9 @@ function macro ( t , number ) {
 
 macro.title = ( providedTitle , number ) => `toNumber: ${number}` ;
 
-function throws ( t , string ) {
-	const integer = ZZ.from(string) ;
-	t.is(string, integer.toString()) ;
+function throws ( t , string , plus ) {
+	const integer = ZZ.from(string).addn(plus) ;
+	t.is(string, integer.subn(plus).toString()) ;
 	t.throws(() => integer.toNumber(), { instanceOf: ValueError }) ;
 }
 
@@ -34,6 +34,8 @@ once(1);
 once(-1);
 once(MIN_NUMBER);
 once(MAX_NUMBER);
+once(MIN_NUMBER+1);
+once(MAX_NUMBER-1);
 
 while ( tested.size < N ) {
 	const number = randint(MIN_NUMBER, MAX_NUMBER + 1) ;
@@ -41,5 +43,5 @@ while ( tested.size < N ) {
 	once(number) ;
 }
 
-test( throws , '9007199254740992' ) ;
-test( throws , '-9007199254740993' ) ;
+test( throws , MAX_NUMBER.toString() , +1 ) ;
+test( throws , MIN_NUMBER.toString() , -1 ) ;
