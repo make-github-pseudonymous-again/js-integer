@@ -83,7 +83,7 @@
   "devDependencies": {
     "@aureooms/js-algorithms": "3.0.7",
     "@aureooms/js-array": "4.0.0",
-    "@aureooms/js-itertools": "5.0.1",
+    "@aureooms/js-itertools": "5.0.2",
     "@aureooms/js-operator": "1.0.2",
     "@aureooms/js-random": "2.0.0",
     "@aureooms/js-string": "1.0.0",

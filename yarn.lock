@@ -34,10 +34,10 @@
   resolved "https://registry.yarnpkg.com/@aureooms/js-integer-big-endian/-/js-integer-big-endian-10.1.0.tgz#47320d60d2332d8559e3be1b7e26e2b38b777a1e"
   integrity sha512-Bph2xwAYqOxNYwvDxEBAcWeHKhcvlg+QES3dTrOLQAumXoQI/r/Wpz0orueeFadyYNCeSm4i3gRkcjRdbh5NZw==
 
-"@aureooms/js-itertools@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@aureooms/js-itertools/-/js-itertools-5.0.1.tgz#73af47b0a710073730fccde6c57431a9178d1bea"
-  integrity sha512-EBmA0EiY49MSu7M6eCZvUyEhV79bvIQDg/LL3bfUG8fxhL4IeBLbgYc41a4/LunD5mLFG8ZQna/Z/oUjr4fUuQ==
+"@aureooms/js-itertools@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@aureooms/js-itertools/-/js-itertools-5.0.2.tgz#d3da95e219e069aed4483cc9dcd7e73970ce83db"
+  integrity sha512-FXCeJh0qRUdo2pJyEruN5rOQcelTZpfoC0e0dZPu+kziyhnkeG+LuTYMRBDJnH/XJ4zTGPmKKtahtVeTFG17mA==
   dependencies:
     "@aureooms/js-collections-deque" "^6.0.1"
     "@aureooms/js-error" "^5.0.2"
