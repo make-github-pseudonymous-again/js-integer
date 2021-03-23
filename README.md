@@ -25,7 +25,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 
 [![License](https://img.shields.io/github/license/aureooms/js-integer.svg)](https://raw.githubusercontent.com/aureooms/js-integer/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)
-[![Build](https://img.shields.io/travis/aureooms/js-integer/main.svg)](https://travis-ci.org/aureooms/js-integer/branches)
+[![Build](https://img.shields.io/travis/aureooms/js-integer/main.svg)](https://travis-ci.com/aureooms/js-integer/branches)
 [![Dependencies](https://img.shields.io/david/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer)
 [![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer?type=dev)
 [![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg)](https://github.com/aureooms/js-integer/issues)
