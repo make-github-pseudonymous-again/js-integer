@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 test( 'ZZ.from(3).pow(50).digits()' , t => {
 	t.deepEqual(

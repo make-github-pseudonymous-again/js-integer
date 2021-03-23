@@ -1,5 +1,5 @@
-import { Integer } from './Integer' ;
-import { MAX_BASE } from './_limits' ;
+import { Integer } from "./Integer.js" ;
+import { MAX_BASE } from "./_limits.js" ;
 
 export function _from_number ( number ) {
 	const x = number >= 0 ? number : -number ;

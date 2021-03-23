@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { IntegerRing } from '../../../src' ;
+import { IntegerRing } from "../../../src/index.js" ;
 
 test( 'different bases' , t => {
 

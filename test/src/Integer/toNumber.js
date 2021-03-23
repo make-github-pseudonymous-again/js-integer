@@ -3,7 +3,7 @@ import test from 'ava' ;
 import { randint } from '@aureooms/js-random' ;
 import { ValueError } from '@aureooms/js-error' ;
 
-import { ZZ , MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
+import { ZZ , MIN_NUMBER , MAX_NUMBER } from "../../../src/index.js" ;
 
 function macro ( t , number ) {
 	const integer = ZZ.from(number) ;

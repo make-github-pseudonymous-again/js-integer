@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 function number ( t , x ) {
 	t.is(x*x, ZZ.from(x).isquare().valueOf() ) ;

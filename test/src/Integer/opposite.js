@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 test( 'ZZ.$0().opposite()' , t => { t.is( ZZ.$0().opposite().toString() , '0' ) ; } ) ;
 test( 'ZZ.$1().opposite()' , t => { t.is( ZZ.$1().opposite().toString() , '-1' ) ; } ) ;

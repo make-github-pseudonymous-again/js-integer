@@ -1,4 +1,4 @@
-import { DEFAULT_DISPLAY_BASE , ZZ } from './' ;
+import { DEFAULT_DISPLAY_BASE , ZZ } from "./index.js" ;
 
 export function $0 ( ) {
 	return ZZ.$0() ;

@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { ZZ , ZeroDivisionError } from '../../../src' ;
+import { ZZ , ZeroDivisionError } from "../../../src/index.js" ;
 
 function macro ( t , a , b , expected ) {
 	t.is(expected, ZZ.from(a).divides(ZZ.from(b))) ;

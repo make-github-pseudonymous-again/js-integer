@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 test( '$0' , t => { t.is( ZZ.$0().toString(), '0' ) ; } ) ;
 test( '$0.sign()' , t => { t.is( ZZ.$0().sign(), 0 ) ; } ) ;

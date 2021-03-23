@@ -1,8 +1,8 @@
-import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;
+import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from "./index.js" ;
 
 import { ValueError } from '@aureooms/js-error' ;
 
-import { _from_number } from './_from_number' ;
+import { _from_number } from "./_from_number.js" ;
 
 import {
 	stringify , convert , _trim_positive ,
@@ -13,7 +13,7 @@ import {
 	euclidean_algorithm , extended_euclidean_algorithm ,
 } from '@aureooms/js-integer-big-endian' ;
 
-import { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from './_limits' ;
+import { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from "./_limits.js" ;
 
 export class Integer {
 

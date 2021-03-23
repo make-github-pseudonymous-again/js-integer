@@ -1,9 +1,9 @@
 import test from 'ava' ;
 
-import { ValueError } from '../../../src';
-import { TypeError } from '../../../src';
-import { MIN_NUMBER , MAX_NUMBER } from '../../../src' ;
-import { ZZ } from '../../../src' ;
+import { ValueError } from "../../../src/index.js";
+import { TypeError } from "../../../src/index.js";
+import { MIN_NUMBER , MAX_NUMBER } from "../../../src/index.js" ;
+import { ZZ } from "../../../src/index.js" ;
 
 test( 'ZZ.from()' , t => {
 

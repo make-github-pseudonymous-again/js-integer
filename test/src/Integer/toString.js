@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 test( 'ZZ.from(3).pow(50).toString()' , t => { t.is(ZZ.from(3).pow(50).toString() , '717897987691852588770249' ) ; } ) ;
 test( 'ZZ.from(3).pow(50).bin()' , t => {

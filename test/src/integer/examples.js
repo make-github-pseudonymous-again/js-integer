@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { parse , stringify , add } from '../../../src' ;
+import { parse , stringify , add } from "../../../src/index.js" ;
 
 function macro ( t , A , x , B , y , C , z ) {
     const a = parse( A , x ) ;

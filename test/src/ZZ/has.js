@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 const has = ( t , x ) => t.true( ZZ.has(x) ) ;
 has.title = ( providedTitle , x ) => `ZZ contains ${x.toString()}.`

@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , ZeroDivisionError } from '../../../src' ;
+import { ZZ , ZeroDivisionError } from "../../../src/index.js" ;
 
 function macro ( t , a , b , expected ) {
 	t.is(expected.toString(), ZZ.from(a).divround(ZZ.from(b)).toString()) ;

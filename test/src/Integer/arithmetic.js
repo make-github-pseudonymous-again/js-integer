@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , ZeroDivisionError } from '../../../src' ;
+import { ZZ , ZeroDivisionError } from "../../../src/index.js" ;
 
 test( 'simple operations with 12 and 20' , t => {
 

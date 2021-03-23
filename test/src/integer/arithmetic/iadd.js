@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { parse , stringify , iadd } from '../../../../src' ;
+import { parse , stringify , iadd } from "../../../../src/index.js" ;
 
 const fmt = x => x.length <= 40 ? x : x.slice(0,19) + '..' + x.slice(-19);
 

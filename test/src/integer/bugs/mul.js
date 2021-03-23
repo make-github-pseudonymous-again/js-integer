@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { parse , stringify , mul } from '../../../../src' ;
+import { parse , stringify , mul } from "../../../../src/index.js" ;
 
 test ( 'mul handles overflow' , t => {
 	const X = '81129639699425365877808850315535' ;

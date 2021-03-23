@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , $0 , $1 , $_1 } from '../../../src' ;
+import { ZZ , $0 , $1 , $_1 } from "../../../src/index.js" ;
 
 test( '$0 == ZZ.$0' , t => { t.true($0().eq(ZZ.$0())) ; } ) ;
 test( '$1 == ZZ.$1' , t => { t.true($1().eq(ZZ.$1())) ; } ) ;

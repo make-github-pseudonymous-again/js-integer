@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 function macro ( t , x ) {
 	t.is(x.toString().replace(/-/,''), ZZ.from(x).iabs().toString());

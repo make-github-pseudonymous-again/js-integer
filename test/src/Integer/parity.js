@@ -1,7 +1,7 @@
 import test from 'ava' ;
 import { range } from '@aureooms/js-itertools' ;
 
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 function even ( t , x ) {
 	t.true(x.iseven());

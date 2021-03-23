@@ -1,5 +1,5 @@
 import test from 'ava' ;
-import { ZZ } from '../../../src' ;
+import { ZZ } from "../../../src/index.js" ;
 
 
 test( 'ZZ.$0().iszero()' , t => { t.is( ZZ.$0().iszero() , true  ) ; } ) ;

@@ -1,5 +1,5 @@
 //import { DEFAULT_DISPLAY_BASE } from './' ;
-import { MAX_BASE } from './_limits' ;
+import { MAX_BASE } from "./_limits.js" ;
 
 /*
  * Biggest power of DEFAULT_DISPLAY_BASE whose square holds in a single double

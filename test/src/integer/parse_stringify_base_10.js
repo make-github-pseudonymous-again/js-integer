@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { parse , stringify } from '../../../src' ;
+import { parse , stringify } from "../../../src/index.js" ;
 
 const numbers = [
 	'0' ,
