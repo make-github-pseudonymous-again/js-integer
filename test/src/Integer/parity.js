@@ -29,7 +29,8 @@ test( odd , ZZ.from(2).pow(1234).subn(1) ) ;
 const N = 100 ;
 let x = ZZ.from(-N);
 
-for ( const i of range(N) ) {
+// eslint-disable-next-line no-unused-vars
+for ( const _ of range(N) ) {
 	test( even , x ) ;
 	x = x.addn(1) ;
 	test( odd , x ) ;

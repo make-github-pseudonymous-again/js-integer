@@ -308,13 +308,13 @@ export class Integer {
 
 			if ( other.is_negative ) {
 
-				if ( !this.is_negative ) {
-					increment( r , q , 0 , q.length ) ;
-					R.iadd( other ) ; // TODO optimize
+				if ( this.is_negative ) {
+					R.negate(); // TODO optimize
 				}
 
 				else {
-					R.negate(); // TODO optimize
+					increment( r , q , 0 , q.length ) ;
+					R.iadd( other ) ; // TODO optimize
 				}
 
 			}

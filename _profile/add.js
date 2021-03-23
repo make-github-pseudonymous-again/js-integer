@@ -5,7 +5,7 @@ const ArgumentParser = require('argparse').ArgumentParser;
 //const itertools = require('@aureooms/js-itertools');
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
 const { ZZ , DEFAULT_DISPLAY_BASE , DEFAULT_REPRESENTATION_BASE } = require('..');
-const BN = require('bn.js');
+//const BN = require('bn.js');
 
 const parser = new ArgumentParser();
 parser.addArgument(['M'], {defaultValue: 1000, nargs: '?'});
@@ -56,4 +56,5 @@ for (let k = 0; k < N; ++k) {
 }
 console.timeEnd('loop');
 
+// eslint-disable-next-line no-self-compare
 console.log(z.toString(16) === z.toString(16) ? 'OK' : 'ERROR: NOT OK');

@@ -1,6 +1,6 @@
 import test from 'ava' ;
 
-import { ZZ , ZeroDivisionError } from '../../../src' ;
+import { ZZ } from '../../../src' ;
 
 function macro ( t , a , b , q ) {
 	const A = ZZ.from(a) ;
@@ -12,7 +12,7 @@ function macro ( t , a , b , q ) {
 	t.is(b.toString(), B.toString()) ;
 }
 
-macro.title = ( providedTitle , a , b , q , r ) => `${a} divide_knowing_divisible_by ${b} = ${q}` ;
+macro.title = ( providedTitle , a , b , q ) => providedTitle || `${a} divide_knowing_divisible_by ${b} = ${q}` ;
 
 test(macro, 3, 1, 3) ;
 test(macro, '123', 3, 41) ;

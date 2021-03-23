@@ -6,7 +6,6 @@ const ArgumentParser = require('argparse').ArgumentParser;
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
 const { THRESHOLD_MUL_TOOM22 } = require('@aureooms/js-integer-big-endian');
 const { ZZ } = require('..');
-const BN = require('bn.js');
 
 const parser = new ArgumentParser();
 parser.addArgument(['M'], {defaultValue: 1000, nargs: '?'});

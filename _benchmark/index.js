@@ -1,5 +1,4 @@
-/* global BigInt */
-/* eslint-disable new-cap, no-new, no-unused-expressions */
+/* eslint-disable new-cap */
 
 const ArgumentParser = require('argparse').ArgumentParser;
 var benchmark = require('benchmark');
@@ -52,7 +51,7 @@ function add (op, ...args) {
   const key = op + '-' + args.join('-');
   benchmarks.push({
     name: key,
-    start: function start () {
+    start: function () {
       var suite = new benchmark.Suite();
 
       console.log('Benchmarking: ' + key);
@@ -64,13 +63,13 @@ function add (op, ...args) {
 
         const opFn = fns[name][op];
         if (!opFn) return;
-        if (!(opFn instanceof Function)) throw new Error(`opFN is not a function: ${opFN}`) ;
+        if (!(opFn instanceof Function)) throw new Error(`opFN is not a function: ${opFn}`) ;
         const fixture = fixtures[findex][name];
 
         if (args.length === 1) {
           const x = fixture.args[args[0]];
           const outs = fixture.outs;
-          const testFn = () => outs[key] = opFn(x) ;
+          const testFn = () => { outs[key] = opFn(x) ; } ;
           suite.add(name + '#' + key, testFn, {
             onStart: findexRefresh,
             onCycle: findexRefresh
@@ -80,7 +79,7 @@ function add (op, ...args) {
           const a = fixture.args[args[0]];
           const b = fixture.args[args[1]];
           const outs = fixture.outs;
-          const testFn = () => outs[key] = opFn(a, b) ;
+          const testFn = () => { outs[key] = opFn(a, b) ; } ;
           suite.add(name + '#' + key, testFn, {
             onStart: findexRefresh,
             onCycle: findexRefresh
@@ -139,12 +138,12 @@ const fns = {
     div: (a,b) => a / b,
     mod: (a, b) => {
       const remainder = a % b;
-      return remainder < 0 ? remainder + b : remainer;
+      return remainder < 0 ? remainder + b : remainder;
     },
 
     toRed: x => x % k256_BigInt,
     fromRed: x => x,
-    sqrm: x => (a**2) % k256_BigInt,
+    sqrm: x => (x**2) % k256_BigInt,
     powm: (a,b) => (a**b) % k256_BigInt,
   } ,
   'bn.js': {
@@ -270,7 +269,7 @@ const fns = {
     fromRed: x => x,
     toRed: x => x.mod(k256_bignum),
     powm: (a,b) => a.powm(b, k256_bignum),
-    sqrm: x => a.pown(2, k256_bignum),
+    sqrm: x => x.pown(2, k256_bignum),
     invm: x => x.invertm(k256_bignum),
   } ,
   sjcl: {
@@ -442,17 +441,17 @@ for ( let i = 0; i < NFIXTURES; ++i ) {
     }) ;
   } ) ;
 
-  for ( const key in results[i] ) {
+  for ( const key of Object.keys(results[i]) ) {
     const theseResults = results[i][key] ;
     const distinctResults = new Set(Object.values(theseResults));
-    if (distinctResults.size !== 1) {
+    if (distinctResults.size === 1) {
+      console.error(i, key, JSON.stringify(Object.keys(theseResults)), 'OK') ;
+    }
+    else {
       console.error('DIFFERENT OUTPUTS for', i, key) ;
       console.error(distinctResults) ;
       console.error(i, key, theseResults) ;
       console.error(fixtures[i]) ;
-    }
-    else {
-      console.error(i, key, JSON.stringify(Object.keys(theseResults)), 'OK') ;
     }
   }
 

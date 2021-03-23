@@ -39,7 +39,7 @@ test( 'ZZ.from()' , t => {
 
 	t.throws( () => ZZ.from({}) , TypeError ) ;
 	t.throws( () => ZZ.from(new Date()) , TypeError ) ;
-	t.throws( () => ZZ.from(new Regex()) , TypeError ) ;
+	t.throws( () => ZZ.from(new RegExp()) , TypeError ) ;
 
 	t.throws( () => ZZ.from('') , ValueError ) ;
 	t.throws( () => ZZ.from('-') , ValueError ) ;

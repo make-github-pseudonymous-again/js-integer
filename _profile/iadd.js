@@ -5,7 +5,7 @@ const ArgumentParser = require('argparse').ArgumentParser;
 //const itertools = require('@aureooms/js-itertools');
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
 const { ZZ } = require('..');
-const BN = require('bn.js');
+//const BN = require('bn.js');
 
 const parser = new ArgumentParser();
 parser.addArgument(['M'], {defaultValue: 1000, nargs: '?'});
