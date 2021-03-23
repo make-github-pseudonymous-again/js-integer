@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -78,120 +78,135 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/IntegerRing.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Integer } from &apos;./&apos; ;
-import { DEFAULT_DISPLAY_BASE } from &apos;./&apos; ;
-import { parse , convert } from &apos;@aureooms/js-integer-big-endian&apos; ;
-import { TypeError , ValueError } from &apos;@aureooms/js-error&apos; ;
-import { _from_number } from &apos;./_from_number&apos; ;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {parse, convert} from &apos;@aureooms/js-integer-big-endian&apos;;
+import {TypeError, ValueError} from &apos;@aureooms/js-error&apos;;
+
+import {Integer} from &apos;./Integer.js&apos;;
+import {DEFAULT_DISPLAY_BASE} from &apos;./DEFAULT_DISPLAY_BASE.js&apos;;
+import {_from_number} from &apos;./_from_number.js&apos;;
 
 export class IntegerRing {
-
-	constructor ( name , base ) {
-		this.name = name ;
-		this.base = base ;
+	constructor(name, base) {
+		this.name = name;
+		this._base = base;
 	}
 
-	characteristic ( ) {
-		return this.$0() ;
+	characteristic() {
+		return this.$0();
 	}
 
-	from ( object , base = undefined , is_negative = 0 ) {
+	from(object, base = undefined, is_negative = 0) {
+		if (object === null || object === undefined) return this.$0();
 
-		if ( object === null || object === undefined ) return this.$0();
+		switch (object.constructor.prototype) {
+			case Number.prototype:
+				if (base !== undefined)
+					throw new ValueError(
+						&apos;IntegerRing#from: using the base parameter does not make sense when passing a Number.&apos;,
+					);
+				return this.from_number(object, is_negative);
 
-		switch ( object.constructor.prototype ) {
+			case String.prototype:
+				if (base === undefined) base = DEFAULT_DISPLAY_BASE;
+				return this.from_string(object, base, is_negative);
 
-			case Number.prototype :
-				if ( base !== undefined ) throw new ValueError(&apos;IntegerRing#from: using the base parameter does not make sense when passing a Number.&apos;) ;
-				return this.from_number( object , is_negative ) ;
+			case Array.prototype:
+				if (base === undefined) base = this._base;
+				return this.from_digits(object, base, is_negative);
 
-			case String.prototype :
-				if ( base === undefined ) base = DEFAULT_DISPLAY_BASE ;
-				return this.from_string( object , base , is_negative ) ;
+			case Boolean.prototype:
+				if (base !== undefined)
+					throw new ValueError(
+						&apos;IntegerRing#from: using the base parameter does not make sense when passing a Boolean.&apos;,
+					);
+				return this.from_number(Number(object), is_negative);
 
-			case Array.prototype :
-				if ( base === undefined ) base = this.base ;
-				return this.from_digits( object , base , is_negative ) ;
-
-			case Boolean.prototype :
-				if ( base !== undefined ) throw new ValueError(&apos;IntegerRing#from: using the base parameter does not make sense when passing a Boolean.&apos;) ;
-				return this.from_number( +object , is_negative ) ;
-
-			case Integer.prototype :
-				if ( base !== undefined ) throw new ValueError(&apos;IntegerRing#from: using the base parameter does not make sense when passing an Integer.&apos;) ;
-				return new Integer( object.base , object.is_negative ^ is_negative , object.limbs ) ;
+			case Integer.prototype:
+				if (base !== undefined)
+					throw new ValueError(
+						&apos;IntegerRing#from: using the base parameter does not make sense when passing an Integer.&apos;,
+					);
+				return new Integer(
+					object._base,
+					object._is_negative ^ is_negative,
+					object._limbs,
+				);
 
 			default:
-				throw new TypeError(`IntegerRing#from cannot handle ${object.constructor.prototype}`) ;
-
+				throw new TypeError(
+					`IntegerRing#from cannot handle ${object.constructor.prototype}`,
+				);
 		}
-
 	}
 
-	from_number ( number , is_negative = 0 ) {
+	from_number(number, is_negative = 0) {
+		const dirty = _from_number(number);
 
-		const dirty = _from_number(number) ;
+		const limbs = dirty._limbs_in_base(this._base);
 
-		const limbs = dirty._limbs_in_base(this.base) ;
-
-		return new Integer( this.base , is_negative ^ dirty.is_negative , limbs ) ;
-
+		return new Integer(this._base, is_negative ^ dirty._is_negative, limbs);
 	}
 
-	from_string ( string , base = 10 , is_negative = 0  ) {
+	from_string(string, base = 10, is_negative = 0) {
+		if (string.length === 0)
+			throw new ValueError(
+				&apos;IntegerRing#from_string cannot parse empty string.&apos;,
+			);
 
-		if ( string.length === 0 ) throw new ValueError( &apos;IntegerRing#from_string cannot parse empty string.&apos; ) ;
+		if (string[0] === &apos;-&apos;)
+			return this.from_string(string.slice(1), base, ~is_negative);
 
-		if ( string[0] === &apos;-&apos; ) return this.from_string( string.slice(1) , base , ~is_negative ) ;
+		if (string[0] === &apos;+&apos;)
+			return this.from_string(string.slice(1), base, is_negative);
 
-		if ( string[0] === &apos;+&apos; ) return this.from_string( string.slice(1) , base , is_negative ) ;
+		const limbs = parse(base, this._base, string);
 
-		const limbs = parse( base , this.base , string ) ;
+		if (limbs.length === 1 &amp;&amp; limbs[0] === 0) is_negative = 0;
 
-		if (limbs.length === 1 &amp;&amp; limbs[0] === 0) is_negative = 0 ;
-
-		return new Integer( this.base , is_negative , limbs ) ;
-
+		return new Integer(this._base, is_negative, limbs);
 	}
 
-	from_digits ( digits , base , is_negative ) {
+	from_digits(digits, base, is_negative) {
+		const limbs = convert(
+			base,
+			this._base,
+			digits.slice().reverse(),
+			0,
+			digits.length,
+		);
 
-		const limbs = convert( base , this.base , digits.slice().reverse() , 0 , digits.length ) ;
-
-		return new Integer( this.base , is_negative , limbs ) ;
-
+		return new Integer(this._base, is_negative, limbs);
 	}
 
-	toString ( ) {
-		return this.name ;
+	toString() {
+		return this.name;
 	}
 
-	$0 ( ) {
+	$0() {
 		// TODO Could we use an empty array instead ?
-		return new Integer( this.base , 0 , [ 0 ] ) ;
+		return new Integer(this._base, 0, [0]);
 	}
 
-	$1 ( ) {
-		return new Integer( this.base , 0 , [ 1 ] ) ;
+	$1() {
+		return new Integer(this._base, 0, [1]);
 	}
 
-	$_1 ( ) {
-		return new Integer( this.base , -1 , [ 1 ] ) ;
+	$_1() {
+		return new Integer(this._base, -1, [1]);
 	}
 
-	has ( x ) {
-		if ( x instanceof Integer ) return true ;
-		return Number.isInteger(x) ;
+	has(x) {
+		if (x instanceof Integer) return true;
+		return Number.isInteger(x);
 	}
 
-	min ( a , b ) {
-		return a.le(b) ? a : b ;
+	min(a, b) {
+		return a.le(b) ? a : b;
 	}
 
-	max ( a , b ) {
-		return a.ge(b) ? a : b ;
+	max(a, b) {
+		return a.ge(b) ? a : b;
 	}
-
 }
 </code></pre>
 

@@ -564,6 +564,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/integer.js~integer#_base",
+    "class/src/Integer.js~Integer.html#instance-member-_base",
+    "src/Integer.js~Integer#_base",
+    "member"
+  ],
+  [
+    "src/integer.js~integer#_is_negative",
+    "class/src/Integer.js~Integer.html#instance-member-_is_negative",
+    "src/Integer.js~Integer#_is_negative",
+    "member"
+  ],
+  [
+    "src/integer.js~integer#_limbs",
+    "class/src/Integer.js~Integer.html#instance-member-_limbs",
+    "src/Integer.js~Integer#_limbs",
+    "member"
+  ],
+  [
     "src/integer.js~integer#_limbs_in_base",
     "class/src/Integer.js~Integer.html#instance-method-_limbs_in_base",
     "src/Integer.js~Integer#_limbs_in_base",
@@ -586,12 +604,6 @@ window.esdocSearchIndex = [
     "class/src/Integer.js~Integer.html#instance-method-addn",
     "src/Integer.js~Integer#addn",
     "method"
-  ],
-  [
-    "src/integer.js~integer#base",
-    "class/src/Integer.js~Integer.html#instance-member-base",
-    "src/Integer.js~Integer#base",
-    "member"
   ],
   [
     "src/integer.js~integer#bin",
@@ -810,12 +822,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/integer.js~integer#is_negative",
-    "class/src/Integer.js~Integer.html#instance-member-is_negative",
-    "src/Integer.js~Integer#is_negative",
-    "member"
-  ],
-  [
     "src/integer.js~integer#iseven",
     "class/src/Integer.js~Integer.html#instance-method-iseven",
     "src/Integer.js~Integer#iseven",
@@ -898,12 +904,6 @@ window.esdocSearchIndex = [
     "class/src/Integer.js~Integer.html#instance-method-len",
     "src/Integer.js~Integer#len",
     "method"
-  ],
-  [
-    "src/integer.js~integer#limbs",
-    "class/src/Integer.js~Integer.html#instance-member-limbs",
-    "src/Integer.js~Integer#limbs",
-    "member"
   ],
   [
     "src/integer.js~integer#lt",
@@ -1068,9 +1068,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/integerring.js~integerring#base",
-    "class/src/IntegerRing.js~IntegerRing.html#instance-member-base",
-    "src/IntegerRing.js~IntegerRing#base",
+    "src/integerring.js~integerring#_base",
+    "class/src/IntegerRing.js~IntegerRing.html#instance-member-_base",
+    "src/IntegerRing.js~IntegerRing#_base",
     "member"
   ],
   [
@@ -1150,12 +1150,6 @@ window.esdocSearchIndex = [
     "file/src/ZeroDivisionError.js.html",
     "src/ZeroDivisionError.js",
     "file"
-  ],
-  [
-    "src/zerodivisionerror.js~zerodivisionerror#constructor",
-    "class/src/ZeroDivisionError.js~ZeroDivisionError.html#instance-constructor-constructor",
-    "src/ZeroDivisionError.js~ZeroDivisionError#constructor",
-    "method"
   ],
   [
     "src/zerodivisionerror.js~zerodivisionerror#tostring",

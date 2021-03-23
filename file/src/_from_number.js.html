@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -78,15 +78,15 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/_from_number.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { Integer } from &apos;./Integer&apos; ;
-import { MAX_BASE } from &apos;./_limits&apos; ;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Integer} from &apos;./Integer.js&apos;;
+import {MAX_BASE} from &apos;./_limits.js&apos;;
 
-export function _from_number ( number ) {
-	const x = number &gt;= 0 ? number : -number ;
-	const is_negative = number &gt;= 0 ? 0 : -1 ;
-	return x &lt; MAX_BASE ?
-		new Integer( MAX_BASE , is_negative , [ x ] ) :
-		new Integer( MAX_BASE , is_negative , [ x / MAX_BASE | 0 , x % MAX_BASE ] ) ;
+export function _from_number(number) {
+	const x = number &gt;= 0 ? number : -number;
+	const is_negative = number &gt;= 0 ? 0 : -1;
+	return x &lt; MAX_BASE
+		? new Integer(MAX_BASE, is_negative, [x])
+		: new Integer(MAX_BASE, is_negative, [(x / MAX_BASE) | 0, x % MAX_BASE]);
 }
 </code></pre>
 

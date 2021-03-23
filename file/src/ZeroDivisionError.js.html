@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/aureooms/js-integer"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -78,17 +78,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/ZeroDivisionError.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
-export class ZeroDivisionError extends Error {
-
-	constructor ( message ) {
-		super( message ) ;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export class ZeroDivisionError extends Error {
+	toString() {
+		return `ZeroDivisionError: ${this.message}`;
 	}
-
-	toString ( ) {
-		return `ZeroDivisionError: ${this.message}` ;
-	}
-
 }
 </code></pre>
 

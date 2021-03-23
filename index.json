@@ -567,9 +567,9 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/DEFAULT_DISPLAY_BASE.js",
-    "content": "export const DEFAULT_DISPLAY_BASE = 10 ;\n",
+    "content": "export const DEFAULT_DISPLAY_BASE = 10;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/DEFAULT_DISPLAY_BASE.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/DEFAULT_DISPLAY_BASE.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -598,9 +598,9 @@
     "__docId__": 50,
     "kind": "file",
     "name": "src/DEFAULT_REPRESENTATION_BASE.js",
-    "content": "//import { DEFAULT_DISPLAY_BASE } from './' ;\nimport { MAX_BASE } from './_limits' ;\n\n/*\n * Biggest power of DEFAULT_DISPLAY_BASE whose square holds in a single double\n * with full precision. For working correctly with multiplication algorithms\n * and for fast base DEFAULT_DISPLAY_BASE printing. On older machines with no\n * native doubles, it might be worth to only use ints.\n */\n//export const DEFAULT_REPRESENTATION_BASE = Math.pow(DEFAULT_DISPLAY_BASE,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(DEFAULT_DISPLAY_BASE))) ;\n//export const DEFAULT_REPRESENTATION_BASE = Math.pow(16,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(16))) ;\n//export const DEFAULT_REPRESENTATION_BASE = Math.pow(2,26) | 0;\nexport const DEFAULT_REPRESENTATION_BASE = MAX_BASE;\n",
+    "content": "// Import { DEFAULT_DISPLAY_BASE } from './' ;\nimport {MAX_BASE} from './_limits.js';\n\n/*\n * Biggest power of DEFAULT_DISPLAY_BASE whose square holds in a single double\n * with full precision. For working correctly with multiplication algorithms\n * and for fast base DEFAULT_DISPLAY_BASE printing. On older machines with no\n * native doubles, it might be worth to only use ints.\n */\n// export const DEFAULT_REPRESENTATION_BASE = Math.pow(DEFAULT_DISPLAY_BASE,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(DEFAULT_DISPLAY_BASE))) ;\n// export const DEFAULT_REPRESENTATION_BASE = Math.pow(16,Math.floor(Math.log(Math.sqrt(Math.pow(2,53)))/Math.log(16))) ;\n// export const DEFAULT_REPRESENTATION_BASE = Math.pow(2,26) | 0;\nexport const DEFAULT_REPRESENTATION_BASE = MAX_BASE;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/DEFAULT_REPRESENTATION_BASE.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/DEFAULT_REPRESENTATION_BASE.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -629,9 +629,9 @@
     "__docId__": 52,
     "kind": "file",
     "name": "src/Integer.js",
-    "content": "import { DEFAULT_DISPLAY_BASE , ZeroDivisionError } from './' ;\n\nimport { ValueError } from '@aureooms/js-error' ;\n\nimport { _from_number } from './_from_number' ;\n\nimport {\n\tstringify , convert , _trim_positive ,\n\t_alloc , _copy , _zeros ,\n\tjz , cmp , eq ,\n\tadd , _sub , mul , _idivmod , _pow_double ,\n\tincrement ,\n\teuclidean_algorithm , extended_euclidean_algorithm ,\n} from '@aureooms/js-integer-big-endian' ;\n\nimport { MIN_NUMBER , MAX_NUMBER , MAX_BASE } from './_limits' ;\n\nexport class Integer {\n\n\tconstructor ( base , is_negative , limbs ) {\n\t\tthis.base = base ;\n\t\tthis.is_negative = is_negative ;\n\t\tthis.limbs = limbs ;\n\t}\n\n\tmove ( other ) {\n\t\tother.base = this.base ;\n\t\tother.is_negative = this.is_negative ;\n\t\tother.limbs = this.limbs ;\n\t\treturn other ;\n\t}\n\n\tclone ( ) {\n\t\treturn new Integer( this.base , this.is_negative , this.limbs ) ;\n\t}\n\n\t_limbs_in_base ( base ) {\n\t\t// TODO save result for later ? Maybe replace base ?\n\t\tif ( this.base === base ) return this.limbs ;\n\t\telse return convert( this.base , base , this.limbs , 0 , this.limbs.length ) ;\n\t}\n\n\ttoString ( base = DEFAULT_DISPLAY_BASE ) {\n\n\t\tif ( this.iszero( ) ) return '0' ;\n\n\t\tconst digits = stringify( this.base , base , this.limbs , 0 , this.limbs.length ) ;\n\n\t\treturn this.is_negative ? '-' + digits : digits ;\n\n\t}\n\n\tadd ( other ) {\n\n\t\tif ( this.is_negative !== other.is_negative ) {\n\n\t\t\tif ( other.is_negative ) return this.sub( other.opposite() ) ;\n\n\t\t\telse return other.sub( this.opposite() ) ;\n\n\t\t}\n\n\t\telse {\n\n\t\t\tconst result_is_negative = this.is_negative ;\n\t\t\tconst r = this.base ;\n\n\t\t\tconst a = this.limbs ;\n\n\t\t\tconst b = other._limbs_in_base( r ) ;\n\n\t\t\tconst c = _zeros( Math.max( a.length , b.length ) + 1 ) ;\n\n\t\t\tadd( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;\n\n\t\t\treturn new Integer( r , result_is_negative , c ) ;\n\n\t\t}\n\n\t}\n\n\tiadd ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.add(other).move(this);\n\t}\n\n\taddn ( number ) {\n\t\t// TODO optimize\n\t\treturn this.add(_from_number(number)) ;\n\t}\n\n\tiaddn ( number ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.addn(number).move(this);\n\t}\n\n\tsub ( other ) {\n\n\t\tif ( this.is_negative !== other.is_negative ) {\n\n\t\t\tif ( other.is_negative ) return this.add( other.opposite() ) ;\n\n\t\t\telse return this.opposite().add( other ).opposite() ;\n\n\t\t}\n\n\t\telse {\n\n\t\t\t// /!\\ _sub needs |c| >= |a| >= |b|\n\n\t\t\tconst r = this.base ;\n\t\t\tconst a = this.limbs ;\n\t\t\tconst aj = a.length ;\n\t\t\tconst ai = _trim_positive( a , 0 , aj ) ;\n\n\t\t\tif ( ai >= aj ) return other.opposite() ;\n\n\t\t\tconst b = other._limbs_in_base( r ) ;\n\t\t\tconst bj = b.length ;\n\t\t\tconst bi = _trim_positive( b , 0 , bj ) ;\n\n\t\t\tif ( bi >= bj ) return this.clone() ;\n\n\t\t\tif ( cmp( a , ai , aj , b , bi , bj ) < 0 ) {\n\n\t\t\t\tconst c = _zeros( bj - bi ) ;\n\n\t\t\t\t_sub( r , b , bi , bj , a , ai , aj , c , 0 , c.length ) ;\n\n\t\t\t\treturn new Integer( r , ~this.is_negative , c ) ;\n\t\t\t}\n\n\t\t\telse {\n\n\t\t\t\tconst c = _zeros( aj - ai ) ;\n\n\t\t\t\t_sub( r , a , ai , aj , b , bi , bj , c , 0 , c.length ) ;\n\n\t\t\t\treturn new Integer( r , this.is_negative , c ) ;\n\n\t\t\t}\n\n\t\t}\n\n\t}\n\n\tisub ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.sub(other).move(this);\n\t}\n\n\tsubn ( number ) {\n\t\treturn this.sub(_from_number(number));\n\t}\n\n\tisubn ( number ) {\n\t\treturn this.subn(number).move(this);\n\t}\n\n\tmul ( other ) {\n\n\t\tconst result_is_negative = this.is_negative ^ other.is_negative ;\n\t\tconst r = this.base ;\n\n\t\tconst a = this.limbs ;\n\n\t\tconst b = other._limbs_in_base( r ) ;\n\n\t\tconst c = _zeros( a.length + b.length ) ;\n\n\t\tmul( r , a , 0 , a.length , b , 0 , b.length , c , 0 , c.length ) ;\n\n\t\treturn new Integer( r , result_is_negative , c ) ;\n\n\t}\n\n\timul ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.mul(other).move(this);\n\t}\n\n\tmuln ( number ) {\n\t\treturn this.mul(_from_number(number));\n\t}\n\n\timuln ( number ) {\n\t\treturn this.muln(number).move(this);\n\t}\n\n\t/**\n\t * Computes <code>this</code> raised to the <code>x</code>th power.\n\t * <code>x</code> is a double smaller or equal to 2^53.\n\t *\n\t * @param {Number} x The power to raise <code>this</code> to.\n\t * @return {Integer} <code>this ^ x</code>\n\t */\n\tpown ( x ) {\n\n\t\tconst is_negative = this.is_negative & x & 1 ? -1 : 0 ;\n\n\t\tconst a = this.limbs ;\n\t\tconst c = _zeros( Math.max( 1 , a.length * x ) ) ;\n\n\t\t_pow_double( this.base , x , a , 0 , a.length , c , 0 , c.length ) ;\n\n\t\treturn new Integer( this.base , is_negative , c ) ;\n\n\t}\n\n\tpow ( other ) {\n\t\treturn this.pown( other.valueOf() ) ;\n\t}\n\n\tipow ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.pow(other).move(this);\n\t}\n\n\tipown ( number ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.pown(number).move(this);\n\t}\n\n\tsquare ( ) {\n\t\t// TODO optimize but be careful with side effects\n\t\t// TODO use this.mul(this) instead?\n\t\treturn this.pown(2);\n\t}\n\n\tisquare ( ) {\n\t\t// TODO optimize but be careful with side effects\n\t\t// TODO use this.imul(this) instead?\n\t\treturn this.square().move(this);\n\t}\n\n\tdiv ( other ) {\n\t\treturn this.divmod( other )[0] ;\n\t}\n\n\tdivn ( number ) {\n\t\treturn this.div(_from_number(number)) ;\n\t}\n\n\tidiv ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.div(other).move(this);\n\t}\n\n\tidivn ( number ) {\n\t\treturn this.divn(number).move(this);\n\t}\n\n\tmod ( other ) {\n\t\treturn this.divmod( other )[1] ;\n\t}\n\n\tmodn ( number ) {\n\t\treturn this.mod(_from_number(number)) ;\n\t}\n\n\timod ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.mod(other).move(this);\n\t}\n\n\timodn ( number ) {\n\t\treturn this.modn(number).move(this);\n\t}\n\n\tdivround ( other ) {\n\t\tconst [ q , r ] = this.divmod(other) ;\n\t\tif ( r.ge(other.divn(2).addn(other.iseven() ? 0 : 1)) ) increment( q.base , q.limbs , 0 , q.limbs.length ) ;\n\t\treturn q ;\n\t}\n\n\tdivmod ( other ) {\n\n\t\tif ( other.iszero() ) throw new ZeroDivisionError( 'Integer division by zero' ) ; // optimize\n\n\t\tconst quotient_is_negative = this.is_negative ^ other.is_negative ;\n\t\tconst r = this.base ;\n\n\t\t// The underlying algorithm does not allow leading 0's so we trim them.\n\t\tconst lj = this.limbs.length ;\n\t\tconst li =  _trim_positive( this.limbs , 0 , lj ) ;\n\n\t\t// Dividend is 0\n\t\tif ( li >= lj ) return [ new Integer( this.base , 0 , [ 0 ] ) , new Integer( this.base , 0 , [ 0 ] ) ] ;\n\n\t\t// Dividend (& Remainder)\n\t\tconst D = _alloc( lj - li ) ;\n\t\t_copy( this.limbs , li , lj , D , 0 ) ;\n\n\t\t// Divisor\n\t\tconst d = other._limbs_in_base( r ) ;\n\t\tconst dj = d.length ;\n\t\tconst di = _trim_positive( d , 0 , dj ) ; // di < dj because d != 0\n\n\t\t// Quotient\n\t\tconst q = _zeros( D.length ) ;\n\n\t\t_idivmod( r , D , 0 , D.length , d , di , dj , q , 0 , q.length ) ;\n\n\t\tconst Q = new Integer( r , quotient_is_negative , q ) ; // quotient\n\t\tconst R = new Integer( r , 0 , D ) ;                    // remainder\n\n\t\tif ( (this.is_negative || other.is_negative ) && !jz( D , 0 , D.length ) ) {\n\n\t\t\tif ( other.is_negative ) {\n\n\t\t\t\tif ( !this.is_negative ) {\n\t\t\t\t\tincrement( r , q , 0 , q.length ) ;\n\t\t\t\t\tR.iadd( other ) ; // TODO optimize\n\t\t\t\t}\n\n\t\t\t\telse {\n\t\t\t\t\tR.negate(); // TODO optimize\n\t\t\t\t}\n\n\t\t\t}\n\n\t\t\telse {\n\t\t\t\tincrement( r , q , 0 , q.length ) ;\n\t\t\t\tR.negate().iadd( other ) ; // TODO optimize\n\t\t\t}\n\n\t\t}\n\n\t\treturn [ Q , R ] ;\n\n\t}\n\n\tidivmod ( other ) {\n\t\t// TODO optimize but be careful with side effects\n\t\tconst [ q , r ] = this.divmod(other) ;\n\t\treturn [ q , r.move(this) ] ;\n\t}\n\n\tdivmodn ( number ) {\n\t\treturn this.divmod(_from_number(number)) ;\n\t}\n\n\tidivmodn ( number ) {\n\t\tconst [ q , r ] = this.divmodn(number) ;\n\t\treturn [ q , r.move(this) ] ;\n\t}\n\n\topposite ( ) {\n\t\treturn new Integer( this.base , ~this.is_negative , this.limbs ) ;\n\t}\n\n\tnegate ( ) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.opposite().move(this);\n\t}\n\n\tabs ( ) {\n\t\treturn this.sign() >= 0 ? this : this.opposite(this) ;\n\t}\n\n\tiabs ( ) {\n\t\treturn this.abs().move(this) ;\n\t}\n\n\tsign ( ) {\n\t\treturn this.iszero() ? 0 : this.is_negative ? -1 : 1 ;\n\t}\n\n\tiszero ( ) {\n\t\treturn jz( this.limbs , 0 , this.limbs.length ) ;\n\t}\n\n\tisone ( ) {\n\t\tif ( this.is_negative ) return false ;\n\t\treturn eq( this.limbs , 0 , this.limbs.length , [ 1 ] , 0 , 1 ) ;\n\t}\n\n\tisnonzero ( ) {\n\t\treturn !this.iszero();\n\t}\n\n\tisnegative ( ) {\n\t\treturn this.is_negative === -1 ? true : false ;\n\t}\n\n\tispositive ( ) {\n\t\treturn this.sign() > 0 ;\n\t}\n\n\tisnonnegative ( ) {\n\t\treturn !this.isnegative();\n\t}\n\n\tisnonpositive ( ) {\n\t\treturn !this.ispositive() ;\n\t}\n\n\tparity ( ) {\n\t\t// TODO optimize this, there is a much faster way to test for parity\n\t\t// when the base is a multiple of two\n\t\treturn this.modn(2) ;\n\t}\n\n\tiseven ( ) {\n\t\treturn this.parity().iszero() ;\n\t}\n\n\tisodd ( ) {\n\t\treturn !this.iseven() ;\n\t}\n\n\tbin ( ) {\n\t\treturn this.toString( 2 ) ;\n\t}\n\n\toct ( ) {\n\t\treturn this.toString( 8 ) ;\n\t}\n\n\thex ( ) {\n\t\treturn this.toString( 16 ) ;\n\t}\n\n\ttoJSON ( ) {\n\t\treturn this.hex( ) ;\n\t}\n\n\tdigits ( base = DEFAULT_DISPLAY_BASE ) {\n\t\t// TODO Once #to is implemented we can rewrite this as\n\t\t// return this.to(LITTLE_ENDIAN, base, Array) ;\n\t\treturn convert( this.base , base , this.limbs , 0 , this.limbs.length ).reverse( ) ;\n\t}\n\n\tbits ( ) {\n\t\treturn this.digits( 2 ) ;\n\t}\n\n\tdivides ( other ) {\n\t\treturn other.mod( this ).iszero( ) ;\n\t}\n\n\tdivide_knowing_divisible_by ( other ) {\n\t\t// TODO optimize\n\t\treturn this.div( other ) ;\n\t}\n\n\n\tcmp ( other ) {\n\t\t// TODO optimize with _trim_positive\n\n\t\tif ( this.iszero( ) ) {\n\t\t\tif ( other.iszero( ) )        return  0 ;\n\t\t\telse if ( other.is_negative ) return  1 ;\n\t\t\telse                          return -1 ;\n\t\t}\n\n\t\tif ( this.is_negative < other.is_negative ) return -1 ;\n\t\tif ( this.is_negative > other.is_negative ) return  1 ;\n\n\t\tconst a = this.limbs ;\n\t\tconst b = other._limbs_in_base( this.base ) ;\n\n\t\treturn this.is_negative === 0 ?\n\t\t\tcmp( a , 0 , a.length , b , 0 , b.length ) :\n\t\t\tcmp( b , 0 , b.length , a , 0 , a.length ) ;\n\n\t}\n\n\tcmpn ( number ) {\n\t\treturn this.cmp(_from_number(number)) ;\n\t}\n\n\teq ( other ) {\n\t\treturn this.cmp( other ) === 0 ;\n\t}\n\n\teqn ( number ) {\n\t\treturn this.cmpn( number ) === 0 ;\n\t}\n\n\tge ( other ) {\n\t\treturn this.cmp( other ) >= 0 ;\n\t}\n\n\tgen ( number ) {\n\t\treturn this.cmpn( number ) >= 0 ;\n\t}\n\n\tgt ( other ) {\n\t\treturn this.cmp( other ) > 0 ;\n\t}\n\n\tgtn ( number ) {\n\t\treturn this.cmpn( number ) > 0 ;\n\t}\n\n\tle ( other ) {\n\t\treturn this.cmp( other ) <= 0 ;\n\t}\n\n\tlen ( number ) {\n\t\treturn this.cmpn( number ) <= 0 ;\n\t}\n\n\tlt ( other ) {\n\t\treturn this.cmp( other ) < 0 ;\n\t}\n\n\tltn ( number ) {\n\t\treturn this.cmpn( number ) < 0 ;\n\t}\n\n\tne ( other ) {\n\t\treturn this.cmp( other ) !== 0 ;\n\t}\n\n\tnen ( number ) {\n\t\treturn this.cmpn( number ) !== 0 ;\n\t}\n\n\tgcd ( other ) {\n\t\tconst r = this.base ;\n\t\tconst a = this.limbs ;\n\t\tconst b = other._limbs_in_base( r ) ;\n\t\tconst [ d , di , dj ] = euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;\n\t\tconst gcd = _alloc( dj - di ) ;\n\t\t_copy( d , di , dj , gcd , 0 ) ;\n\t\treturn new Integer( r , 0 , gcd ) ;\n\t}\n\n\tegcd ( other ) {\n\t\tconst r = this.base ;\n\t\tconst a = this.limbs ;\n\t\tconst b = other._limbs_in_base( r ) ;\n\t\tconst [ R0 , R0i , S0 , S0i , T0 , T0i , S1 , S1i , T1 , T1i , steps ] = extended_euclidean_algorithm( r , a , 0 , a.length , b , 0 , b.length ) ;\n\t\tconst gcd = _alloc( R0.length - R0i ) ;\n\t\t_copy( R0 , R0i , R0.length , gcd , 0 ) ;\n\t\tconst x = _alloc( S0.length - S0i ) ;\n\t\t_copy( S0 , S0i , S0.length , x , 0 ) ;\n\t\tconst y = _alloc( T0.length - T0i ) ;\n\t\t_copy( T0 , T0i , T0.length , y , 0 ) ;\n\t\tconst u = _alloc( S1.length - S1i ) ;\n\t\t_copy( S1 , S1i , S1.length , u , 0 ) ;\n\t\tconst v = _alloc( T1.length - T1i ) ;\n\t\t_copy( T1 , T1i , T1.length , v , 0 ) ;\n\t\treturn { // TODO use immutable zero\n\t\t\tgcd: new Integer(r, 0, gcd) ,\n\t\t\tx: x.length ? new Integer(r, this.is_negative ^ ((steps % 2)-1), x) : new Integer(r, 0, [0]) ,\n\t\t\ty: y.length ? new Integer(r, other.is_negative ^ (-(steps % 2)), y) : new Integer(r, 0, [0]) ,\n\t\t\tu: u.length ? new Integer(r, this.is_negative ^ (-(steps % 2)), u) : new Integer(r, 0, [0]) ,\n\t\t\tv: v.length ? new Integer(r, other.is_negative ^ ((steps % 2)-1), v) : new Integer(r, 0, [0]) ,\n\t\t} ;\n\t}\n\n\tvalueOf ( ) {\n\n\t\tif (this.gtn(MAX_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer larger than ${MAX_NUMBER}. Got ${this.toString()}`) ;\n\t\tif (this.ltn(MIN_NUMBER)) throw new ValueError(`Cannot call valueOf on Integer smaller than ${MIN_NUMBER}. Got ${this.toString()}`) ;\n\n\t\tconst limbs = convert( this.base , MAX_BASE , this.limbs , 0 , this.limbs.length ) ;\n\n\t\tconst sign = this.is_negative ? -1 : 1 ;\n\n\t\tconst value = limbs.length === 2 ?\n\t\t\tlimbs[0] * MAX_BASE + limbs[1] :\n\t\t\tlimbs[0] ;\n\n\t\treturn sign * value ;\n\t}\n\n\ttoNumber ( ) {\n\t\treturn this.valueOf( ) ;\n\t}\n\n}\n",
+    "content": "import {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';\nimport {ZeroDivisionError} from './ZeroDivisionError.js';\n\nimport {ValueError} from '@aureooms/js-error';\n\nimport {_from_number} from './_from_number.js';\n\nimport {\n\tstringify,\n\tconvert,\n\t_trim_positive,\n\t_alloc,\n\t_copy,\n\t_zeros,\n\tjz,\n\tcmp,\n\teq,\n\tadd,\n\t_sub,\n\tmul,\n\t_idivmod,\n\t_pow_double,\n\tincrement,\n\teuclidean_algorithm,\n\textended_euclidean_algorithm,\n} from '@aureooms/js-integer-big-endian';\n\nimport {MIN_NUMBER, MAX_NUMBER, MAX_BASE} from './_limits.js';\n\nexport class Integer {\n\tconstructor(base, is_negative, limbs) {\n\t\tthis._base = base;\n\t\tthis._is_negative = is_negative;\n\t\tthis._limbs = limbs;\n\t}\n\n\tmove(other) {\n\t\tother._base = this._base;\n\t\tother._is_negative = this._is_negative;\n\t\tother._limbs = this._limbs;\n\t\treturn other;\n\t}\n\n\tclone() {\n\t\treturn new Integer(this._base, this._is_negative, this._limbs);\n\t}\n\n\t_limbs_in_base(base) {\n\t\t// TODO save result for later ? Maybe replace base ?\n\t\treturn this._base === base\n\t\t\t? this._limbs\n\t\t\t: convert(this._base, base, this._limbs, 0, this._limbs.length);\n\t}\n\n\ttoString(base = DEFAULT_DISPLAY_BASE) {\n\t\tif (this.iszero()) return '0';\n\n\t\tconst digits = stringify(\n\t\t\tthis._base,\n\t\t\tbase,\n\t\t\tthis._limbs,\n\t\t\t0,\n\t\t\tthis._limbs.length,\n\t\t);\n\n\t\treturn this._is_negative ? '-' + digits : digits;\n\t}\n\n\tadd(other) {\n\t\tif (this._is_negative !== other._is_negative) {\n\t\t\treturn other._is_negative\n\t\t\t\t? this.sub(other.opposite())\n\t\t\t\t: other.sub(this.opposite());\n\t\t}\n\n\t\tconst result_is_negative = this._is_negative;\n\t\tconst r = this._base;\n\n\t\tconst a = this._limbs;\n\n\t\tconst b = other._limbs_in_base(r);\n\n\t\tconst c = _zeros(Math.max(a.length, b.length) + 1);\n\n\t\tadd(r, a, 0, a.length, b, 0, b.length, c, 0, c.length);\n\n\t\treturn new Integer(r, result_is_negative, c);\n\t}\n\n\tiadd(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.add(other).move(this);\n\t}\n\n\taddn(number) {\n\t\t// TODO optimize\n\t\treturn this.add(_from_number(number));\n\t}\n\n\tiaddn(number) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.addn(number).move(this);\n\t}\n\n\tsub(other) {\n\t\tif (this._is_negative !== other._is_negative) {\n\t\t\treturn other._is_negative\n\t\t\t\t? this.add(other.opposite())\n\t\t\t\t: this.opposite().add(other).opposite();\n\t\t}\n\t\t// /!\\ _sub needs |c| >= |a| >= |b|\n\n\t\tconst r = this._base;\n\t\tconst a = this._limbs;\n\t\tconst aj = a.length;\n\t\tconst ai = _trim_positive(a, 0, aj);\n\n\t\tif (ai >= aj) return other.opposite();\n\n\t\tconst b = other._limbs_in_base(r);\n\t\tconst bj = b.length;\n\t\tconst bi = _trim_positive(b, 0, bj);\n\n\t\tif (bi >= bj) return this.clone();\n\n\t\tif (cmp(a, ai, aj, b, bi, bj) < 0) {\n\t\t\tconst c = _zeros(bj - bi);\n\n\t\t\t_sub(r, b, bi, bj, a, ai, aj, c, 0, c.length);\n\n\t\t\treturn new Integer(r, ~this._is_negative, c);\n\t\t}\n\n\t\tconst c = _zeros(aj - ai);\n\n\t\t_sub(r, a, ai, aj, b, bi, bj, c, 0, c.length);\n\n\t\treturn new Integer(r, this._is_negative, c);\n\t}\n\n\tisub(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.sub(other).move(this);\n\t}\n\n\tsubn(number) {\n\t\treturn this.sub(_from_number(number));\n\t}\n\n\tisubn(number) {\n\t\treturn this.subn(number).move(this);\n\t}\n\n\tmul(other) {\n\t\tconst result_is_negative = this._is_negative ^ other._is_negative;\n\t\tconst r = this._base;\n\n\t\tconst a = this._limbs;\n\n\t\tconst b = other._limbs_in_base(r);\n\n\t\tconst c = _zeros(a.length + b.length);\n\n\t\tmul(r, a, 0, a.length, b, 0, b.length, c, 0, c.length);\n\n\t\treturn new Integer(r, result_is_negative, c);\n\t}\n\n\timul(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.mul(other).move(this);\n\t}\n\n\tmuln(number) {\n\t\treturn this.mul(_from_number(number));\n\t}\n\n\timuln(number) {\n\t\treturn this.muln(number).move(this);\n\t}\n\n\t/**\n\t * Computes <code>this</code> raised to the <code>x</code>th power.\n\t * <code>x</code> is a double smaller or equal to 2^53.\n\t *\n\t * @param {Number} x The power to raise <code>this</code> to.\n\t * @return {Integer} <code>this ^ x</code>\n\t */\n\tpown(x) {\n\t\tconst is_negative = this._is_negative & x & 1 ? -1 : 0;\n\n\t\tconst a = this._limbs;\n\t\tconst c = _zeros(Math.max(1, a.length * x));\n\n\t\t_pow_double(this._base, x, a, 0, a.length, c, 0, c.length);\n\n\t\treturn new Integer(this._base, is_negative, c);\n\t}\n\n\tpow(other) {\n\t\treturn this.pown(other.valueOf());\n\t}\n\n\tipow(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.pow(other).move(this);\n\t}\n\n\tipown(number) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.pown(number).move(this);\n\t}\n\n\tsquare() {\n\t\t// TODO optimize but be careful with side effects\n\t\t// TODO use this.mul(this) instead?\n\t\treturn this.pown(2);\n\t}\n\n\tisquare() {\n\t\t// TODO optimize but be careful with side effects\n\t\t// TODO use this.imul(this) instead?\n\t\treturn this.square().move(this);\n\t}\n\n\tdiv(other) {\n\t\treturn this.divmod(other)[0];\n\t}\n\n\tdivn(number) {\n\t\treturn this.div(_from_number(number));\n\t}\n\n\tidiv(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.div(other).move(this);\n\t}\n\n\tidivn(number) {\n\t\treturn this.divn(number).move(this);\n\t}\n\n\tmod(other) {\n\t\treturn this.divmod(other)[1];\n\t}\n\n\tmodn(number) {\n\t\treturn this.mod(_from_number(number));\n\t}\n\n\timod(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.mod(other).move(this);\n\t}\n\n\timodn(number) {\n\t\treturn this.modn(number).move(this);\n\t}\n\n\tdivround(other) {\n\t\tconst [q, r] = this.divmod(other);\n\t\tif (r.ge(other.divn(2).addn(other.iseven() ? 0 : 1)))\n\t\t\tincrement(q._base, q._limbs, 0, q._limbs.length);\n\t\treturn q;\n\t}\n\n\tdivmod(other) {\n\t\tif (other.iszero()) throw new ZeroDivisionError('Integer division by zero'); // Optimize\n\n\t\tconst quotient_is_negative = this._is_negative ^ other._is_negative;\n\t\tconst r = this._base;\n\n\t\t// The underlying algorithm does not allow leading 0's so we trim them.\n\t\tconst lj = this._limbs.length;\n\t\tconst li = _trim_positive(this._limbs, 0, lj);\n\n\t\t// Dividend is 0\n\t\tif (li >= lj)\n\t\t\treturn [new Integer(this._base, 0, [0]), new Integer(this._base, 0, [0])];\n\n\t\t// Dividend (& Remainder)\n\t\tconst D = _alloc(lj - li);\n\t\t_copy(this._limbs, li, lj, D, 0);\n\n\t\t// Divisor\n\t\tconst d = other._limbs_in_base(r);\n\t\tconst dj = d.length;\n\t\tconst di = _trim_positive(d, 0, dj); // Di < dj because d != 0\n\n\t\t// Quotient\n\t\tconst q = _zeros(D.length);\n\n\t\t_idivmod(r, D, 0, D.length, d, di, dj, q, 0, q.length);\n\n\t\tconst Q = new Integer(r, quotient_is_negative, q); // Quotient\n\t\tconst R = new Integer(r, 0, D); // Remainder\n\n\t\tif ((this._is_negative || other._is_negative) && !jz(D, 0, D.length)) {\n\t\t\tif (other._is_negative) {\n\t\t\t\tif (this._is_negative) {\n\t\t\t\t\tR.negate(); // TODO optimize\n\t\t\t\t} else {\n\t\t\t\t\tincrement(r, q, 0, q.length);\n\t\t\t\t\tR.iadd(other); // TODO optimize\n\t\t\t\t}\n\t\t\t} else {\n\t\t\t\tincrement(r, q, 0, q.length);\n\t\t\t\tR.negate().iadd(other); // TODO optimize\n\t\t\t}\n\t\t}\n\n\t\treturn [Q, R];\n\t}\n\n\tidivmod(other) {\n\t\t// TODO optimize but be careful with side effects\n\t\tconst [q, r] = this.divmod(other);\n\t\treturn [q, r.move(this)];\n\t}\n\n\tdivmodn(number) {\n\t\treturn this.divmod(_from_number(number));\n\t}\n\n\tidivmodn(number) {\n\t\tconst [q, r] = this.divmodn(number);\n\t\treturn [q, r.move(this)];\n\t}\n\n\topposite() {\n\t\treturn new Integer(this._base, ~this._is_negative, this._limbs);\n\t}\n\n\tnegate() {\n\t\t// TODO optimize but be careful with side effects\n\t\treturn this.opposite().move(this);\n\t}\n\n\tabs() {\n\t\treturn this.sign() >= 0 ? this : this.opposite();\n\t}\n\n\tiabs() {\n\t\treturn this.abs().move(this);\n\t}\n\n\tsign() {\n\t\treturn this.iszero() ? 0 : this._is_negative ? -1 : 1;\n\t}\n\n\tiszero() {\n\t\treturn jz(this._limbs, 0, this._limbs.length);\n\t}\n\n\tisone() {\n\t\tif (this._is_negative) return false;\n\t\treturn eq(this._limbs, 0, this._limbs.length, [1], 0, 1);\n\t}\n\n\tisnonzero() {\n\t\treturn !this.iszero();\n\t}\n\n\tisnegative() {\n\t\treturn this._is_negative === -1;\n\t}\n\n\tispositive() {\n\t\treturn this.sign() > 0;\n\t}\n\n\tisnonnegative() {\n\t\treturn !this.isnegative();\n\t}\n\n\tisnonpositive() {\n\t\treturn !this.ispositive();\n\t}\n\n\tparity() {\n\t\t// TODO optimize this, there is a much faster way to test for parity\n\t\t// when the base is a multiple of two\n\t\treturn this.modn(2);\n\t}\n\n\tiseven() {\n\t\treturn this.parity().iszero();\n\t}\n\n\tisodd() {\n\t\treturn !this.iseven();\n\t}\n\n\tbin() {\n\t\treturn this.toString(2);\n\t}\n\n\toct() {\n\t\treturn this.toString(8);\n\t}\n\n\thex() {\n\t\treturn this.toString(16);\n\t}\n\n\ttoJSON() {\n\t\treturn this.hex();\n\t}\n\n\tdigits(base = DEFAULT_DISPLAY_BASE) {\n\t\t// TODO Once #to is implemented we can rewrite this as\n\t\t// return this.to(LITTLE_ENDIAN, base, Array) ;\n\t\treturn convert(\n\t\t\tthis._base,\n\t\t\tbase,\n\t\t\tthis._limbs,\n\t\t\t0,\n\t\t\tthis._limbs.length,\n\t\t).reverse();\n\t}\n\n\tbits() {\n\t\treturn this.digits(2);\n\t}\n\n\tdivides(other) {\n\t\treturn other.mod(this).iszero();\n\t}\n\n\tdivide_knowing_divisible_by(other) {\n\t\t// TODO optimize\n\t\treturn this.div(other);\n\t}\n\n\tcmp(other) {\n\t\t// TODO optimize with _trim_positive\n\n\t\tif (this.iszero()) {\n\t\t\tif (other.iszero()) return 0;\n\t\t\tif (other._is_negative) return 1;\n\t\t\treturn -1;\n\t\t}\n\n\t\tif (this._is_negative < other._is_negative) return -1;\n\t\tif (this._is_negative > other._is_negative) return 1;\n\n\t\tconst a = this._limbs;\n\t\tconst b = other._limbs_in_base(this._base);\n\n\t\treturn this._is_negative === 0\n\t\t\t? cmp(a, 0, a.length, b, 0, b.length)\n\t\t\t: cmp(b, 0, b.length, a, 0, a.length);\n\t}\n\n\tcmpn(number) {\n\t\treturn this.cmp(_from_number(number));\n\t}\n\n\teq(other) {\n\t\treturn this.cmp(other) === 0;\n\t}\n\n\teqn(number) {\n\t\treturn this.cmpn(number) === 0;\n\t}\n\n\tge(other) {\n\t\treturn this.cmp(other) >= 0;\n\t}\n\n\tgen(number) {\n\t\treturn this.cmpn(number) >= 0;\n\t}\n\n\tgt(other) {\n\t\treturn this.cmp(other) > 0;\n\t}\n\n\tgtn(number) {\n\t\treturn this.cmpn(number) > 0;\n\t}\n\n\tle(other) {\n\t\treturn this.cmp(other) <= 0;\n\t}\n\n\tlen(number) {\n\t\treturn this.cmpn(number) <= 0;\n\t}\n\n\tlt(other) {\n\t\treturn this.cmp(other) < 0;\n\t}\n\n\tltn(number) {\n\t\treturn this.cmpn(number) < 0;\n\t}\n\n\tne(other) {\n\t\treturn this.cmp(other) !== 0;\n\t}\n\n\tnen(number) {\n\t\treturn this.cmpn(number) !== 0;\n\t}\n\n\tgcd(other) {\n\t\tconst r = this._base;\n\t\tconst a = this._limbs;\n\t\tconst b = other._limbs_in_base(r);\n\t\tconst [d, di, dj] = euclidean_algorithm(r, a, 0, a.length, b, 0, b.length);\n\t\tconst gcd = _alloc(dj - di);\n\t\t_copy(d, di, dj, gcd, 0);\n\t\treturn new Integer(r, 0, gcd);\n\t}\n\n\tegcd(other) {\n\t\tconst r = this._base;\n\t\tconst a = this._limbs;\n\t\tconst b = other._limbs_in_base(r);\n\t\tconst [\n\t\t\tR0,\n\t\t\tR0i,\n\t\t\tS0,\n\t\t\tS0i,\n\t\t\tT0,\n\t\t\tT0i,\n\t\t\tS1,\n\t\t\tS1i,\n\t\t\tT1,\n\t\t\tT1i,\n\t\t\tsteps,\n\t\t] = extended_euclidean_algorithm(r, a, 0, a.length, b, 0, b.length);\n\t\tconst gcd = _alloc(R0.length - R0i);\n\t\t_copy(R0, R0i, R0.length, gcd, 0);\n\t\tconst x = _alloc(S0.length - S0i);\n\t\t_copy(S0, S0i, S0.length, x, 0);\n\t\tconst y = _alloc(T0.length - T0i);\n\t\t_copy(T0, T0i, T0.length, y, 0);\n\t\tconst u = _alloc(S1.length - S1i);\n\t\t_copy(S1, S1i, S1.length, u, 0);\n\t\tconst v = _alloc(T1.length - T1i);\n\t\t_copy(T1, T1i, T1.length, v, 0);\n\t\treturn {\n\t\t\t// TODO use immutable zero\n\t\t\tgcd: new Integer(r, 0, gcd),\n\t\t\tx:\n\t\t\t\tx.length > 0\n\t\t\t\t\t? new Integer(r, this._is_negative ^ ((steps % 2) - 1), x)\n\t\t\t\t\t: new Integer(r, 0, [0]),\n\t\t\ty:\n\t\t\t\ty.length > 0\n\t\t\t\t\t? new Integer(r, other._is_negative ^ -(steps % 2), y)\n\t\t\t\t\t: new Integer(r, 0, [0]),\n\t\t\tu:\n\t\t\t\tu.length > 0\n\t\t\t\t\t? new Integer(r, this._is_negative ^ -(steps % 2), u)\n\t\t\t\t\t: new Integer(r, 0, [0]),\n\t\t\tv:\n\t\t\t\tv.length > 0\n\t\t\t\t\t? new Integer(r, other._is_negative ^ ((steps % 2) - 1), v)\n\t\t\t\t\t: new Integer(r, 0, [0]),\n\t\t};\n\t}\n\n\tvalueOf() {\n\t\tif (this.gtn(MAX_NUMBER))\n\t\t\tthrow new ValueError(\n\t\t\t\t`Cannot call valueOf on Integer larger than ${MAX_NUMBER}. Got ${this.toString()}`,\n\t\t\t);\n\t\tif (this.ltn(MIN_NUMBER))\n\t\t\tthrow new ValueError(\n\t\t\t\t`Cannot call valueOf on Integer smaller than ${MIN_NUMBER}. Got ${this.toString()}`,\n\t\t\t);\n\n\t\tconst limbs = convert(\n\t\t\tthis._base,\n\t\t\tMAX_BASE,\n\t\t\tthis._limbs,\n\t\t\t0,\n\t\t\tthis._limbs.length,\n\t\t);\n\n\t\tconst sign = this._is_negative ? -1 : 1;\n\n\t\tconst value =\n\t\t\tlimbs.length === 2 ? limbs[0] * MAX_BASE + limbs[1] : limbs[0];\n\n\t\treturn sign * value;\n\t}\n\n\ttoNumber() {\n\t\treturn this.valueOf();\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/Integer.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/Integer.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -648,7 +648,7 @@
     "importPath": "@aureooms/js-integer/src/Integer.js",
     "importStyle": "{Integer}",
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 30,
     "undocument": true,
     "interface": false
   },
@@ -663,19 +663,19 @@
     "longname": "src/Integer.js~Integer#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 31,
     "undocument": true
   },
   {
     "__docId__": 55,
     "kind": "member",
-    "name": "base",
+    "name": "_base",
     "memberof": "src/Integer.js~Integer",
     "static": false,
-    "longname": "src/Integer.js~Integer#base",
-    "access": "public",
+    "longname": "src/Integer.js~Integer#_base",
+    "access": "private",
     "description": null,
-    "lineNumber": 21,
+    "lineNumber": 32,
     "undocument": true,
     "type": {
       "types": [
@@ -686,13 +686,13 @@
   {
     "__docId__": 56,
     "kind": "member",
-    "name": "is_negative",
+    "name": "_is_negative",
     "memberof": "src/Integer.js~Integer",
     "static": false,
-    "longname": "src/Integer.js~Integer#is_negative",
-    "access": "public",
+    "longname": "src/Integer.js~Integer#_is_negative",
+    "access": "private",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 33,
     "undocument": true,
     "type": {
       "types": [
@@ -703,13 +703,13 @@
   {
     "__docId__": 57,
     "kind": "member",
-    "name": "limbs",
+    "name": "_limbs",
     "memberof": "src/Integer.js~Integer",
     "static": false,
-    "longname": "src/Integer.js~Integer#limbs",
-    "access": "public",
+    "longname": "src/Integer.js~Integer#_limbs",
+    "access": "private",
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 34,
     "undocument": true,
     "type": {
       "types": [
@@ -728,7 +728,7 @@
     "longname": "src/Integer.js~Integer#move",
     "access": "public",
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 37,
     "undocument": true,
     "params": [
       {
@@ -755,7 +755,7 @@
     "longname": "src/Integer.js~Integer#clone",
     "access": "public",
     "description": null,
-    "lineNumber": 33,
+    "lineNumber": 44,
     "undocument": true,
     "params": [],
     "return": {
@@ -775,7 +775,7 @@
     "longname": "src/Integer.js~Integer#_limbs_in_base",
     "access": "private",
     "description": null,
-    "lineNumber": 37,
+    "lineNumber": 48,
     "undocument": true,
     "params": [
       {
@@ -802,7 +802,7 @@
     "longname": "src/Integer.js~Integer#toString",
     "access": "public",
     "description": null,
-    "lineNumber": 43,
+    "lineNumber": 55,
     "undocument": true,
     "params": [
       {
@@ -832,7 +832,7 @@
     "longname": "src/Integer.js~Integer#add",
     "access": "public",
     "description": null,
-    "lineNumber": 53,
+    "lineNumber": 69,
     "undocument": true,
     "params": [
       {
@@ -859,7 +859,7 @@
     "longname": "src/Integer.js~Integer#iadd",
     "access": "public",
     "description": null,
-    "lineNumber": 82,
+    "lineNumber": 90,
     "undocument": true,
     "params": [
       {
@@ -886,7 +886,7 @@
     "longname": "src/Integer.js~Integer#addn",
     "access": "public",
     "description": null,
-    "lineNumber": 87,
+    "lineNumber": 95,
     "undocument": true,
     "params": [
       {
@@ -913,7 +913,7 @@
     "longname": "src/Integer.js~Integer#iaddn",
     "access": "public",
     "description": null,
-    "lineNumber": 92,
+    "lineNumber": 100,
     "undocument": true,
     "params": [
       {
@@ -940,7 +940,7 @@
     "longname": "src/Integer.js~Integer#sub",
     "access": "public",
     "description": null,
-    "lineNumber": 97,
+    "lineNumber": 105,
     "undocument": true,
     "params": [
       {
@@ -967,7 +967,7 @@
     "longname": "src/Integer.js~Integer#isub",
     "access": "public",
     "description": null,
-    "lineNumber": 147,
+    "lineNumber": 141,
     "undocument": true,
     "params": [
       {
@@ -994,7 +994,7 @@
     "longname": "src/Integer.js~Integer#subn",
     "access": "public",
     "description": null,
-    "lineNumber": 152,
+    "lineNumber": 146,
     "undocument": true,
     "params": [
       {
@@ -1021,7 +1021,7 @@
     "longname": "src/Integer.js~Integer#isubn",
     "access": "public",
     "description": null,
-    "lineNumber": 156,
+    "lineNumber": 150,
     "undocument": true,
     "params": [
       {
@@ -1048,7 +1048,7 @@
     "longname": "src/Integer.js~Integer#mul",
     "access": "public",
     "description": null,
-    "lineNumber": 160,
+    "lineNumber": 154,
     "undocument": true,
     "params": [
       {
@@ -1075,7 +1075,7 @@
     "longname": "src/Integer.js~Integer#imul",
     "access": "public",
     "description": null,
-    "lineNumber": 177,
+    "lineNumber": 169,
     "undocument": true,
     "params": [
       {
@@ -1102,7 +1102,7 @@
     "longname": "src/Integer.js~Integer#muln",
     "access": "public",
     "description": null,
-    "lineNumber": 182,
+    "lineNumber": 174,
     "undocument": true,
     "params": [
       {
@@ -1129,7 +1129,7 @@
     "longname": "src/Integer.js~Integer#imuln",
     "access": "public",
     "description": null,
-    "lineNumber": 186,
+    "lineNumber": 178,
     "undocument": true,
     "params": [
       {
@@ -1156,7 +1156,7 @@
     "longname": "src/Integer.js~Integer#pown",
     "access": "public",
     "description": "Computes <code>this</code> raised to the <code>x</code>th power.\n<code>x</code> is a double smaller or equal to 2^53.",
-    "lineNumber": 197,
+    "lineNumber": 189,
     "params": [
       {
         "nullable": null,
@@ -1189,7 +1189,7 @@
     "longname": "src/Integer.js~Integer#pow",
     "access": "public",
     "description": null,
-    "lineNumber": 210,
+    "lineNumber": 200,
     "undocument": true,
     "params": [
       {
@@ -1216,7 +1216,7 @@
     "longname": "src/Integer.js~Integer#ipow",
     "access": "public",
     "description": null,
-    "lineNumber": 214,
+    "lineNumber": 204,
     "undocument": true,
     "params": [
       {
@@ -1243,7 +1243,7 @@
     "longname": "src/Integer.js~Integer#ipown",
     "access": "public",
     "description": null,
-    "lineNumber": 219,
+    "lineNumber": 209,
     "undocument": true,
     "params": [
       {
@@ -1270,7 +1270,7 @@
     "longname": "src/Integer.js~Integer#square",
     "access": "public",
     "description": null,
-    "lineNumber": 224,
+    "lineNumber": 214,
     "undocument": true,
     "params": [],
     "return": {
@@ -1290,7 +1290,7 @@
     "longname": "src/Integer.js~Integer#isquare",
     "access": "public",
     "description": null,
-    "lineNumber": 230,
+    "lineNumber": 220,
     "undocument": true,
     "params": [],
     "return": {
@@ -1310,7 +1310,7 @@
     "longname": "src/Integer.js~Integer#div",
     "access": "public",
     "description": null,
-    "lineNumber": 236,
+    "lineNumber": 226,
     "undocument": true,
     "params": [
       {
@@ -1337,7 +1337,7 @@
     "longname": "src/Integer.js~Integer#divn",
     "access": "public",
     "description": null,
-    "lineNumber": 240,
+    "lineNumber": 230,
     "undocument": true,
     "params": [
       {
@@ -1364,7 +1364,7 @@
     "longname": "src/Integer.js~Integer#idiv",
     "access": "public",
     "description": null,
-    "lineNumber": 244,
+    "lineNumber": 234,
     "undocument": true,
     "params": [
       {
@@ -1391,7 +1391,7 @@
     "longname": "src/Integer.js~Integer#idivn",
     "access": "public",
     "description": null,
-    "lineNumber": 249,
+    "lineNumber": 239,
     "undocument": true,
     "params": [
       {
@@ -1418,7 +1418,7 @@
     "longname": "src/Integer.js~Integer#mod",
     "access": "public",
     "description": null,
-    "lineNumber": 253,
+    "lineNumber": 243,
     "undocument": true,
     "params": [
       {
@@ -1445,7 +1445,7 @@
     "longname": "src/Integer.js~Integer#modn",
     "access": "public",
     "description": null,
-    "lineNumber": 257,
+    "lineNumber": 247,
     "undocument": true,
     "params": [
       {
@@ -1472,7 +1472,7 @@
     "longname": "src/Integer.js~Integer#imod",
     "access": "public",
     "description": null,
-    "lineNumber": 261,
+    "lineNumber": 251,
     "undocument": true,
     "params": [
       {
@@ -1499,7 +1499,7 @@
     "longname": "src/Integer.js~Integer#imodn",
     "access": "public",
     "description": null,
-    "lineNumber": 266,
+    "lineNumber": 256,
     "undocument": true,
     "params": [
       {
@@ -1526,7 +1526,7 @@
     "longname": "src/Integer.js~Integer#divround",
     "access": "public",
     "description": null,
-    "lineNumber": 270,
+    "lineNumber": 260,
     "undocument": true,
     "params": [
       {
@@ -1553,7 +1553,7 @@
     "longname": "src/Integer.js~Integer#divmod",
     "access": "public",
     "description": null,
-    "lineNumber": 276,
+    "lineNumber": 267,
     "undocument": true,
     "params": [
       {
@@ -1580,7 +1580,7 @@
     "longname": "src/Integer.js~Integer#idivmod",
     "access": "public",
     "description": null,
-    "lineNumber": 333,
+    "lineNumber": 315,
     "undocument": true,
     "params": [
       {
@@ -1607,7 +1607,7 @@
     "longname": "src/Integer.js~Integer#divmodn",
     "access": "public",
     "description": null,
-    "lineNumber": 339,
+    "lineNumber": 321,
     "undocument": true,
     "params": [
       {
@@ -1634,7 +1634,7 @@
     "longname": "src/Integer.js~Integer#idivmodn",
     "access": "public",
     "description": null,
-    "lineNumber": 343,
+    "lineNumber": 325,
     "undocument": true,
     "params": [
       {
@@ -1661,7 +1661,7 @@
     "longname": "src/Integer.js~Integer#opposite",
     "access": "public",
     "description": null,
-    "lineNumber": 348,
+    "lineNumber": 330,
     "undocument": true,
     "params": [],
     "return": {
@@ -1681,7 +1681,7 @@
     "longname": "src/Integer.js~Integer#negate",
     "access": "public",
     "description": null,
-    "lineNumber": 352,
+    "lineNumber": 334,
     "undocument": true,
     "params": [],
     "return": {
@@ -1701,7 +1701,7 @@
     "longname": "src/Integer.js~Integer#abs",
     "access": "public",
     "description": null,
-    "lineNumber": 357,
+    "lineNumber": 339,
     "undocument": true,
     "params": [],
     "return": {
@@ -1721,7 +1721,7 @@
     "longname": "src/Integer.js~Integer#iabs",
     "access": "public",
     "description": null,
-    "lineNumber": 361,
+    "lineNumber": 343,
     "undocument": true,
     "params": [],
     "return": {
@@ -1741,7 +1741,7 @@
     "longname": "src/Integer.js~Integer#sign",
     "access": "public",
     "description": null,
-    "lineNumber": 365,
+    "lineNumber": 347,
     "undocument": true,
     "params": [],
     "return": {
@@ -1761,7 +1761,7 @@
     "longname": "src/Integer.js~Integer#iszero",
     "access": "public",
     "description": null,
-    "lineNumber": 369,
+    "lineNumber": 351,
     "undocument": true,
     "params": [],
     "return": {
@@ -1781,7 +1781,7 @@
     "longname": "src/Integer.js~Integer#isone",
     "access": "public",
     "description": null,
-    "lineNumber": 373,
+    "lineNumber": 355,
     "undocument": true,
     "params": [],
     "return": {
@@ -1801,7 +1801,7 @@
     "longname": "src/Integer.js~Integer#isnonzero",
     "access": "public",
     "description": null,
-    "lineNumber": 378,
+    "lineNumber": 360,
     "undocument": true,
     "params": [],
     "return": {
@@ -1821,7 +1821,7 @@
     "longname": "src/Integer.js~Integer#isnegative",
     "access": "public",
     "description": null,
-    "lineNumber": 382,
+    "lineNumber": 364,
     "undocument": true,
     "params": [],
     "return": {
@@ -1841,7 +1841,7 @@
     "longname": "src/Integer.js~Integer#ispositive",
     "access": "public",
     "description": null,
-    "lineNumber": 386,
+    "lineNumber": 368,
     "undocument": true,
     "params": [],
     "return": {
@@ -1861,7 +1861,7 @@
     "longname": "src/Integer.js~Integer#isnonnegative",
     "access": "public",
     "description": null,
-    "lineNumber": 390,
+    "lineNumber": 372,
     "undocument": true,
     "params": [],
     "return": {
@@ -1881,7 +1881,7 @@
     "longname": "src/Integer.js~Integer#isnonpositive",
     "access": "public",
     "description": null,
-    "lineNumber": 394,
+    "lineNumber": 376,
     "undocument": true,
     "params": [],
     "return": {
@@ -1901,7 +1901,7 @@
     "longname": "src/Integer.js~Integer#parity",
     "access": "public",
     "description": null,
-    "lineNumber": 398,
+    "lineNumber": 380,
     "undocument": true,
     "params": [],
     "return": {
@@ -1921,7 +1921,7 @@
     "longname": "src/Integer.js~Integer#iseven",
     "access": "public",
     "description": null,
-    "lineNumber": 404,
+    "lineNumber": 386,
     "undocument": true,
     "params": [],
     "return": {
@@ -1941,7 +1941,7 @@
     "longname": "src/Integer.js~Integer#isodd",
     "access": "public",
     "description": null,
-    "lineNumber": 408,
+    "lineNumber": 390,
     "undocument": true,
     "params": [],
     "return": {
@@ -1961,7 +1961,7 @@
     "longname": "src/Integer.js~Integer#bin",
     "access": "public",
     "description": null,
-    "lineNumber": 412,
+    "lineNumber": 394,
     "undocument": true,
     "params": [],
     "return": {
@@ -1981,7 +1981,7 @@
     "longname": "src/Integer.js~Integer#oct",
     "access": "public",
     "description": null,
-    "lineNumber": 416,
+    "lineNumber": 398,
     "undocument": true,
     "params": [],
     "return": {
@@ -2001,7 +2001,7 @@
     "longname": "src/Integer.js~Integer#hex",
     "access": "public",
     "description": null,
-    "lineNumber": 420,
+    "lineNumber": 402,
     "undocument": true,
     "params": [],
     "return": {
@@ -2021,7 +2021,7 @@
     "longname": "src/Integer.js~Integer#toJSON",
     "access": "public",
     "description": null,
-    "lineNumber": 424,
+    "lineNumber": 406,
     "undocument": true,
     "params": [],
     "return": {
@@ -2041,7 +2041,7 @@
     "longname": "src/Integer.js~Integer#digits",
     "access": "public",
     "description": null,
-    "lineNumber": 428,
+    "lineNumber": 410,
     "undocument": true,
     "params": [
       {
@@ -2071,7 +2071,7 @@
     "longname": "src/Integer.js~Integer#bits",
     "access": "public",
     "description": null,
-    "lineNumber": 434,
+    "lineNumber": 422,
     "undocument": true,
     "params": [],
     "return": {
@@ -2091,7 +2091,7 @@
     "longname": "src/Integer.js~Integer#divides",
     "access": "public",
     "description": null,
-    "lineNumber": 438,
+    "lineNumber": 426,
     "undocument": true,
     "params": [
       {
@@ -2118,7 +2118,7 @@
     "longname": "src/Integer.js~Integer#divide_knowing_divisible_by",
     "access": "public",
     "description": null,
-    "lineNumber": 442,
+    "lineNumber": 430,
     "undocument": true,
     "params": [
       {
@@ -2145,7 +2145,7 @@
     "longname": "src/Integer.js~Integer#cmp",
     "access": "public",
     "description": null,
-    "lineNumber": 448,
+    "lineNumber": 435,
     "undocument": true,
     "params": [
       {
@@ -2172,7 +2172,7 @@
     "longname": "src/Integer.js~Integer#cmpn",
     "access": "public",
     "description": null,
-    "lineNumber": 469,
+    "lineNumber": 455,
     "undocument": true,
     "params": [
       {
@@ -2199,7 +2199,7 @@
     "longname": "src/Integer.js~Integer#eq",
     "access": "public",
     "description": null,
-    "lineNumber": 473,
+    "lineNumber": 459,
     "undocument": true,
     "params": [
       {
@@ -2226,7 +2226,7 @@
     "longname": "src/Integer.js~Integer#eqn",
     "access": "public",
     "description": null,
-    "lineNumber": 477,
+    "lineNumber": 463,
     "undocument": true,
     "params": [
       {
@@ -2253,7 +2253,7 @@
     "longname": "src/Integer.js~Integer#ge",
     "access": "public",
     "description": null,
-    "lineNumber": 481,
+    "lineNumber": 467,
     "undocument": true,
     "params": [
       {
@@ -2280,7 +2280,7 @@
     "longname": "src/Integer.js~Integer#gen",
     "access": "public",
     "description": null,
-    "lineNumber": 485,
+    "lineNumber": 471,
     "undocument": true,
     "params": [
       {
@@ -2307,7 +2307,7 @@
     "longname": "src/Integer.js~Integer#gt",
     "access": "public",
     "description": null,
-    "lineNumber": 489,
+    "lineNumber": 475,
     "undocument": true,
     "params": [
       {
@@ -2334,7 +2334,7 @@
     "longname": "src/Integer.js~Integer#gtn",
     "access": "public",
     "description": null,
-    "lineNumber": 493,
+    "lineNumber": 479,
     "undocument": true,
     "params": [
       {
@@ -2361,7 +2361,7 @@
     "longname": "src/Integer.js~Integer#le",
     "access": "public",
     "description": null,
-    "lineNumber": 497,
+    "lineNumber": 483,
     "undocument": true,
     "params": [
       {
@@ -2388,7 +2388,7 @@
     "longname": "src/Integer.js~Integer#len",
     "access": "public",
     "description": null,
-    "lineNumber": 501,
+    "lineNumber": 487,
     "undocument": true,
     "params": [
       {
@@ -2415,7 +2415,7 @@
     "longname": "src/Integer.js~Integer#lt",
     "access": "public",
     "description": null,
-    "lineNumber": 505,
+    "lineNumber": 491,
     "undocument": true,
     "params": [
       {
@@ -2442,7 +2442,7 @@
     "longname": "src/Integer.js~Integer#ltn",
     "access": "public",
     "description": null,
-    "lineNumber": 509,
+    "lineNumber": 495,
     "undocument": true,
     "params": [
       {
@@ -2469,7 +2469,7 @@
     "longname": "src/Integer.js~Integer#ne",
     "access": "public",
     "description": null,
-    "lineNumber": 513,
+    "lineNumber": 499,
     "undocument": true,
     "params": [
       {
@@ -2496,7 +2496,7 @@
     "longname": "src/Integer.js~Integer#nen",
     "access": "public",
     "description": null,
-    "lineNumber": 517,
+    "lineNumber": 503,
     "undocument": true,
     "params": [
       {
@@ -2523,7 +2523,7 @@
     "longname": "src/Integer.js~Integer#gcd",
     "access": "public",
     "description": null,
-    "lineNumber": 521,
+    "lineNumber": 507,
     "undocument": true,
     "params": [
       {
@@ -2550,7 +2550,7 @@
     "longname": "src/Integer.js~Integer#egcd",
     "access": "public",
     "description": null,
-    "lineNumber": 531,
+    "lineNumber": 517,
     "undocument": true,
     "params": [
       {
@@ -2577,7 +2577,7 @@
     "longname": "src/Integer.js~Integer#valueOf",
     "access": "public",
     "description": null,
-    "lineNumber": 555,
+    "lineNumber": 566,
     "undocument": true,
     "params": [],
     "return": {
@@ -2597,7 +2597,7 @@
     "longname": "src/Integer.js~Integer#toNumber",
     "access": "public",
     "description": null,
-    "lineNumber": 571,
+    "lineNumber": 592,
     "undocument": true,
     "params": [],
     "return": {
@@ -2610,9 +2610,9 @@
     "__docId__": 134,
     "kind": "file",
     "name": "src/IntegerRing.js",
-    "content": "import { Integer } from './' ;\nimport { DEFAULT_DISPLAY_BASE } from './' ;\nimport { parse , convert } from '@aureooms/js-integer-big-endian' ;\nimport { TypeError , ValueError } from '@aureooms/js-error' ;\nimport { _from_number } from './_from_number' ;\n\nexport class IntegerRing {\n\n\tconstructor ( name , base ) {\n\t\tthis.name = name ;\n\t\tthis.base = base ;\n\t}\n\n\tcharacteristic ( ) {\n\t\treturn this.$0() ;\n\t}\n\n\tfrom ( object , base = undefined , is_negative = 0 ) {\n\n\t\tif ( object === null || object === undefined ) return this.$0();\n\n\t\tswitch ( object.constructor.prototype ) {\n\n\t\t\tcase Number.prototype :\n\t\t\t\tif ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing a Number.') ;\n\t\t\t\treturn this.from_number( object , is_negative ) ;\n\n\t\t\tcase String.prototype :\n\t\t\t\tif ( base === undefined ) base = DEFAULT_DISPLAY_BASE ;\n\t\t\t\treturn this.from_string( object , base , is_negative ) ;\n\n\t\t\tcase Array.prototype :\n\t\t\t\tif ( base === undefined ) base = this.base ;\n\t\t\t\treturn this.from_digits( object , base , is_negative ) ;\n\n\t\t\tcase Boolean.prototype :\n\t\t\t\tif ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing a Boolean.') ;\n\t\t\t\treturn this.from_number( +object , is_negative ) ;\n\n\t\t\tcase Integer.prototype :\n\t\t\t\tif ( base !== undefined ) throw new ValueError('IntegerRing#from: using the base parameter does not make sense when passing an Integer.') ;\n\t\t\t\treturn new Integer( object.base , object.is_negative ^ is_negative , object.limbs ) ;\n\n\t\t\tdefault:\n\t\t\t\tthrow new TypeError(`IntegerRing#from cannot handle ${object.constructor.prototype}`) ;\n\n\t\t}\n\n\t}\n\n\tfrom_number ( number , is_negative = 0 ) {\n\n\t\tconst dirty = _from_number(number) ;\n\n\t\tconst limbs = dirty._limbs_in_base(this.base) ;\n\n\t\treturn new Integer( this.base , is_negative ^ dirty.is_negative , limbs ) ;\n\n\t}\n\n\tfrom_string ( string , base = 10 , is_negative = 0  ) {\n\n\t\tif ( string.length === 0 ) throw new ValueError( 'IntegerRing#from_string cannot parse empty string.' ) ;\n\n\t\tif ( string[0] === '-' ) return this.from_string( string.slice(1) , base , ~is_negative ) ;\n\n\t\tif ( string[0] === '+' ) return this.from_string( string.slice(1) , base , is_negative ) ;\n\n\t\tconst limbs = parse( base , this.base , string ) ;\n\n\t\tif (limbs.length === 1 && limbs[0] === 0) is_negative = 0 ;\n\n\t\treturn new Integer( this.base , is_negative , limbs ) ;\n\n\t}\n\n\tfrom_digits ( digits , base , is_negative ) {\n\n\t\tconst limbs = convert( base , this.base , digits.slice().reverse() , 0 , digits.length ) ;\n\n\t\treturn new Integer( this.base , is_negative , limbs ) ;\n\n\t}\n\n\ttoString ( ) {\n\t\treturn this.name ;\n\t}\n\n\t$0 ( ) {\n\t\t// TODO Could we use an empty array instead ?\n\t\treturn new Integer( this.base , 0 , [ 0 ] ) ;\n\t}\n\n\t$1 ( ) {\n\t\treturn new Integer( this.base , 0 , [ 1 ] ) ;\n\t}\n\n\t$_1 ( ) {\n\t\treturn new Integer( this.base , -1 , [ 1 ] ) ;\n\t}\n\n\thas ( x ) {\n\t\tif ( x instanceof Integer ) return true ;\n\t\treturn Number.isInteger(x) ;\n\t}\n\n\tmin ( a , b ) {\n\t\treturn a.le(b) ? a : b ;\n\t}\n\n\tmax ( a , b ) {\n\t\treturn a.ge(b) ? a : b ;\n\t}\n\n}\n",
+    "content": "import {parse, convert} from '@aureooms/js-integer-big-endian';\nimport {TypeError, ValueError} from '@aureooms/js-error';\n\nimport {Integer} from './Integer.js';\nimport {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';\nimport {_from_number} from './_from_number.js';\n\nexport class IntegerRing {\n\tconstructor(name, base) {\n\t\tthis.name = name;\n\t\tthis._base = base;\n\t}\n\n\tcharacteristic() {\n\t\treturn this.$0();\n\t}\n\n\tfrom(object, base = undefined, is_negative = 0) {\n\t\tif (object === null || object === undefined) return this.$0();\n\n\t\tswitch (object.constructor.prototype) {\n\t\t\tcase Number.prototype:\n\t\t\t\tif (base !== undefined)\n\t\t\t\t\tthrow new ValueError(\n\t\t\t\t\t\t'IntegerRing#from: using the base parameter does not make sense when passing a Number.',\n\t\t\t\t\t);\n\t\t\t\treturn this.from_number(object, is_negative);\n\n\t\t\tcase String.prototype:\n\t\t\t\tif (base === undefined) base = DEFAULT_DISPLAY_BASE;\n\t\t\t\treturn this.from_string(object, base, is_negative);\n\n\t\t\tcase Array.prototype:\n\t\t\t\tif (base === undefined) base = this._base;\n\t\t\t\treturn this.from_digits(object, base, is_negative);\n\n\t\t\tcase Boolean.prototype:\n\t\t\t\tif (base !== undefined)\n\t\t\t\t\tthrow new ValueError(\n\t\t\t\t\t\t'IntegerRing#from: using the base parameter does not make sense when passing a Boolean.',\n\t\t\t\t\t);\n\t\t\t\treturn this.from_number(Number(object), is_negative);\n\n\t\t\tcase Integer.prototype:\n\t\t\t\tif (base !== undefined)\n\t\t\t\t\tthrow new ValueError(\n\t\t\t\t\t\t'IntegerRing#from: using the base parameter does not make sense when passing an Integer.',\n\t\t\t\t\t);\n\t\t\t\treturn new Integer(\n\t\t\t\t\tobject._base,\n\t\t\t\t\tobject._is_negative ^ is_negative,\n\t\t\t\t\tobject._limbs,\n\t\t\t\t);\n\n\t\t\tdefault:\n\t\t\t\tthrow new TypeError(\n\t\t\t\t\t`IntegerRing#from cannot handle ${object.constructor.prototype}`,\n\t\t\t\t);\n\t\t}\n\t}\n\n\tfrom_number(number, is_negative = 0) {\n\t\tconst dirty = _from_number(number);\n\n\t\tconst limbs = dirty._limbs_in_base(this._base);\n\n\t\treturn new Integer(this._base, is_negative ^ dirty._is_negative, limbs);\n\t}\n\n\tfrom_string(string, base = 10, is_negative = 0) {\n\t\tif (string.length === 0)\n\t\t\tthrow new ValueError(\n\t\t\t\t'IntegerRing#from_string cannot parse empty string.',\n\t\t\t);\n\n\t\tif (string[0] === '-')\n\t\t\treturn this.from_string(string.slice(1), base, ~is_negative);\n\n\t\tif (string[0] === '+')\n\t\t\treturn this.from_string(string.slice(1), base, is_negative);\n\n\t\tconst limbs = parse(base, this._base, string);\n\n\t\tif (limbs.length === 1 && limbs[0] === 0) is_negative = 0;\n\n\t\treturn new Integer(this._base, is_negative, limbs);\n\t}\n\n\tfrom_digits(digits, base, is_negative) {\n\t\tconst limbs = convert(\n\t\t\tbase,\n\t\t\tthis._base,\n\t\t\tdigits.slice().reverse(),\n\t\t\t0,\n\t\t\tdigits.length,\n\t\t);\n\n\t\treturn new Integer(this._base, is_negative, limbs);\n\t}\n\n\ttoString() {\n\t\treturn this.name;\n\t}\n\n\t$0() {\n\t\t// TODO Could we use an empty array instead ?\n\t\treturn new Integer(this._base, 0, [0]);\n\t}\n\n\t$1() {\n\t\treturn new Integer(this._base, 0, [1]);\n\t}\n\n\t$_1() {\n\t\treturn new Integer(this._base, -1, [1]);\n\t}\n\n\thas(x) {\n\t\tif (x instanceof Integer) return true;\n\t\treturn Number.isInteger(x);\n\t}\n\n\tmin(a, b) {\n\t\treturn a.le(b) ? a : b;\n\t}\n\n\tmax(a, b) {\n\t\treturn a.ge(b) ? a : b;\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/IntegerRing.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/IntegerRing.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2629,7 +2629,7 @@
     "importPath": "@aureooms/js-integer/src/IntegerRing.js",
     "importStyle": "{IntegerRing}",
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 8,
     "undocument": true,
     "interface": false
   },
@@ -2667,11 +2667,11 @@
   {
     "__docId__": 138,
     "kind": "member",
-    "name": "base",
+    "name": "_base",
     "memberof": "src/IntegerRing.js~IntegerRing",
     "static": false,
-    "longname": "src/IntegerRing.js~IntegerRing#base",
-    "access": "public",
+    "longname": "src/IntegerRing.js~IntegerRing#_base",
+    "access": "private",
     "description": null,
     "lineNumber": 11,
     "undocument": true,
@@ -2757,7 +2757,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#from_number",
     "access": "public",
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 62,
     "undocument": true,
     "params": [
       {
@@ -2793,7 +2793,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#from_string",
     "access": "public",
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 70,
     "undocument": true,
     "params": [
       {
@@ -2838,7 +2838,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#from_digits",
     "access": "public",
     "description": null,
-    "lineNumber": 77,
+    "lineNumber": 89,
     "undocument": true,
     "params": [
       {
@@ -2877,7 +2877,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#toString",
     "access": "public",
     "description": null,
-    "lineNumber": 85,
+    "lineNumber": 101,
     "undocument": true,
     "params": [],
     "return": {
@@ -2897,7 +2897,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#$0",
     "access": "public",
     "description": null,
-    "lineNumber": 89,
+    "lineNumber": 105,
     "undocument": true,
     "params": [],
     "return": {
@@ -2917,7 +2917,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#$1",
     "access": "public",
     "description": null,
-    "lineNumber": 94,
+    "lineNumber": 110,
     "undocument": true,
     "params": [],
     "return": {
@@ -2937,7 +2937,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#$_1",
     "access": "public",
     "description": null,
-    "lineNumber": 98,
+    "lineNumber": 114,
     "undocument": true,
     "params": [],
     "return": {
@@ -2957,7 +2957,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#has",
     "access": "public",
     "description": null,
-    "lineNumber": 102,
+    "lineNumber": 118,
     "undocument": true,
     "params": [
       {
@@ -2984,7 +2984,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#min",
     "access": "public",
     "description": null,
-    "lineNumber": 107,
+    "lineNumber": 123,
     "undocument": true,
     "params": [
       {
@@ -3017,7 +3017,7 @@
     "longname": "src/IntegerRing.js~IntegerRing#max",
     "access": "public",
     "description": null,
-    "lineNumber": 111,
+    "lineNumber": 127,
     "undocument": true,
     "params": [
       {
@@ -3043,9 +3043,9 @@
     "__docId__": 151,
     "kind": "file",
     "name": "src/ZZ.js",
-    "content": "\nimport {\n\tDEFAULT_REPRESENTATION_BASE ,\n\tIntegerRing ,\n} from './' ;\n\nexport const ZZ = new IntegerRing( 'Integer Ring' , DEFAULT_REPRESENTATION_BASE ) ;\n",
+    "content": "import {DEFAULT_REPRESENTATION_BASE} from './DEFAULT_REPRESENTATION_BASE.js';\nimport {IntegerRing} from './IntegerRing.js';\n\nexport const ZZ = new IntegerRing('Integer Ring', DEFAULT_REPRESENTATION_BASE);\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/ZZ.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/ZZ.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3062,7 +3062,7 @@
     "importPath": "@aureooms/js-integer/src/ZZ.js",
     "importStyle": "{ZZ}",
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 4,
     "undocument": true,
     "type": {
       "types": [
@@ -3074,9 +3074,9 @@
     "__docId__": 153,
     "kind": "file",
     "name": "src/ZeroDivisionError.js",
-    "content": "\nexport class ZeroDivisionError extends Error {\n\n\tconstructor ( message ) {\n\t\tsuper( message ) ;\n\t}\n\n\ttoString ( ) {\n\t\treturn `ZeroDivisionError: ${this.message}` ;\n\t}\n\n}\n",
+    "content": "export class ZeroDivisionError extends Error {\n\ttoString() {\n\t\treturn `ZeroDivisionError: ${this.message}`;\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/ZeroDivisionError.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/ZeroDivisionError.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3093,7 +3093,7 @@
     "importPath": "@aureooms/js-integer/src/ZeroDivisionError.js",
     "importStyle": "{ZeroDivisionError}",
     "description": null,
-    "lineNumber": 2,
+    "lineNumber": 1,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -3102,20 +3102,6 @@
   },
   {
     "__docId__": 155,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "src/ZeroDivisionError.js~ZeroDivisionError",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/ZeroDivisionError.js~ZeroDivisionError#constructor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true
-  },
-  {
-    "__docId__": 156,
     "kind": "method",
     "name": "toString",
     "memberof": "src/ZeroDivisionError.js~ZeroDivisionError",
@@ -3125,7 +3111,7 @@
     "longname": "src/ZeroDivisionError.js~ZeroDivisionError#toString",
     "access": "public",
     "description": null,
-    "lineNumber": 8,
+    "lineNumber": 2,
     "undocument": true,
     "params": [],
     "return": {
@@ -3135,18 +3121,18 @@
     }
   },
   {
-    "__docId__": 157,
+    "__docId__": 156,
     "kind": "file",
     "name": "src/_from_number.js",
-    "content": "import { Integer } from './Integer' ;\nimport { MAX_BASE } from './_limits' ;\n\nexport function _from_number ( number ) {\n\tconst x = number >= 0 ? number : -number ;\n\tconst is_negative = number >= 0 ? 0 : -1 ;\n\treturn x < MAX_BASE ?\n\t\tnew Integer( MAX_BASE , is_negative , [ x ] ) :\n\t\tnew Integer( MAX_BASE , is_negative , [ x / MAX_BASE | 0 , x % MAX_BASE ] ) ;\n}\n",
+    "content": "import {Integer} from './Integer.js';\nimport {MAX_BASE} from './_limits.js';\n\nexport function _from_number(number) {\n\tconst x = number >= 0 ? number : -number;\n\tconst is_negative = number >= 0 ? 0 : -1;\n\treturn x < MAX_BASE\n\t\t? new Integer(MAX_BASE, is_negative, [x])\n\t\t: new Integer(MAX_BASE, is_negative, [(x / MAX_BASE) | 0, x % MAX_BASE]);\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/_from_number.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/_from_number.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 158,
+    "__docId__": 157,
     "kind": "function",
     "name": "_from_number",
     "memberof": "src/_from_number.js",
@@ -3176,18 +3162,18 @@
     }
   },
   {
-    "__docId__": 159,
+    "__docId__": 158,
     "kind": "file",
     "name": "src/_limits.js",
-    "content": "// The range of valid numbers is -2^53 to 2^53 - 1\nexport const MAX_NUMBER = Math.pow(2,53) - 1 ;\nexport const MIN_NUMBER = -Math.pow(2,53) ;\nexport const MIN_BASE = 2 ;\nexport const MAX_BASE = Math.floor(Math.sqrt(MAX_NUMBER+1)) | 0;\n",
+    "content": "export const MAX_NUMBER = Number.MAX_SAFE_INTEGER;\nexport const MIN_NUMBER = Number.MIN_SAFE_INTEGER;\nexport const MIN_BASE = 2;\nexport const MAX_BASE = Math.floor(Math.sqrt(MAX_NUMBER + 1)) | 0;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/_limits.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/_limits.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 160,
+    "__docId__": 159,
     "kind": "variable",
     "name": "MAX_NUMBER",
     "memberof": "src/_limits.js",
@@ -3197,6 +3183,26 @@
     "export": true,
     "importPath": "@aureooms/js-integer/src/_limits.js",
     "importStyle": "{MAX_NUMBER}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 160,
+    "kind": "variable",
+    "name": "MIN_NUMBER",
+    "memberof": "src/_limits.js",
+    "static": true,
+    "longname": "src/_limits.js~MIN_NUMBER",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/_limits.js",
+    "importStyle": "{MIN_NUMBER}",
     "description": null,
     "lineNumber": 2,
     "undocument": true,
@@ -3209,26 +3215,6 @@
   {
     "__docId__": 161,
     "kind": "variable",
-    "name": "MIN_NUMBER",
-    "memberof": "src/_limits.js",
-    "static": true,
-    "longname": "src/_limits.js~MIN_NUMBER",
-    "access": "public",
-    "export": true,
-    "importPath": "@aureooms/js-integer/src/_limits.js",
-    "importStyle": "{MIN_NUMBER}",
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 162,
-    "kind": "variable",
     "name": "MIN_BASE",
     "memberof": "src/_limits.js",
     "static": true,
@@ -3238,7 +3224,7 @@
     "importPath": "@aureooms/js-integer/src/_limits.js",
     "importStyle": "{MIN_BASE}",
     "description": null,
-    "lineNumber": 4,
+    "lineNumber": 3,
     "undocument": true,
     "type": {
       "types": [
@@ -3247,7 +3233,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 162,
     "kind": "variable",
     "name": "MAX_BASE",
     "memberof": "src/_limits.js",
@@ -3258,7 +3244,7 @@
     "importPath": "@aureooms/js-integer/src/_limits.js",
     "importStyle": "{MAX_BASE}",
     "description": null,
-    "lineNumber": 5,
+    "lineNumber": 4,
     "undocument": true,
     "type": {
       "types": [
@@ -3267,29 +3253,29 @@
     }
   },
   {
-    "__docId__": 164,
+    "__docId__": 163,
     "kind": "file",
     "name": "src/index.js",
-    "content": "export * from './DEFAULT_DISPLAY_BASE' ;\nexport * from './DEFAULT_REPRESENTATION_BASE' ;\nexport * from './Integer' ;\nexport * from './IntegerRing' ;\nexport * from './ZZ' ;\nexport * from './ZeroDivisionError' ;\nexport * from './integer' ;\nexport * from './_limits' ;\n",
+    "content": "export * from './DEFAULT_DISPLAY_BASE.js';\nexport * from './DEFAULT_REPRESENTATION_BASE.js';\nexport * from './Integer.js';\nexport * from './IntegerRing.js';\nexport * from './ZZ.js';\nexport * from './ZeroDivisionError.js';\nexport * from './integer.js';\nexport * from './_limits.js';\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/index.js",
+    "longname": "/home/runner/work/js-integer/js-integer/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 164,
+    "kind": "file",
+    "name": "src/integer.js",
+    "content": "import {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';\nimport {ZZ} from './ZZ.js';\n\nexport function $0() {\n\treturn ZZ.$0();\n}\n\nexport function $1() {\n\treturn ZZ.$1();\n}\n\nexport function $_1() {\n\treturn ZZ.$_1();\n}\n\nexport function parse(object, base = undefined, is_negative = 0) {\n\treturn ZZ.from(object, base, is_negative);\n}\n\nexport function stringify(integer, base = DEFAULT_DISPLAY_BASE) {\n\treturn integer.toString(base);\n}\n\nexport function add(first, second) {\n\treturn first.add(second);\n}\n\nexport function iadd(first, second) {\n\treturn first.iadd(second);\n}\n\nexport function sub(first, second) {\n\treturn first.sub(second);\n}\n\nexport function isub(first, second) {\n\treturn first.isub(second);\n}\n\nexport function mul(first, second) {\n\treturn first.mul(second);\n}\n\nexport function imul(first, second) {\n\treturn first.imul(second);\n}\n\nexport function pow(first, second) {\n\treturn first.pow(second);\n}\n\nexport function ipow(first, second) {\n\treturn first.ipow(second);\n}\n\nexport function div(first, second) {\n\treturn first.div(second);\n}\n\nexport function idiv(first, second) {\n\treturn first.idiv(second);\n}\n\nexport function mod(first, second) {\n\treturn first.mod(second);\n}\n\nexport function imod(first, second) {\n\treturn first.imod(second);\n}\n\nexport function divmod(first, second) {\n\treturn first.divmod(second);\n}\n\nexport function idivmod(first, second) {\n\treturn first.idivmod(second);\n}\n\nexport function addn(first, second) {\n\treturn first.addn(second);\n}\n\nexport function iaddn(first, second) {\n\treturn first.iaddn(second);\n}\n\nexport function subn(first, second) {\n\treturn first.subn(second);\n}\n\nexport function isubn(first, second) {\n\treturn first.isubn(second);\n}\n\nexport function muln(first, second) {\n\treturn first.muln(second);\n}\n\nexport function imuln(first, second) {\n\treturn first.imuln(second);\n}\n\nexport function pown(first, second) {\n\treturn first.pown(second);\n}\n\nexport function ipown(first, second) {\n\treturn first.ipown(second);\n}\n\nexport function divn(first, second) {\n\treturn first.divn(second);\n}\n\nexport function idivn(first, second) {\n\treturn first.idivn(second);\n}\n\nexport function modn(first, second) {\n\treturn first.modn(second);\n}\n\nexport function imodn(first, second) {\n\treturn first.imodn(second);\n}\n\nexport function divmodn(first, second) {\n\treturn first.divmodn(second);\n}\n\nexport function idivmodn(first, second) {\n\treturn first.idivmodn(second);\n}\n",
+    "static": true,
+    "longname": "/home/runner/work/js-integer/js-integer/src/integer.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 165,
-    "kind": "file",
-    "name": "src/integer.js",
-    "content": "import { DEFAULT_DISPLAY_BASE , ZZ } from './' ;\n\nexport function $0 ( ) {\n\treturn ZZ.$0() ;\n}\n\nexport function $1 ( ) {\n\treturn ZZ.$1() ;\n}\n\nexport function $_1 ( ) {\n\treturn ZZ.$_1() ;\n}\n\nexport function parse ( object , base = undefined , is_negative = 0 ) {\n\treturn ZZ.from( object , base , is_negative ) ;\n}\n\nexport function stringify ( integer , base = DEFAULT_DISPLAY_BASE ) {\n\treturn integer.toString( base ) ;\n}\n\nexport function add ( first , second ) {\n\treturn first.add(second) ;\n}\n\nexport function iadd ( first , second ) {\n\treturn first.iadd(second) ;\n}\n\nexport function sub ( first , second ) {\n\treturn first.sub(second) ;\n}\n\nexport function isub ( first , second ) {\n\treturn first.isub(second) ;\n}\n\nexport function mul ( first , second ) {\n\treturn first.mul(second) ;\n}\n\nexport function imul ( first , second ) {\n\treturn first.imul(second) ;\n}\n\nexport function pow ( first , second ) {\n\treturn first.pow(second) ;\n}\n\nexport function ipow ( first , second ) {\n\treturn first.ipow(second) ;\n}\n\nexport function div ( first , second ) {\n\treturn first.div(second) ;\n}\n\nexport function idiv ( first , second ) {\n\treturn first.idiv(second) ;\n}\n\nexport function mod ( first , second ) {\n\treturn first.mod(second) ;\n}\n\nexport function imod ( first , second ) {\n\treturn first.imod(second) ;\n}\n\nexport function divmod ( first , second ) {\n\treturn first.divmod(second) ;\n}\n\nexport function idivmod ( first , second ) {\n\treturn first.idivmod(second) ;\n}\n\nexport function addn ( first , second ) {\n\treturn first.addn(second) ;\n}\n\nexport function iaddn ( first , second ) {\n\treturn first.iaddn(second) ;\n}\n\nexport function subn ( first , second ) {\n\treturn first.subn(second) ;\n}\n\nexport function isubn ( first , second ) {\n\treturn first.isubn(second) ;\n}\n\nexport function muln ( first , second ) {\n\treturn first.muln(second) ;\n}\n\nexport function imuln ( first , second ) {\n\treturn first.imuln(second) ;\n}\n\nexport function pown ( first , second ) {\n\treturn first.pown(second) ;\n}\n\nexport function ipown ( first , second ) {\n\treturn first.ipown(second) ;\n}\n\nexport function divn ( first , second ) {\n\treturn first.divn(second) ;\n}\n\nexport function idivn ( first , second ) {\n\treturn first.idivn(second) ;\n}\n\nexport function modn ( first , second ) {\n\treturn first.modn(second) ;\n}\n\nexport function imodn ( first , second ) {\n\treturn first.imodn(second) ;\n}\n\nexport function divmodn ( first , second ) {\n\treturn first.divmodn(second) ;\n}\n\nexport function idivmodn ( first , second ) {\n\treturn first.idivmodn(second) ;\n}\n",
-    "static": true,
-    "longname": "/home/aureooms/dev/js/js-integer/src/integer.js",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 166,
     "kind": "function",
     "name": "$0",
     "memberof": "src/integer.js",
@@ -3302,7 +3288,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{$0}",
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 4,
     "undocument": true,
     "params": [],
     "return": {
@@ -3312,7 +3298,7 @@
     }
   },
   {
-    "__docId__": 167,
+    "__docId__": 166,
     "kind": "function",
     "name": "$1",
     "memberof": "src/integer.js",
@@ -3325,7 +3311,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{$1}",
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 8,
     "undocument": true,
     "params": [],
     "return": {
@@ -3335,7 +3321,7 @@
     }
   },
   {
-    "__docId__": 168,
+    "__docId__": 167,
     "kind": "function",
     "name": "$_1",
     "memberof": "src/integer.js",
@@ -3348,7 +3334,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{$_1}",
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "params": [],
     "return": {
@@ -3358,7 +3344,7 @@
     }
   },
   {
-    "__docId__": 169,
+    "__docId__": 168,
     "kind": "function",
     "name": "parse",
     "memberof": "src/integer.js",
@@ -3371,7 +3357,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{parse}",
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 16,
     "undocument": true,
     "params": [
       {
@@ -3406,7 +3392,7 @@
     }
   },
   {
-    "__docId__": 170,
+    "__docId__": 169,
     "kind": "function",
     "name": "stringify",
     "memberof": "src/integer.js",
@@ -3419,7 +3405,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{stringify}",
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 20,
     "undocument": true,
     "params": [
       {
@@ -3445,7 +3431,7 @@
     }
   },
   {
-    "__docId__": 171,
+    "__docId__": 170,
     "kind": "function",
     "name": "add",
     "memberof": "src/integer.js",
@@ -3458,7 +3444,43 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{add}",
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [
+      {
+        "name": "first",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "second",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 171,
+    "kind": "function",
+    "name": "iadd",
+    "memberof": "src/integer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/integer.js~iadd",
+    "access": "public",
+    "export": true,
+    "importPath": "@aureooms/js-integer/src/integer.js",
+    "importStyle": "{iadd}",
+    "description": null,
+    "lineNumber": 28,
     "undocument": true,
     "params": [
       {
@@ -3483,18 +3505,18 @@
   {
     "__docId__": 172,
     "kind": "function",
-    "name": "iadd",
+    "name": "sub",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~iadd",
+    "longname": "src/integer.js~sub",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{iadd}",
+    "importStyle": "{sub}",
     "description": null,
-    "lineNumber": 27,
+    "lineNumber": 32,
     "undocument": true,
     "params": [
       {
@@ -3519,18 +3541,18 @@
   {
     "__docId__": 173,
     "kind": "function",
-    "name": "sub",
+    "name": "isub",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~sub",
+    "longname": "src/integer.js~isub",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{sub}",
+    "importStyle": "{isub}",
     "description": null,
-    "lineNumber": 31,
+    "lineNumber": 36,
     "undocument": true,
     "params": [
       {
@@ -3555,18 +3577,18 @@
   {
     "__docId__": 174,
     "kind": "function",
-    "name": "isub",
+    "name": "mul",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~isub",
+    "longname": "src/integer.js~mul",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{isub}",
+    "importStyle": "{mul}",
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 40,
     "undocument": true,
     "params": [
       {
@@ -3591,18 +3613,18 @@
   {
     "__docId__": 175,
     "kind": "function",
-    "name": "mul",
+    "name": "imul",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~mul",
+    "longname": "src/integer.js~imul",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{mul}",
+    "importStyle": "{imul}",
     "description": null,
-    "lineNumber": 39,
+    "lineNumber": 44,
     "undocument": true,
     "params": [
       {
@@ -3627,18 +3649,18 @@
   {
     "__docId__": 176,
     "kind": "function",
-    "name": "imul",
+    "name": "pow",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~imul",
+    "longname": "src/integer.js~pow",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{imul}",
+    "importStyle": "{pow}",
     "description": null,
-    "lineNumber": 43,
+    "lineNumber": 48,
     "undocument": true,
     "params": [
       {
@@ -3663,18 +3685,18 @@
   {
     "__docId__": 177,
     "kind": "function",
-    "name": "pow",
+    "name": "ipow",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~pow",
+    "longname": "src/integer.js~ipow",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{pow}",
+    "importStyle": "{ipow}",
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 52,
     "undocument": true,
     "params": [
       {
@@ -3699,18 +3721,18 @@
   {
     "__docId__": 178,
     "kind": "function",
-    "name": "ipow",
+    "name": "div",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~ipow",
+    "longname": "src/integer.js~div",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{ipow}",
+    "importStyle": "{div}",
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 56,
     "undocument": true,
     "params": [
       {
@@ -3735,18 +3757,18 @@
   {
     "__docId__": 179,
     "kind": "function",
-    "name": "div",
+    "name": "idiv",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~div",
+    "longname": "src/integer.js~idiv",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{div}",
+    "importStyle": "{idiv}",
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 60,
     "undocument": true,
     "params": [
       {
@@ -3771,18 +3793,18 @@
   {
     "__docId__": 180,
     "kind": "function",
-    "name": "idiv",
+    "name": "mod",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~idiv",
+    "longname": "src/integer.js~mod",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{idiv}",
+    "importStyle": "{mod}",
     "description": null,
-    "lineNumber": 59,
+    "lineNumber": 64,
     "undocument": true,
     "params": [
       {
@@ -3807,18 +3829,18 @@
   {
     "__docId__": 181,
     "kind": "function",
-    "name": "mod",
+    "name": "imod",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~mod",
+    "longname": "src/integer.js~imod",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{mod}",
+    "importStyle": "{imod}",
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 68,
     "undocument": true,
     "params": [
       {
@@ -3843,18 +3865,18 @@
   {
     "__docId__": 182,
     "kind": "function",
-    "name": "imod",
+    "name": "divmod",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~imod",
+    "longname": "src/integer.js~divmod",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{imod}",
+    "importStyle": "{divmod}",
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 72,
     "undocument": true,
     "params": [
       {
@@ -3879,18 +3901,18 @@
   {
     "__docId__": 183,
     "kind": "function",
-    "name": "divmod",
+    "name": "idivmod",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~divmod",
+    "longname": "src/integer.js~idivmod",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{divmod}",
+    "importStyle": "{idivmod}",
     "description": null,
-    "lineNumber": 71,
+    "lineNumber": 76,
     "undocument": true,
     "params": [
       {
@@ -3915,18 +3937,18 @@
   {
     "__docId__": 184,
     "kind": "function",
-    "name": "idivmod",
+    "name": "addn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~idivmod",
+    "longname": "src/integer.js~addn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{idivmod}",
+    "importStyle": "{addn}",
     "description": null,
-    "lineNumber": 75,
+    "lineNumber": 80,
     "undocument": true,
     "params": [
       {
@@ -3951,18 +3973,18 @@
   {
     "__docId__": 185,
     "kind": "function",
-    "name": "addn",
+    "name": "iaddn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~addn",
+    "longname": "src/integer.js~iaddn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{addn}",
+    "importStyle": "{iaddn}",
     "description": null,
-    "lineNumber": 79,
+    "lineNumber": 84,
     "undocument": true,
     "params": [
       {
@@ -3987,18 +4009,18 @@
   {
     "__docId__": 186,
     "kind": "function",
-    "name": "iaddn",
+    "name": "subn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~iaddn",
+    "longname": "src/integer.js~subn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{iaddn}",
+    "importStyle": "{subn}",
     "description": null,
-    "lineNumber": 83,
+    "lineNumber": 88,
     "undocument": true,
     "params": [
       {
@@ -4023,18 +4045,18 @@
   {
     "__docId__": 187,
     "kind": "function",
-    "name": "subn",
+    "name": "isubn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~subn",
+    "longname": "src/integer.js~isubn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{subn}",
+    "importStyle": "{isubn}",
     "description": null,
-    "lineNumber": 87,
+    "lineNumber": 92,
     "undocument": true,
     "params": [
       {
@@ -4059,18 +4081,18 @@
   {
     "__docId__": 188,
     "kind": "function",
-    "name": "isubn",
+    "name": "muln",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~isubn",
+    "longname": "src/integer.js~muln",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{isubn}",
+    "importStyle": "{muln}",
     "description": null,
-    "lineNumber": 91,
+    "lineNumber": 96,
     "undocument": true,
     "params": [
       {
@@ -4095,18 +4117,18 @@
   {
     "__docId__": 189,
     "kind": "function",
-    "name": "muln",
+    "name": "imuln",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~muln",
+    "longname": "src/integer.js~imuln",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{muln}",
+    "importStyle": "{imuln}",
     "description": null,
-    "lineNumber": 95,
+    "lineNumber": 100,
     "undocument": true,
     "params": [
       {
@@ -4131,18 +4153,18 @@
   {
     "__docId__": 190,
     "kind": "function",
-    "name": "imuln",
+    "name": "pown",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~imuln",
+    "longname": "src/integer.js~pown",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{imuln}",
+    "importStyle": "{pown}",
     "description": null,
-    "lineNumber": 99,
+    "lineNumber": 104,
     "undocument": true,
     "params": [
       {
@@ -4167,18 +4189,18 @@
   {
     "__docId__": 191,
     "kind": "function",
-    "name": "pown",
+    "name": "ipown",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~pown",
+    "longname": "src/integer.js~ipown",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{pown}",
+    "importStyle": "{ipown}",
     "description": null,
-    "lineNumber": 103,
+    "lineNumber": 108,
     "undocument": true,
     "params": [
       {
@@ -4203,18 +4225,18 @@
   {
     "__docId__": 192,
     "kind": "function",
-    "name": "ipown",
+    "name": "divn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~ipown",
+    "longname": "src/integer.js~divn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{ipown}",
+    "importStyle": "{divn}",
     "description": null,
-    "lineNumber": 107,
+    "lineNumber": 112,
     "undocument": true,
     "params": [
       {
@@ -4239,18 +4261,18 @@
   {
     "__docId__": 193,
     "kind": "function",
-    "name": "divn",
+    "name": "idivn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~divn",
+    "longname": "src/integer.js~idivn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{divn}",
+    "importStyle": "{idivn}",
     "description": null,
-    "lineNumber": 111,
+    "lineNumber": 116,
     "undocument": true,
     "params": [
       {
@@ -4275,18 +4297,18 @@
   {
     "__docId__": 194,
     "kind": "function",
-    "name": "idivn",
+    "name": "modn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~idivn",
+    "longname": "src/integer.js~modn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{idivn}",
+    "importStyle": "{modn}",
     "description": null,
-    "lineNumber": 115,
+    "lineNumber": 120,
     "undocument": true,
     "params": [
       {
@@ -4311,18 +4333,18 @@
   {
     "__docId__": 195,
     "kind": "function",
-    "name": "modn",
+    "name": "imodn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~modn",
+    "longname": "src/integer.js~imodn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{modn}",
+    "importStyle": "{imodn}",
     "description": null,
-    "lineNumber": 119,
+    "lineNumber": 124,
     "undocument": true,
     "params": [
       {
@@ -4347,18 +4369,18 @@
   {
     "__docId__": 196,
     "kind": "function",
-    "name": "imodn",
+    "name": "divmodn",
     "memberof": "src/integer.js",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/integer.js~imodn",
+    "longname": "src/integer.js~divmodn",
     "access": "public",
     "export": true,
     "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{imodn}",
+    "importStyle": "{divmodn}",
     "description": null,
-    "lineNumber": 123,
+    "lineNumber": 128,
     "undocument": true,
     "params": [
       {
@@ -4383,42 +4405,6 @@
   {
     "__docId__": 197,
     "kind": "function",
-    "name": "divmodn",
-    "memberof": "src/integer.js",
-    "generator": false,
-    "async": false,
-    "static": true,
-    "longname": "src/integer.js~divmodn",
-    "access": "public",
-    "export": true,
-    "importPath": "@aureooms/js-integer/src/integer.js",
-    "importStyle": "{divmodn}",
-    "description": null,
-    "lineNumber": 127,
-    "undocument": true,
-    "params": [
-      {
-        "name": "first",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "second",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 198,
-    "kind": "function",
     "name": "idivmodn",
     "memberof": "src/integer.js",
     "generator": false,
@@ -4430,7 +4416,7 @@
     "importPath": "@aureooms/js-integer/src/integer.js",
     "importStyle": "{idivmodn}",
     "description": null,
-    "lineNumber": 131,
+    "lineNumber": 132,
     "undocument": true,
     "params": [
       {
@@ -4454,16 +4440,16 @@
   },
   {
     "kind": "index",
-    "content": "[@aureooms/js-integer](https://aureooms.github.io/js-integer)\n==\n\n<img src=\"https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg\" width=\"864\">\n\nIntegers for JavaScript.\nSee [docs](https://aureooms.github.io/js-integer).\nParent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).\n\n```js\nimport { ZZ } from '@aureooms/js-integer' ; \nconst a = ZZ.from( '2983928392839289387' ) ;\nconst b = ZZ.from( '-302940923028393' ) ;\na.mul( b ).toString( ) ; // '-903954021577363596419770144565091'\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-integer.svg)](https://raw.githubusercontent.com/aureooms/js-integer/master/LICENSE)\n[![Version](https://img.shields.io/npm/v/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n[![Build](https://img.shields.io/travis/aureooms/js-integer/master.svg)](https://travis-ci.org/aureooms/js-integer/branches)\n[![Dependencies](https://img.shields.io/david/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer)\n[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg)](https://github.com/aureooms/js-integer/issues)\n[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)\n[![Code coverage (alls)](https://img.shields.io/coveralls/github/aureooms/js-integer/master.svg)](https://coveralls.io/r/aureooms/js-integer)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)\n[![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)\n\n## Children\n\nThe current underlying implementation uses big endian order. There is no\nalternative for the moment.\n\n  - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)\n  - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)\n\n## Reference\n\n - [The GNU Multiple Precision Arithmetic Library](https://gmplib.org/)\n - https://gmplib.org/gmp-man-6.0.0a.pdf\n - https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm\n - [Similar work on GitHub](https://github.com/search?l=JavaScript&o=desc&q=bigint&s=stars&type=Repositories)\n",
-    "longname": "/home/aureooms/dev/js/js-integer/README.md",
+    "content": ":zzz: [@aureooms/js-integer](https://aureooms.github.io/js-integer)\n==\n\n<p align=\"center\">\n<a href=\"https://en.wikipedia.org/wiki/File:Latex_integers.svg\">\n<img alt=\"The Zahlen symbol\" src=\"https://upload.wikimedia.org/wikipedia/commons/c/c1/Latex_integers.svg\" width=\"300\">\n</a><br/>\n<a href=\"https://en.wikipedia.org/wiki/User:Alejo2083\">\nUser:Alejo2083\n</a>\n/\n<a href=\"https://creativecommons.org/licenses/by-sa/3.0\">CC BY-SA 3.0</a>\n</p>\n\nIntegers for JavaScript.\nSee [docs](https://aureooms.github.io/js-integer).\nParent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).\n\n```js\nimport { ZZ } from '@aureooms/js-integer' ; \nconst a = ZZ.from( '2983928392839289387' ) ;\nconst b = ZZ.from( '-302940923028393' ) ;\na.mul( b ).toString( ) ; // '-903954021577363596419770144565091'\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-integer.svg)](https://raw.githubusercontent.com/aureooms/js-integer/main/LICENSE)\n[![Version](https://img.shields.io/npm/v/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n[![Build](https://img.shields.io/travis/aureooms/js-integer/main.svg)](https://travis-ci.com/aureooms/js-integer/branches)\n[![Dependencies](https://img.shields.io/david/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer)\n[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-integer.svg)](https://david-dm.org/aureooms/js-integer?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-integer.svg)](https://github.com/aureooms/js-integer/issues)\n[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-integer.svg)](https://www.npmjs.org/package/@aureooms/js-integer)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-integer/main.svg)](https://codecov.io/gh/aureooms/js-integer)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)\n[![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)\n\n## :baby: Children\n\nThe current underlying implementation uses big endian order. There is no\nalternative for the moment.\n\n  - [ ] [BigInt](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)\n  - [x] [@aureooms/js-integer-big-endian](https://github.com/aureooms/js-integer-big-endian)\n  - [ ] [@aureooms/js-integer-little-endian](https://github.com/aureooms/js-integer-little-endian)\n\n## :scroll: Reference\n\n - [The GNU Multiple Precision Arithmetic Library](https://gmplib.org/)\n - https://gmplib.org/gmp-man-6.0.0a.pdf\n - https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm\n\n## :link: Links\n - [Similar work on GitHub](https://github.com/search?l=JavaScript&o=desc&q=bigint&s=stars&type=Repositories)\n",
+    "longname": "/home/runner/work/js-integer/js-integer/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@aureooms/js-integer\",\n  \"description\": \"Integers for JavaScript\",\n  \"version\": \"9.0.0\",\n  \"author\": \"Aurélien Ooms <aurelien.ooms@gmail.com>\",\n  \"ava\": {\n    \"require\": [\n      \"@babel/polyfill\",\n      \"@babel/register\"\n    ],\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"timeout\": \"10m\",\n    \"concurrency\": 8\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@babel/preset-env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-integer/issues\"\n  },\n  \"dependencies\": {\n    \"@aureooms/js-error\": \"^4.0.0\",\n    \"@aureooms/js-integer-big-endian\": \"^10.0.0\"\n  },\n  \"devDependencies\": {\n    \"@aureooms/js-algorithms\": \"3.0.7\",\n    \"@aureooms/js-array\": \"4.0.0\",\n    \"@aureooms/js-itertools\": \"4.0.0\",\n    \"@aureooms/js-operator\": \"1.0.2\",\n    \"@aureooms/js-random\": \"2.0.0\",\n    \"@aureooms/js-string\": \"0.2.0\",\n    \"@babel/cli\": \"7.10.5\",\n    \"@babel/core\": \"7.10.5\",\n    \"@babel/polyfill\": \"7.10.4\",\n    \"@babel/preset-env\": \"7.10.4\",\n    \"@babel/register\": \"7.10.5\",\n    \"ava\": \"3.11.0\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"np\": \"6.3.2\",\n    \"nyc\": \"15.1.0\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"homepage\": \"https://aureooms.github.io/js-integer\",\n  \"keywords\": [\n    \"abitrary\",\n    \"addition\",\n    \"algorithm\",\n    \"arithmetic\",\n    \"big\",\n    \"big-int\",\n    \"big-integer\",\n    \"big-integers\",\n    \"big-num\",\n    \"big-number\",\n    \"big-numbers\",\n    \"bigint\",\n    \"biginteger\",\n    \"bigintegers\",\n    \"bignum\",\n    \"bignumber\",\n    \"bignumbers\",\n    \"bn\",\n    \"bn.js\",\n    \"complexity\",\n    \"division\",\n    \"exact\",\n    \"exponentiation\",\n    \"gcd\",\n    \"integer\",\n    \"javascript\",\n    \"js\",\n    \"jsbn\",\n    \"library\",\n    \"logic\",\n    \"mpa\",\n    \"multi-precision\",\n    \"multiplication\",\n    \"number\",\n    \"precision\",\n    \"subtraction\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-integer.git\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"esdoc\": \"esdoc\",\n    \"prepare\": \"npm run build\",\n    \"release\": \"np\",\n    \"test\": \"ava\"\n  }\n}\n",
-    "longname": "/home/aureooms/dev/js/js-integer/package.json",
+    "content": "{\n  \"name\": \"@aureooms/js-integer\",\n  \"description\": \"Integers for JavaScript\",\n  \"version\": \"10.0.0\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"Aurélien Ooms <aurelien.ooms@gmail.com>\",\n  \"homepage\": \"https://aureooms.github.io/js-integer\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-integer\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-integer/issues\"\n  },\n  \"keywords\": [\n    \"abitrary\",\n    \"addition\",\n    \"algorithm\",\n    \"arithmetic\",\n    \"big\",\n    \"big-int\",\n    \"big-integer\",\n    \"big-integers\",\n    \"big-num\",\n    \"big-number\",\n    \"big-numbers\",\n    \"bigint\",\n    \"biginteger\",\n    \"bigintegers\",\n    \"bignum\",\n    \"bignumber\",\n    \"bignumbers\",\n    \"bn\",\n    \"bn.js\",\n    \"complexity\",\n    \"division\",\n    \"exact\",\n    \"exponentiation\",\n    \"gcd\",\n    \"integer\",\n    \"javascript\",\n    \"js\",\n    \"jsbn\",\n    \"library\",\n    \"logic\",\n    \"mpa\",\n    \"multi-precision\",\n    \"multiplication\",\n    \"number\",\n    \"precision\",\n    \"subtraction\"\n  ],\n  \"sideEffects\": false,\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.js\",\n  \"module\": \"dist/index.module.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.js\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"c8 --all --src src --reporter=lcov npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\",\n    \"travis\": \"npm run lint-config && npm run lint && npm run cover\"\n  },\n  \"dependencies\": {\n    \"@aureooms/js-error\": \"^5.0.2\",\n    \"@aureooms/js-integer-big-endian\": \"^11.0.1\"\n  },\n  \"devDependencies\": {\n    \"@aureooms/js-algorithms\": \"3.0.7\",\n    \"@aureooms/js-array\": \"4.0.0\",\n    \"@aureooms/js-itertools\": \"5.0.2\",\n    \"@aureooms/js-operator\": \"1.0.2\",\n    \"@aureooms/js-random\": \"2.0.0\",\n    \"@aureooms/js-string\": \"1.0.0\",\n    \"@babel/core\": \"7.13.10\",\n    \"@babel/preset-env\": \"7.13.12\",\n    \"@babel/register\": \"7.13.8\",\n    \"@commitlint/cli\": \"12.0.1\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"ava\": \"3.15.0\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.0.1\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.6.0\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"5.2.0\",\n    \"lint-staged\": \"10.5.4\",\n    \"microbundle\": \"0.13.0\",\n    \"np\": \"7.4.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.38.2\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"require\": [\n      \"regenerator-runtime/runtime\",\n      \"@babel/register\"\n    ],\n    \"timeout\": \"10m\",\n    \"concurrency\": 8\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"targets\": [\n            \"defaults\",\n            \"maintained node versions\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": \"current node\"\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": \"current node\"\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"production\": {\n        \"plugins\": [\n          \"babel-plugin-unassert\",\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": \"off\",\n      \"camelcase\": \"off\",\n      \"unicorn/prevent-abbreviations\": \"off\",\n      \"no-constant-condition\": \"off\",\n      \"unicorn/prefer-math-trunc\": \"off\",\n      \"unicorn/no-new-array\": \"off\"\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
+    "longname": "/home/runner/work/js-integer/js-integer/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
@@ -4478,7 +4464,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-integer/doc/manual/overview.md",
+    "longname": "/home/runner/work/js-integer/js-integer/doc/manual/overview.md",
     "name": "./doc/manual/overview.md",
     "content": "# Overview\n",
     "static": true,
@@ -4486,7 +4472,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-integer/doc/manual/installation.md",
+    "longname": "/home/runner/work/js-integer/js-integer/doc/manual/installation.md",
     "name": "./doc/manual/installation.md",
     "content": "# Installation\nCan be managed using\n[jspm](http://jspm.io)\nor [npm](https://github.com/npm/npm).\n\n### jspm\n```terminal\njspm install npm:@aureooms/js-integer\n```\n\n### npm\n```terminal\nnpm install @aureooms/js-integer --save\n```\n",
     "static": true,
@@ -4494,17 +4480,17 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-integer/doc/manual/usage.md",
+    "longname": "/home/runner/work/js-integer/js-integer/doc/manual/usage.md",
     "name": "./doc/manual/usage.md",
-    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[@babel/polyfill](https://babeljs.io/docs/usage/polyfill).\n```js\nrequire( '@babel/polyfill' ) ;\n// or\nimport '@babel/polyfill' ;\n```\n\nThen\n```js\nconst integer = require( '@aureooms/js-integer' ) ;\n// or\nimport * as integer from '@aureooms/js-integer' ;\n```\n\n## Notation\n\nThe Notation tries to emulate the notation in [bn.js](https://github.com/indutny/bn.js).\n\n## Instructions\n\nPrefixes/postfixes are put in parens at the of the line.\n\n\n### Initialization\n\n* [x] `ZZ.from(object, base = undefined, is_negative = 0)` (Base is guessed depending on object type if `undefined`, default is 10.)\n\n### Copying\n\n* [x] `a.clone()` - clone number\n* [x] `a.move(b)` - copy `a`'s' properties to `b`\n\n> Note that we plan to be pure in the future.\n\n\n### Comparison\n\n* [x] `a.cmp(b)` - compare numbers and return `-1` (a `<` b), `0` (a `=` b), or `1` (a `>` b) depending on the comparison result (`cmpn`)\n* [x] `a.lt(b)` - `a` less than `b` (`n`)\n* [x] `a.le(b)` - `a` less than or equals `b` (`n`)\n* [x] `a.gt(b)` - `a` greater than `b` (`n`)\n* [x] `a.ge(b)` - `a` greater than or equals `b` (`n`)\n* [x] `a.eq(b)` - `a` equals `b` (`n`)\n\n\n### Integer Arithmetic\n\n* [x] `a.negate()` - negate sign (`ineg` in bn.js)\n* [x] `a.opposite()` - negate sign (`neg` in bn.js)\n* [x] `a.abs()` - absolute value (`i`)\n\n* [x] `a.add(b)` - addition (`i`, `n`, `in`)\n* [x] `a.sub(b)` - subtraction (`i`, `n`, `in`)\n* [x] `a.mul(b)` - multiply (`i`, `n`, `in`)\n* [x] `a.square()` - square (`i`, `sqr` in bn.js)\n* [x] `a.pow(b)` - raise `a` to the power of `b` (`i`, `n`, `in`)\n\n* [x] `[q,r] = a.divmod(b)` - divide (`i`, `n`)\n* [x] `q = a.div(b)` - division quotient (`u`, `n`)\n* [x] `r = a.mod(b)` - division remained (`u`, `n`) (but no `umodn`)\n* [x] `q = a.divround(b)` - rounded division\n\n> In the future, remove in-place operations. They make very little sense except\n> in a few exceptional cases like increment/decrement. If the result is too big\n> to fit in the original array we will have to resize it to make it fit anyway.\n> Maybe little endianess would save the day in that case. Who knows...\n> Could use an immutable flag that is set as soon as a shallow copy is made?\n> Then all operations could try to run in-place if no shallow copy exists.\n\n### Greatest Common Divisor\n\n* [x] `a.gcd(b)` - GCD\n* [x] `a.egcd(b)` - Extended GCD results (`{ gcd: ..., x: ..., y: ..., u: ..., v: ... }`)\n\n\n### Modular Arithmetic\n\n* [ ] `ZZ(n)` - integers modulo `n`\n* [ ] `ZZ(n).get(3)` - `returns the equivalence class [3]_n`\n* [ ] `a.add(b)` - no comment\n* [ ] `a.sub(b)` - no comment\n* [ ] `a.mul(b)` - no comment\n* [ ] `a.inv()` - inverse `a` modulo `n`\n* [ ] `a.square()` - no comment\n* [ ] `a.pow(b)` - no comment\n\n\n### Bit operations\n\nWe should really have two packages:\n\n  - One for immutable, keyable, hashable integers.\n  - One for safe in-place word array manipulation.\n\nThere are multiple reasons for this:\n\n  - Some bit operations do not really care about endianess\n  - It only works efficiently with a radix that is a power of 2\n\nQ: Does it make any sense to have those operations defined for unbounded\nintegers?\n\nThe following will be implemented in a package to come.\n\n* [ ] `a.or(b)` - or (`i`, `u`, `iu`)\n* [ ] `a.and(b)` - and (`i`, `u`, `iu`, `andln`) (NOTE: `andln` is going to be replaced with `andn` in future)\n* [ ] `a.xor(b)` - xor (`i`, `u`, `iu`)\n* [ ] `a.setn(b)` - set specified bit to `1`\n* [ ] `a.shln(b)` - shift left (`i`, `u`, `iu`)\n* [ ] `a.shrn(b)` - shift right (`i`, `u`, `iu`)\n* [ ] `a.testn(b)` - test if specified bit is set\n* [ ] `a.maskn(b)` - clear bits with indexes higher or equal to `b` (`i`)\n* [ ] `a.bincn(b)` - add `1 << b` to the number\n* [ ] `a.notn(w)` - not (for the width specified by `w`) (`i`)\n\n### Test\n\n* [x] `a.sign()` - return -1, 0, 1\n* [x] `a.iszero()` - no comments\n* [x] `a.isone()` - no comments\n* [x] `a.ispositive()` - no comments\n* [x] `a.isnegative()` - no comments\n* [x] `a.isnonnegative()` - no comments\n* [x] `a.isnonpositive()` - no comments\n* [x] `a.iseven()` - no comments\n* [x] `a.isodd()` - no comments\n* [x] `a.divides(b)` - no comments\n\n### Utilities\n\n* [x] `ZZ.has(object)` - returns true if the supplied `object` is an integer.\n* [x] `ZZ.max(a, b)` - return `a` if `a` larger than `b`.\n* [x] `ZZ.min(a, b)` - return `a` if `a` smaller than `b`.\n* [ ] `a.bitLength()` - get number of bits occupied\n* [ ] `a.zeroBits()` - return number of less-significant consequent zero bits (example: `1010000` has 4 zero bits)\n* [ ] `a.byteLength()` - return number of bytes occupied\n* [ ] `a.toTwos(width)` - convert to two's complement representation, where `width` is bit width\n* [ ] `a.fromTwos(width)` - convert from two's complement representation, where `width` is the bit width\n\n### Conversion\n* [x] `a.toString(base=10)` - convert to base-string (No zero padding, this is up to you)\n* [x] `a.bin()` - alias for `a.toString(2)`\n* [x] `a.oct()` - alias for `a.toString(8)`\n* [x] `a.hex()` - alias for `a.toString(16)`\n* [x] `d = a.digits(base=10)` - returns little endian array of digits in given base so that d[0] is the first digit, d[1] the second, etc.\n* [x] `a.bin()` - alias for `a.digits(2)`.\n* [x] `a.valueOf()` - convert to Javascript Number (limited to 53 bits `toNumber` in bn.js)\n* [x] `a.toJSON()` - convert to JSON compatible hex string (alias of `toString(16)`)\n* [ ] `a.to(type, endian, length)` - convert to an instance of `type`, which must behave like an `Array` (`toArrayLike` in bn.js)\n* [ ] `a.toArray(endian, length)` - convert to byte `Array`, and optionally zero pad to length, throwing if already exceeding\n* [ ] `a.toBuffer(endian, length)` - convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: `a.toArrayLike(Buffer, endian, length)`\n",
+    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).\n```js\nrequire( 'regenerator-runtime/runtime' ) ;\n// or\nimport 'regenerator-runtime/runtime.js' ;\n```\n\nThen\n```js\nconst integer = require( '@aureooms/js-integer' ) ;\n// or\nimport * as integer from '@aureooms/js-integer' ;\n```\n\n## Notation\n\nThe Notation tries to emulate the notation in [bn.js](https://github.com/indutny/bn.js).\n\n## Instructions\n\nPrefixes/postfixes are put in parens at the of the line.\n\n\n### Initialization\n\n* [x] `ZZ.from(object, base = undefined, is_negative = 0)` (Base is guessed depending on object type if `undefined`, default is 10.)\n\n### Copying\n\n* [x] `a.clone()` - clone number\n* [x] `a.move(b)` - copy `a`'s' properties to `b`\n\n> Note that we plan to be pure in the future.\n\n\n### Comparison\n\n* [x] `a.cmp(b)` - compare numbers and return `-1` (a `<` b), `0` (a `=` b), or `1` (a `>` b) depending on the comparison result (`cmpn`)\n* [x] `a.lt(b)` - `a` less than `b` (`n`)\n* [x] `a.le(b)` - `a` less than or equals `b` (`n`)\n* [x] `a.gt(b)` - `a` greater than `b` (`n`)\n* [x] `a.ge(b)` - `a` greater than or equals `b` (`n`)\n* [x] `a.eq(b)` - `a` equals `b` (`n`)\n\n\n### Integer Arithmetic\n\n* [x] `a.negate()` - negate sign (`ineg` in bn.js)\n* [x] `a.opposite()` - negate sign (`neg` in bn.js)\n* [x] `a.abs()` - absolute value (`i`)\n\n* [x] `a.add(b)` - addition (`i`, `n`, `in`)\n* [x] `a.sub(b)` - subtraction (`i`, `n`, `in`)\n* [x] `a.mul(b)` - multiply (`i`, `n`, `in`)\n* [x] `a.square()` - square (`i`, `sqr` in bn.js)\n* [x] `a.pow(b)` - raise `a` to the power of `b` (`i`, `n`, `in`)\n\n* [x] `[q,r] = a.divmod(b)` - divide (`i`, `n`)\n* [x] `q = a.div(b)` - division quotient (`u`, `n`)\n* [x] `r = a.mod(b)` - division remained (`u`, `n`) (but no `umodn`)\n* [x] `q = a.divround(b)` - rounded division\n\n> In the future, remove in-place operations. They make very little sense except\n> in a few exceptional cases like increment/decrement. If the result is too big\n> to fit in the original array we will have to resize it to make it fit anyway.\n> Maybe little endianess would save the day in that case. Who knows...\n> Could use an immutable flag that is set as soon as a shallow copy is made?\n> Then all operations could try to run in-place if no shallow copy exists.\n\n### Greatest Common Divisor\n\n* [x] `a.gcd(b)` - GCD\n* [x] `a.egcd(b)` - Extended GCD results (`{ gcd: ..., x: ..., y: ..., u: ..., v: ... }`)\n\n\n### Modular Arithmetic\n\n* [ ] `ZZ(n)` - integers modulo `n`\n* [ ] `ZZ(n).get(3)` - `returns the equivalence class [3]_n`\n* [ ] `a.add(b)` - no comment\n* [ ] `a.sub(b)` - no comment\n* [ ] `a.mul(b)` - no comment\n* [ ] `a.inv()` - inverse `a` modulo `n`\n* [ ] `a.square()` - no comment\n* [ ] `a.pow(b)` - no comment\n\n\n### Bit operations\n\nWe should really have two packages:\n\n  - One for immutable, keyable, hashable integers.\n  - One for safe in-place word array manipulation.\n\nThere are multiple reasons for this:\n\n  - Some bit operations do not really care about endianess\n  - It only works efficiently with a radix that is a power of 2\n\nQ: Does it make any sense to have those operations defined for unbounded\nintegers?\n\nThe following will be implemented in a package to come.\n\n* [ ] `a.or(b)` - or (`i`, `u`, `iu`)\n* [ ] `a.and(b)` - and (`i`, `u`, `iu`, `andln`) (NOTE: `andln` is going to be replaced with `andn` in future)\n* [ ] `a.xor(b)` - xor (`i`, `u`, `iu`)\n* [ ] `a.setn(b)` - set specified bit to `1`\n* [ ] `a.shln(b)` - shift left (`i`, `u`, `iu`)\n* [ ] `a.shrn(b)` - shift right (`i`, `u`, `iu`)\n* [ ] `a.testn(b)` - test if specified bit is set\n* [ ] `a.maskn(b)` - clear bits with indexes higher or equal to `b` (`i`)\n* [ ] `a.bincn(b)` - add `1 << b` to the number\n* [ ] `a.notn(w)` - not (for the width specified by `w`) (`i`)\n\n### Test\n\n* [x] `a.sign()` - return -1, 0, 1\n* [x] `a.iszero()` - no comments\n* [x] `a.isone()` - no comments\n* [x] `a.ispositive()` - no comments\n* [x] `a.isnegative()` - no comments\n* [x] `a.isnonnegative()` - no comments\n* [x] `a.isnonpositive()` - no comments\n* [x] `a.iseven()` - no comments\n* [x] `a.isodd()` - no comments\n* [x] `a.divides(b)` - no comments\n\n### Utilities\n\n* [x] `ZZ.has(object)` - returns true if the supplied `object` is an integer.\n* [x] `ZZ.max(a, b)` - return `a` if `a` larger than `b`.\n* [x] `ZZ.min(a, b)` - return `a` if `a` smaller than `b`.\n* [ ] `a.bitLength()` - get number of bits occupied\n* [ ] `a.zeroBits()` - return number of less-significant consequent zero bits (example: `1010000` has 4 zero bits)\n* [ ] `a.byteLength()` - return number of bytes occupied\n* [ ] `a.toTwos(width)` - convert to two's complement representation, where `width` is bit width\n* [ ] `a.fromTwos(width)` - convert from two's complement representation, where `width` is the bit width\n\n### Conversion\n* [x] `a.toString(base=10)` - convert to base-string (No zero padding, this is up to you)\n* [x] `a.bin()` - alias for `a.toString(2)`\n* [x] `a.oct()` - alias for `a.toString(8)`\n* [x] `a.hex()` - alias for `a.toString(16)`\n* [x] `d = a.digits(base=10)` - returns little endian array of digits in given base so that d[0] is the first digit, d[1] the second, etc.\n* [x] `a.bin()` - alias for `a.digits(2)`.\n* [x] `a.valueOf()` - convert to Javascript Number (limited to 53 bits `toNumber` in bn.js)\n* [x] `a.toJSON()` - convert to JSON compatible hex string (alias of `toString(16)`)\n* [ ] `a.to(type, endian, length)` - convert to an instance of `type`, which must behave like an `Array` (`toArrayLike` in bn.js)\n* [ ] `a.toArray(endian, length)` - convert to byte `Array`, and optionally zero pad to length, throwing if already exceeding\n* [ ] `a.toBuffer(endian, length)` - convert to Node.js Buffer (if available). For compatibility with browserify and similar tools, use this instead: `a.toArrayLike(Buffer, endian, length)`\n",
     "static": true,
     "access": "public"
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-integer/doc/manual/example.md",
+    "longname": "/home/runner/work/js-integer/js-integer/doc/manual/example.md",
     "name": "./doc/manual/example.md",
-    "content": "# Examples\n\n> More examples in [the test files](https://github.com/aureooms/js-integer/tree/master/test/src).\n\n```js\nimport { ZZ } from '@aureooms/js-integer' ;\n\nconst a = ZZ.from( 'dead' , 16 ) ;\nconst b = ZZ.from( '101010' , 2 ) ;\n\nconst c = a.add(b);\nconsole.log(c.toString()); // 57047\n```\n\n**Note**: decimals are not supported in this library.\n",
+    "content": "# Examples\n\n> More examples in [the test files](https://github.com/aureooms/js-integer/tree/main/test/src).\n\n```js\nimport { ZZ } from '@aureooms/js-integer' ;\n\nconst a = ZZ.from( 'dead' , 16 ) ;\nconst b = ZZ.from( '101010' , 2 ) ;\n\nconst c = a.add(b);\nconsole.log(c.toString()); // 57047\n```\n\n**Note**: decimals are not supported in this library.\n",
     "static": true,
     "access": "public"
   }
