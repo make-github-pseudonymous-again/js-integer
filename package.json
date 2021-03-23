@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@aureooms/js-error": "^5.0.0",
-    "@aureooms/js-integer-big-endian": "^10.1.0"
+    "@aureooms/js-integer-big-endian": "^11.0.0"
   },
   "devDependencies": {
     "@aureooms/js-algorithms": "3.0.7",
