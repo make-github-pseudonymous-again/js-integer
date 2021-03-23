@@ -1,4 +1,6 @@
-import test from 'ava' ;
-import { ZZ } from "../../../src/index.js" ;
+import test from 'ava';
+import {ZZ} from '../../../src/index.js';
 
-test( 'ZZ.characteristic()' , t => { t.true( ZZ.characteristic().iszero() ) ; } ) ;
+test('ZZ.characteristic()', (t) => {
+	t.true(ZZ.characteristic().iszero());
+});

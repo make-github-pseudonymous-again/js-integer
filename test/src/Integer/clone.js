@@ -1,11 +1,10 @@
-import test from 'ava' ;
-import { ZZ } from "../../../src/index.js" ;
+import test from 'ava';
+import {ZZ} from '../../../src/index.js';
 
-test ( 'Integer#copy' , t => {
+test('Integer#copy', (t) => {
+	const s = '34998403804830';
 
-	const s = '34998403804830' ;
-
-	const a = ZZ.from(s) ;
+	const a = ZZ.from(s);
 	const b = a.clone();
 
 	t.is(a.toString(), s);
@@ -13,7 +12,7 @@ test ( 'Integer#copy' , t => {
 
 	a.negate();
 
-	t.is(a.toString(), '-'+s);
+	t.is(a.toString(), '-' + s);
 	t.is(b.toString(), s);
 
 	a.isub(a);
@@ -25,6 +24,4 @@ test ( 'Integer#copy' , t => {
 
 	t.is(a.toString(), s);
 	t.is(b.toString(), s);
-
-
-} ) ;
+});

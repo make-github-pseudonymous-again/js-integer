@@ -2,15 +2,20 @@ console.time('prepare');
 require('@babel/polyfill');
 const crypto = require('crypto');
 const ArgumentParser = require('argparse').ArgumentParser;
-//const itertools = require('@aureooms/js-itertools');
+// Const itertools = require('@aureooms/js-itertools');
 const XorShift128Plus = require('xorshift.js').XorShift128Plus;
-const { THRESHOLD_MUL_TOOM22 , THRESHOLD_DIV_DC } = require('@aureooms/js-integer-big-endian');
-const { ZZ , DEFAULT_DISPLAY_BASE , DEFAULT_REPRESENTATION_BASE } = require('..');
+const {
+	THRESHOLD_MUL_TOOM22,
+	THRESHOLD_DIV_DC,
+} = require('@aureooms/js-integer-big-endian');
+const {ZZ, DEFAULT_DISPLAY_BASE, DEFAULT_REPRESENTATION_BASE} = require('..');
 
 const parser = new ArgumentParser();
 parser.addArgument(['M'], {defaultValue: 1000, nargs: '?'});
 parser.addArgument(['-N'], {defaultValue: 1000});
-parser.addArgument(['-s'], {defaultValue: process.env.SEED || crypto.randomBytes(16).toString('hex')});
+parser.addArgument(['-s'], {
+	defaultValue: process.env.SEED || crypto.randomBytes(16).toString('hex'),
+});
 const args = parser.parseArgs();
 const M = args.M;
 const N = args.N;
@@ -26,7 +31,7 @@ console.log('_x:', _x);
 const _y = prng.randomBytes(M).toString('hex');
 console.log('_y:', _y);
 
-let x = ZZ.from(_x, 16);
+const x = ZZ.from(_x, 16);
 const y = ZZ.from(_y, 16);
 x.iadd(y.square());
 
@@ -42,8 +47,9 @@ console.timeEnd('prepare');
 console.time('loop');
 let z;
 for (let k = 0; k < N; ++k) {
- z = x.mod(y);
+	z = x.mod(y);
 }
+
 console.timeEnd('loop');
 
 // eslint-disable-next-line no-self-compare

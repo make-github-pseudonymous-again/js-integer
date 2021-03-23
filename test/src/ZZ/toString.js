@@ -1,4 +1,6 @@
-import test from 'ava' ;
-import { ZZ } from "../../../src/index.js" ;
+import test from 'ava';
+import {ZZ} from '../../../src/index.js';
 
-test( 'ZZ.toString()' , t => { t.is( ZZ.toString() , 'Integer Ring' ) ; } ) ;
+test('ZZ.toString()', (t) => {
+	t.is(ZZ.toString(), 'Integer Ring');
+});
