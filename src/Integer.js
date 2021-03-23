@@ -331,7 +331,7 @@ export class Integer {
 	}
 
 	abs() {
-		return this.sign() >= 0 ? this : this.opposite(this);
+		return this.sign() >= 0 ? this : this.opposite();
 	}
 
 	iabs() {
