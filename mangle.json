@@ -2,7 +2,16 @@
   "minify": {
     "mangle": {
       "properties": {
-        "regex": "^_[^_]"
+        "regex": "^_[^_]",
+        "reserved": [
+          "_zeros",
+          "_trim_positive",
+          "_sub",
+          "_pow_double",
+          "_alloc",
+          "_copy",
+          "_idivmod"
+        ]
       }
     }
   },
