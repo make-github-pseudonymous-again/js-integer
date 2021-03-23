@@ -10,7 +10,8 @@
     "props": {
       "$_base": "r",
       "$_is_negative": "s",
-      "$_limbs": "l"
+      "$_limbs": "l",
+      "$_limbs_in_base": "c"
     }
   }
 }
