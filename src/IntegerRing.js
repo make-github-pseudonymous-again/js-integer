@@ -8,7 +8,7 @@ import {_from_number} from './_from_number.js';
 export class IntegerRing {
 	constructor(name, base) {
 		this.name = name;
-		this.base = base;
+		this._base = base;
 	}
 
 	characteristic() {
@@ -31,7 +31,7 @@ export class IntegerRing {
 				return this.from_string(object, base, is_negative);
 
 			case Array.prototype:
-				if (base === undefined) base = this.base;
+				if (base === undefined) base = this._base;
 				return this.from_digits(object, base, is_negative);
 
 			case Boolean.prototype:
@@ -47,9 +47,9 @@ export class IntegerRing {
 						'IntegerRing#from: using the base parameter does not make sense when passing an Integer.',
 					);
 				return new Integer(
-					object.base,
-					object.is_negative ^ is_negative,
-					object.limbs,
+					object._base,
+					object._is_negative ^ is_negative,
+					object._limbs,
 				);
 
 			default:
@@ -62,9 +62,9 @@ export class IntegerRing {
 	from_number(number, is_negative = 0) {
 		const dirty = _from_number(number);
 
-		const limbs = dirty._limbs_in_base(this.base);
+		const limbs = dirty._limbs_in_base(this._base);
 
-		return new Integer(this.base, is_negative ^ dirty.is_negative, limbs);
+		return new Integer(this._base, is_negative ^ dirty._is_negative, limbs);
 	}
 
 	from_string(string, base = 10, is_negative = 0) {
@@ -79,23 +79,23 @@ export class IntegerRing {
 		if (string[0] === '+')
 			return this.from_string(string.slice(1), base, is_negative);
 
-		const limbs = parse(base, this.base, string);
+		const limbs = parse(base, this._base, string);
 
 		if (limbs.length === 1 && limbs[0] === 0) is_negative = 0;
 
-		return new Integer(this.base, is_negative, limbs);
+		return new Integer(this._base, is_negative, limbs);
 	}
 
 	from_digits(digits, base, is_negative) {
 		const limbs = convert(
 			base,
-			this.base,
+			this._base,
 			digits.slice().reverse(),
 			0,
 			digits.length,
 		);
 
-		return new Integer(this.base, is_negative, limbs);
+		return new Integer(this._base, is_negative, limbs);
 	}
 
 	toString() {
@@ -104,15 +104,15 @@ export class IntegerRing {
 
 	$0() {
 		// TODO Could we use an empty array instead ?
-		return new Integer(this.base, 0, [0]);
+		return new Integer(this._base, 0, [0]);
 	}
 
 	$1() {
-		return new Integer(this.base, 0, [1]);
+		return new Integer(this._base, 0, [1]);
 	}
 
 	$_1() {
-		return new Integer(this.base, -1, [1]);
+		return new Integer(this._base, -1, [1]);
 	}
 
 	has(x) {

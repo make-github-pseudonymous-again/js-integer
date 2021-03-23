@@ -29,7 +29,7 @@ test('ZZ.from()', (t) => {
 	t.is(ZZ.from('17', 8, -1).valueOf(), -15);
 	t.is(ZZ.from('-17', 8, -1).valueOf(), 15);
 
-	t.is(ZZ.from([0, 1]).toString(), ZZ.base.toString());
+	t.is(ZZ.from([0, 1]).toString(), ZZ._base.toString());
 
 	t.is(MAX_NUMBER.toString(), ZZ.from(MAX_NUMBER).toString());
 	t.is(MIN_NUMBER.toString(), ZZ.from(MIN_NUMBER).toString());

@@ -29,48 +29,54 @@ import {MIN_NUMBER, MAX_NUMBER, MAX_BASE} from './_limits.js';
 
 export class Integer {
 	constructor(base, is_negative, limbs) {
-		this.base = base;
-		this.is_negative = is_negative;
-		this.limbs = limbs;
+		this._base = base;
+		this._is_negative = is_negative;
+		this._limbs = limbs;
 	}
 
 	move(other) {
-		other.base = this.base;
-		other.is_negative = this.is_negative;
-		other.limbs = this.limbs;
+		other._base = this._base;
+		other._is_negative = this._is_negative;
+		other._limbs = this._limbs;
 		return other;
 	}
 
 	clone() {
-		return new Integer(this.base, this.is_negative, this.limbs);
+		return new Integer(this._base, this._is_negative, this._limbs);
 	}
 
 	_limbs_in_base(base) {
 		// TODO save result for later ? Maybe replace base ?
-		return this.base === base
-			? this.limbs
-			: convert(this.base, base, this.limbs, 0, this.limbs.length);
+		return this._base === base
+			? this._limbs
+			: convert(this._base, base, this._limbs, 0, this._limbs.length);
 	}
 
 	toString(base = DEFAULT_DISPLAY_BASE) {
 		if (this.iszero()) return '0';
 
-		const digits = stringify(this.base, base, this.limbs, 0, this.limbs.length);
+		const digits = stringify(
+			this._base,
+			base,
+			this._limbs,
+			0,
+			this._limbs.length,
+		);
 
-		return this.is_negative ? '-' + digits : digits;
+		return this._is_negative ? '-' + digits : digits;
 	}
 
 	add(other) {
-		if (this.is_negative !== other.is_negative) {
-			return other.is_negative
+		if (this._is_negative !== other._is_negative) {
+			return other._is_negative
 				? this.sub(other.opposite())
 				: other.sub(this.opposite());
 		}
 
-		const result_is_negative = this.is_negative;
-		const r = this.base;
+		const result_is_negative = this._is_negative;
+		const r = this._base;
 
-		const a = this.limbs;
+		const a = this._limbs;
 
 		const b = other._limbs_in_base(r);
 
@@ -97,15 +103,15 @@ export class Integer {
 	}
 
 	sub(other) {
-		if (this.is_negative !== other.is_negative) {
-			return other.is_negative
+		if (this._is_negative !== other._is_negative) {
+			return other._is_negative
 				? this.add(other.opposite())
 				: this.opposite().add(other).opposite();
 		}
 		// /!\ _sub needs |c| >= |a| >= |b|
 
-		const r = this.base;
-		const a = this.limbs;
+		const r = this._base;
+		const a = this._limbs;
 		const aj = a.length;
 		const ai = _trim_positive(a, 0, aj);
 
@@ -122,14 +128,14 @@ export class Integer {
 
 			_sub(r, b, bi, bj, a, ai, aj, c, 0, c.length);
 
-			return new Integer(r, ~this.is_negative, c);
+			return new Integer(r, ~this._is_negative, c);
 		}
 
 		const c = _zeros(aj - ai);
 
 		_sub(r, a, ai, aj, b, bi, bj, c, 0, c.length);
 
-		return new Integer(r, this.is_negative, c);
+		return new Integer(r, this._is_negative, c);
 	}
 
 	isub(other) {
@@ -146,10 +152,10 @@ export class Integer {
 	}
 
 	mul(other) {
-		const result_is_negative = this.is_negative ^ other.is_negative;
-		const r = this.base;
+		const result_is_negative = this._is_negative ^ other._is_negative;
+		const r = this._base;
 
-		const a = this.limbs;
+		const a = this._limbs;
 
 		const b = other._limbs_in_base(r);
 
@@ -181,14 +187,14 @@ export class Integer {
 	 * @return {Integer} <code>this ^ x</code>
 	 */
 	pown(x) {
-		const is_negative = this.is_negative & x & 1 ? -1 : 0;
+		const is_negative = this._is_negative & x & 1 ? -1 : 0;
 
-		const a = this.limbs;
+		const a = this._limbs;
 		const c = _zeros(Math.max(1, a.length * x));
 
-		_pow_double(this.base, x, a, 0, a.length, c, 0, c.length);
+		_pow_double(this._base, x, a, 0, a.length, c, 0, c.length);
 
-		return new Integer(this.base, is_negative, c);
+		return new Integer(this._base, is_negative, c);
 	}
 
 	pow(other) {
@@ -254,27 +260,27 @@ export class Integer {
 	divround(other) {
 		const [q, r] = this.divmod(other);
 		if (r.ge(other.divn(2).addn(other.iseven() ? 0 : 1)))
-			increment(q.base, q.limbs, 0, q.limbs.length);
+			increment(q._base, q._limbs, 0, q._limbs.length);
 		return q;
 	}
 
 	divmod(other) {
 		if (other.iszero()) throw new ZeroDivisionError('Integer division by zero'); // Optimize
 
-		const quotient_is_negative = this.is_negative ^ other.is_negative;
-		const r = this.base;
+		const quotient_is_negative = this._is_negative ^ other._is_negative;
+		const r = this._base;
 
 		// The underlying algorithm does not allow leading 0's so we trim them.
-		const lj = this.limbs.length;
-		const li = _trim_positive(this.limbs, 0, lj);
+		const lj = this._limbs.length;
+		const li = _trim_positive(this._limbs, 0, lj);
 
 		// Dividend is 0
 		if (li >= lj)
-			return [new Integer(this.base, 0, [0]), new Integer(this.base, 0, [0])];
+			return [new Integer(this._base, 0, [0]), new Integer(this._base, 0, [0])];
 
 		// Dividend (& Remainder)
 		const D = _alloc(lj - li);
-		_copy(this.limbs, li, lj, D, 0);
+		_copy(this._limbs, li, lj, D, 0);
 
 		// Divisor
 		const d = other._limbs_in_base(r);
@@ -289,9 +295,9 @@ export class Integer {
 		const Q = new Integer(r, quotient_is_negative, q); // Quotient
 		const R = new Integer(r, 0, D); // Remainder
 
-		if ((this.is_negative || other.is_negative) && !jz(D, 0, D.length)) {
-			if (other.is_negative) {
-				if (this.is_negative) {
+		if ((this._is_negative || other._is_negative) && !jz(D, 0, D.length)) {
+			if (other._is_negative) {
+				if (this._is_negative) {
 					R.negate(); // TODO optimize
 				} else {
 					increment(r, q, 0, q.length);
@@ -322,7 +328,7 @@ export class Integer {
 	}
 
 	opposite() {
-		return new Integer(this.base, ~this.is_negative, this.limbs);
+		return new Integer(this._base, ~this._is_negative, this._limbs);
 	}
 
 	negate() {
@@ -339,16 +345,16 @@ export class Integer {
 	}
 
 	sign() {
-		return this.iszero() ? 0 : this.is_negative ? -1 : 1;
+		return this.iszero() ? 0 : this._is_negative ? -1 : 1;
 	}
 
 	iszero() {
-		return jz(this.limbs, 0, this.limbs.length);
+		return jz(this._limbs, 0, this._limbs.length);
 	}
 
 	isone() {
-		if (this.is_negative) return false;
-		return eq(this.limbs, 0, this.limbs.length, [1], 0, 1);
+		if (this._is_negative) return false;
+		return eq(this._limbs, 0, this._limbs.length, [1], 0, 1);
 	}
 
 	isnonzero() {
@@ -356,7 +362,7 @@ export class Integer {
 	}
 
 	isnegative() {
-		return this.is_negative === -1;
+		return this._is_negative === -1;
 	}
 
 	ispositive() {
@@ -404,7 +410,13 @@ export class Integer {
 	digits(base = DEFAULT_DISPLAY_BASE) {
 		// TODO Once #to is implemented we can rewrite this as
 		// return this.to(LITTLE_ENDIAN, base, Array) ;
-		return convert(this.base, base, this.limbs, 0, this.limbs.length).reverse();
+		return convert(
+			this._base,
+			base,
+			this._limbs,
+			0,
+			this._limbs.length,
+		).reverse();
 	}
 
 	bits() {
@@ -425,17 +437,17 @@ export class Integer {
 
 		if (this.iszero()) {
 			if (other.iszero()) return 0;
-			if (other.is_negative) return 1;
+			if (other._is_negative) return 1;
 			return -1;
 		}
 
-		if (this.is_negative < other.is_negative) return -1;
-		if (this.is_negative > other.is_negative) return 1;
+		if (this._is_negative < other._is_negative) return -1;
+		if (this._is_negative > other._is_negative) return 1;
 
-		const a = this.limbs;
-		const b = other._limbs_in_base(this.base);
+		const a = this._limbs;
+		const b = other._limbs_in_base(this._base);
 
-		return this.is_negative === 0
+		return this._is_negative === 0
 			? cmp(a, 0, a.length, b, 0, b.length)
 			: cmp(b, 0, b.length, a, 0, a.length);
 	}
@@ -493,8 +505,8 @@ export class Integer {
 	}
 
 	gcd(other) {
-		const r = this.base;
-		const a = this.limbs;
+		const r = this._base;
+		const a = this._limbs;
 		const b = other._limbs_in_base(r);
 		const [d, di, dj] = euclidean_algorithm(r, a, 0, a.length, b, 0, b.length);
 		const gcd = _alloc(dj - di);
@@ -503,8 +515,8 @@ export class Integer {
 	}
 
 	egcd(other) {
-		const r = this.base;
-		const a = this.limbs;
+		const r = this._base;
+		const a = this._limbs;
 		const b = other._limbs_in_base(r);
 		const [
 			R0,
@@ -534,19 +546,19 @@ export class Integer {
 			gcd: new Integer(r, 0, gcd),
 			x:
 				x.length > 0
-					? new Integer(r, this.is_negative ^ ((steps % 2) - 1), x)
+					? new Integer(r, this._is_negative ^ ((steps % 2) - 1), x)
 					: new Integer(r, 0, [0]),
 			y:
 				y.length > 0
-					? new Integer(r, other.is_negative ^ -(steps % 2), y)
+					? new Integer(r, other._is_negative ^ -(steps % 2), y)
 					: new Integer(r, 0, [0]),
 			u:
 				u.length > 0
-					? new Integer(r, this.is_negative ^ -(steps % 2), u)
+					? new Integer(r, this._is_negative ^ -(steps % 2), u)
 					: new Integer(r, 0, [0]),
 			v:
 				v.length > 0
-					? new Integer(r, other.is_negative ^ ((steps % 2) - 1), v)
+					? new Integer(r, other._is_negative ^ ((steps % 2) - 1), v)
 					: new Integer(r, 0, [0]),
 		};
 	}
@@ -562,14 +574,14 @@ export class Integer {
 			);
 
 		const limbs = convert(
-			this.base,
+			this._base,
 			MAX_BASE,
-			this.limbs,
+			this._limbs,
 			0,
-			this.limbs.length,
+			this._limbs.length,
 		);
 
-		const sign = this.is_negative ? -1 : 1;
+		const sign = this._is_negative ? -1 : 1;
 
 		const value =
 			limbs.length === 2 ? limbs[0] * MAX_BASE + limbs[1] : limbs[0];

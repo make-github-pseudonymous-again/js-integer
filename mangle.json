@@ -7,6 +7,10 @@
     }
   },
   "props": {
-    "props": {}
+    "props": {
+      "$_base": "r",
+      "$_is_negative": "s",
+      "$_limbs": "l"
+    }
   }
 }
