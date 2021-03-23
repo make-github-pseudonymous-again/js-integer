@@ -1,18 +1,10 @@
 # Usage
 
-The code needs a ES2015+ polyfill to work, for example
-[regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).
+Require the library where needed
 ```js
-require( 'regenerator-runtime/runtime' ) ;
+const { ZZ } = require( '@aureooms/js-integer' ) ;
 // or
-import 'regenerator-runtime/runtime.js' ;
-```
-
-Then
-```js
-const integer = require( '@aureooms/js-integer' ) ;
-// or
-import * as integer from '@aureooms/js-integer' ;
+import { ZZ } from '@aureooms/js-integer' ;
 ```
 
 ## Notation
