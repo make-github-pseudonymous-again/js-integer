@@ -1,4 +1,5 @@
-import {DEFAULT_DISPLAY_BASE, ZeroDivisionError} from './index.js';
+import {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';
+import {ZeroDivisionError} from './ZeroDivisionError.js';
 
 import {ValueError} from '@aureooms/js-error';
 

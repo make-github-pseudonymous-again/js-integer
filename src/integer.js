@@ -1,4 +1,5 @@
-import {DEFAULT_DISPLAY_BASE, ZZ} from './index.js';
+import {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';
+import {ZZ} from './ZZ.js';
 
 export function $0() {
 	return ZZ.$0();

@@ -1,7 +1,8 @@
-import {Integer, DEFAULT_DISPLAY_BASE} from './index.js';
-
 import {parse, convert} from '@aureooms/js-integer-big-endian';
 import {TypeError, ValueError} from '@aureooms/js-error';
+
+import {Integer} from './Integer.js';
+import {DEFAULT_DISPLAY_BASE} from './DEFAULT_DISPLAY_BASE.js';
 import {_from_number} from './_from_number.js';
 
 export class IntegerRing {
