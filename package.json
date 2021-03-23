@@ -184,7 +184,8 @@
           ]
         ],
         "sourceMaps": "inline"
-      }
+      },
+      "debug": {}
     }
   }
 }
