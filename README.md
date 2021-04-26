@@ -1,4 +1,4 @@
-:zzz: [@aureooms/js-integer](https://aureooms.github.io/js-integer)
+:zzz: [@aureooms/js-integer](https://make-github-pseudonymous-again.github.io/js-integer)
 ==
 
 <p align="center">
@@ -13,7 +13,7 @@ User:Alejo2083
 </p>
 
 Integers for JavaScript.
-See [docs](https://aureooms.github.io/js-integer).
+See [docs](https://make-github-pseudonymous-again.github.io/js-integer).
 Parent is [@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms).
 
 ```js
@@ -35,7 +35,7 @@ a.mul( b ).toString( ) ; // '-903954021577363596419770144565091'
 [![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/churn)
 [![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-integer/main.svg)](https://codecov.io/gh/aureooms/js-integer)
 [![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-integer.svg)](https://codeclimate.com/github/aureooms/js-integer/trends/technical_debt)
-[![Documentation](https://aureooms.github.io/js-integer/badge.svg)](https://aureooms.github.io/js-integer/source.html)
+[![Documentation](https://make-github-pseudonymous-again.github.io/js-integer/badge.svg)](https://make-github-pseudonymous-again.github.io/js-integer/source.html)
 [![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-integer)](https://bundlephobia.com/result?p=@aureooms/js-integer)
 
 ## :baby: Children
